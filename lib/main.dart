@@ -6,6 +6,9 @@ import 'package:paypal/src/features/home/screens/homepage.dart';
 import 'package:paypal/src/features/home/widgets/root_layout.dart';
 import 'package:paypal/src/features/profile/screens/profile_homepage.dart';
 import 'package:paypal/src/features/settings/screens/settings_homapage.dart';
+import 'package:paypal/src/features/transactions/screens/paypal_loss_recoery.dart';
+import 'package:paypal/src/features/transactions/screens/recieved_from_individual.dart';
+import 'package:paypal/src/features/transactions/screens/recieved_from_org.dart';
 import 'package:paypal/src/features/wallet/screens/card_mainpage.dart';
 import 'package:paypal/src/features/wallet/screens/paypal_balance.dart';
 import 'package:paypal/src/features/wallet/screens/preferences.dart';
@@ -16,7 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   await GetStorage.init();
+  await GetStorage.init();
 
   // Initialize any required dependencies here
   await initServices();
@@ -50,11 +53,11 @@ class MyApp extends StatelessWidget {
           defaultTransition: Transition.fade,
           smartManagement: SmartManagement.full,
           initialBinding: Appbinding(),
-          initialRoute: '/home',
+          initialRoute: '/recieved_from_org',
           getPages: [
             GetPage(
                 name: '/home',
-                page: () =>   RootLayout(),
+                page: () => RootLayout(),
                 transition: Transition.fade),
             GetPage(
                 name: '/paypal_balance',
@@ -68,18 +71,48 @@ class MyApp extends StatelessWidget {
                 name: '/preferences',
                 page: () => const Preferences(),
                 transition: Transition.fade),
-
-
-                  GetPage(
+            GetPage(
                 name: '/settings',
                 page: () => const ProfileHomepage(),
+                transition: Transition.fade),
+            GetPage(
+                name: '/profile',
+                page: () => const SettingsHomapage(),
+                transition: Transition.fade),
+
+
+
+
+
+
+                GetPage(
+                name: '/recieved_from_individual',
+                page: () => const RecievedFromIndividual(),
+                transition: Transition.fade),
+
+
+                GetPage(
+                name: '/recieved_from_org',
+                page: () => const RecievedFromOrg(),
+                transition: Transition.fade),
+
+
+                GetPage(
+                name: '/send_to_individual',
+                page: () => const SettingsHomapage(),
+                transition: Transition.fade),
+
+
+                GetPage(
+                name: '/send_to_org',
+                page: () => const SettingsHomapage(),
                 transition: Transition.fade),
 
 
 
                   GetPage(
-                name: '/profile',
-                page: () => const SettingsHomapage(),
+                name: '/paypal_recovery',
+                page: () => const PaypalLossRecoery(),
                 transition: Transition.fade),
           ],
 
