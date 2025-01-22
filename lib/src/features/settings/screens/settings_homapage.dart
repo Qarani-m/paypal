@@ -4,6 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/profile/screens/profile_homepage.dart';
+import 'package:paypal/src/features/settings/screens/message_center.dart';
+import 'package:paypal/src/features/settings/screens/persona_infor.dart';
 
 class SettingsHomapage extends StatelessWidget {
   const SettingsHomapage({super.key});
@@ -124,8 +126,11 @@ class SettingsHomapage extends StatelessWidget {
                   color: Colors.white),
               child: Column(
                 children: [
-                  TheActualContent(
-                    text: 'Personal info',
+                  GestureDetector(
+                    onTap: ()=>Get.to(PersonaInfor()),
+                    child: TheActualContent(
+                      text: 'Personal info',
+                    ),
                   ),
                   SizedBox(
                     height: 15.h,
@@ -164,8 +169,11 @@ class SettingsHomapage extends StatelessWidget {
                   color: Colors.white),
               child: Column(
                 children: [
-                  TheActualContent(
-                    text: 'Message Center',
+                  GestureDetector(
+                    onTap: ()=>Get.to(MessageCenter()),
+                    child: TheActualContent(
+                      text: 'Message Center',
+                    ),
                   ),
                   SizedBox(
                     height: 15.h,
@@ -242,7 +250,6 @@ class TheActualContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed('/preferences', arguments: ''),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
