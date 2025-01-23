@@ -293,6 +293,33 @@ class OneActivityPayPalBalance extends StatelessWidget {
           right: 15.w),
       child: Column(
         children: [
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           Container(
             child: Row(
               crossAxisAlignment:
@@ -375,6 +402,30 @@ class OneActivityPayPalBalance extends StatelessWidget {
               ],
             ),
           ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
           SizedBox(
             height: 10.h,
           ),
