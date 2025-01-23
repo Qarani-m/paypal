@@ -177,13 +177,36 @@ class RecievedFromIndividual extends StatelessWidget {
             SizedBox(
               height: 7.h,
             ),
+
+
+
+
+
+      
+              Padding(
+              padding: EdgeInsets.symmetric(horizontal: 13.w),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Transaction ID",
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize: 6.5.sp,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black.withOpacity(1)),
+                ),
+              ),
+            ),
+  SizedBox(
+              height: 10.h,
+            ),
+          
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 13.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Transaction ID",
+                    "839FSIDJFBSJFHWI378WEIF",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 6.sp,
                         fontWeight: FontWeight.w400,
@@ -196,22 +219,15 @@ class RecievedFromIndividual extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              height: 6.h,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 13.w),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "839FSIDJFBSJFHWI378WEIF",
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontSize: 6.5.sp,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black.withOpacity(1)),
-                ),
-              ),
-            ),
+
+
+
+
+
+
+
+
+
             SizedBox(
               height: 16.h,
             ),

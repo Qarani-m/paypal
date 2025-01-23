@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:paypal/src/constants/images.dart';
 
-class RecievedFromOrg extends StatelessWidget {
-  const RecievedFromOrg({super.key});
+class Refund extends StatelessWidget {
+  const Refund({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,7 @@ class RecievedFromOrg extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          "Money recieved",
+          "Refund sent - Completed",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontSize: 9.sp,
               fontWeight: FontWeight.w400,
@@ -82,7 +81,7 @@ class RecievedFromOrg extends StatelessWidget {
                                     decoration: TextDecoration.underline,
                                     decorationColor: Colors.blue,
                                     fontSize: 6.5.sp,
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.w800,
                                     color: Colors.blue.withOpacity(1)),
                           ),
                         ],
@@ -93,8 +92,8 @@ class RecievedFromOrg extends StatelessWidget {
                     "+US\$40.54",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 8.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.green.withOpacity(1)),
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black.withOpacity(1)),
                   ),
                 ],
               ),
@@ -108,16 +107,64 @@ class RecievedFromOrg extends StatelessWidget {
               color: Color(0xFFeff2f9),
             ),
             SizedBox(
-              height: 7.h,
+              height: 10.h,
             ),
             Padding(
               padding: EdgeInsets.only(left: 13.w),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.info,
+                    size: 10.h,
+                    color: Colors.black54,
+                  ),
+                  SizedBox(width: 9.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "The Original purchase was on Jun 6, 2024",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 6.sp,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black.withOpacity(1)),
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      Text(
+                        "View details",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 6.5.sp,
+                            fontWeight: FontWeight.w800,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Colors.blue,
+                            color: Colors.blue.withOpacity(1)),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Container(
+              height: 1.5.h,
+              width: double.maxFinite,
+              color: Color(0xFFeff2f9),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 13.w),
               child: Column(
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Dj fresh",
+                      "From",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 7.sp,
                           fontWeight: FontWeight.w400,
@@ -125,52 +172,23 @@ class RecievedFromOrg extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 7.h,
+                    height: 10.h,
                   ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Show story",
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          decoration: TextDecoration.underline,
-                          decorationColor: Colors.blue,
-                          fontSize: 6.5.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.blue.withOpacity(1)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 7.h,
-            ),
-            Container(
-              height: 1.5.h,
-              width: double.maxFinite,
-              color: Color(0xFFeff2f9),
-            ),
-            SizedBox(
-              height: 7.h,
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 70.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CircleAvatar(
-                        radius: 17.r,
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
                       Text(
-                        "Message",
+                        "PayPal balance",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: 7.sp,
-                            fontWeight: FontWeight.w200,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black.withOpacity(1)),
+                      ),
+                      Text(
+                        "US\$20",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 7.sp,
+                            fontWeight: FontWeight.w400,
                             color: Colors.black.withOpacity(1)),
                       ),
                     ],
@@ -179,7 +197,7 @@ class RecievedFromOrg extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 7.h,
+              height: 14.h,
             ),
             Container(
               height: 1.5.h,
@@ -190,58 +208,6 @@ class RecievedFromOrg extends StatelessWidget {
               height: 7.h,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 13.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "You and Tommas robinson LLC",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 7.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black.withOpacity(1)),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 13.w),
-              child: Row(
-                children: [
-                  SvgPicture.asset(AppImages.email),
-                  SizedBox(
-                    width: 7.h,
-                  ),
-                  Text(
-                    "Email address",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 7.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black.withOpacity(1)),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 7.h,
-            ),
-            Container(
-              height: 1.5.h,
-              width: double.maxFinite,
-              color: Color(0xFFeff2f9),
-            ),
-            SizedBox(
-              height: 7.h,
-            ),
-
-
-
-
-
-              Padding(
               padding: EdgeInsets.symmetric(horizontal: 13.w),
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -254,10 +220,9 @@ class RecievedFromOrg extends StatelessWidget {
                 ),
               ),
             ),
-  SizedBox(
+            SizedBox(
               height: 10.h,
             ),
-          
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 13.w),
               child: Row(
@@ -277,74 +242,12 @@ class RecievedFromOrg extends StatelessWidget {
                 ],
               ),
             ),
-
-
-
-
-
-
-
-
-
+            SizedBox(
+              height: 6.h,
+            ),
             SizedBox(
               height: 16.h,
             ),
-            Container(
-              height: 1.5.h,
-              width: double.maxFinite,
-              color: Color(0xFFeff2f9),
-            ),
-            SizedBox(
-              height: 7.h,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 13.w),
-              child: Row(
-                children: [
-                  SvgPicture.asset(AppImages.copy),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Text(
-                    "Report Melinda",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 6.5.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black.withOpacity(1)),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 9.h,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 13.w),
-              child: Row(
-                children: [
-                  SvgPicture.asset(AppImages.copy),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Text(
-                    "Block Melinda",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 6.5.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black.withOpacity(1)),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 9.h,
-            ),
-            Container(
-              height: 1.5.h,
-              width: double.maxFinite,
-              color: Color(0xFFeff2f9),
-            ),
-                  
           ],
         ),
       ),

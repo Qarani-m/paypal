@@ -9,6 +9,9 @@ import 'package:paypal/src/features/settings/screens/settings_homapage.dart';
 import 'package:paypal/src/features/transactions/screens/paypal_loss_recoery.dart';
 import 'package:paypal/src/features/transactions/screens/recieved_from_individual.dart';
 import 'package:paypal/src/features/transactions/screens/recieved_from_org.dart';
+import 'package:paypal/src/features/transactions/screens/refund.dart';
+import 'package:paypal/src/features/transactions/screens/send_to_individual.dart';
+import 'package:paypal/src/features/transactions/screens/sent_to_bank.dart';
 import 'package:paypal/src/features/wallet/screens/card_mainpage.dart';
 import 'package:paypal/src/features/wallet/screens/paypal_balance.dart';
 import 'package:paypal/src/features/wallet/screens/preferences.dart';
@@ -53,7 +56,7 @@ class MyApp extends StatelessWidget {
           defaultTransition: Transition.fade,
           smartManagement: SmartManagement.full,
           initialBinding: Appbinding(),
-          initialRoute: '/recieved_from_org',
+          initialRoute: '/send_to_individual',
           getPages: [
             GetPage(
                 name: '/home',
@@ -99,7 +102,7 @@ class MyApp extends StatelessWidget {
 
                 GetPage(
                 name: '/send_to_individual',
-                page: () => const SettingsHomapage(),
+                page: () => const SendToIndividual(),
                 transition: Transition.fade),
 
 
@@ -109,10 +112,22 @@ class MyApp extends StatelessWidget {
                 transition: Transition.fade),
 
 
+                                GetPage(
+                name: '/refund',
+                page: () => const Refund(),
+                transition: Transition.fade),
+
+
 
                   GetPage(
                 name: '/paypal_recovery',
                 page: () => const PaypalLossRecoery(),
+                transition: Transition.fade),
+
+
+                GetPage(
+                name: '/sent_to_bank',
+                page: () => const SentToBank(),
                 transition: Transition.fade),
           ],
 

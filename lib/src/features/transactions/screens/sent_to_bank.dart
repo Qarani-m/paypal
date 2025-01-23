@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:paypal/src/constants/images.dart';
 
-class RecievedFromOrg extends StatelessWidget {
-  const RecievedFromOrg({super.key});
+class SentToBank extends StatelessWidget {
+  const SentToBank({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          "Money recieved",
+          "Payment",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontSize: 9.sp,
               fontWeight: FontWeight.w400,
@@ -74,7 +73,7 @@ class RecievedFromOrg extends StatelessWidget {
                             height: 3.h,
                           ),
                           Text(
-                            "Show history",
+                            "Show story",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -117,7 +116,7 @@ class RecievedFromOrg extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Dj fresh",
+                      "From",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 7.sp,
                           fontWeight: FontWeight.w400,
@@ -125,12 +124,25 @@ class RecievedFromOrg extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 7.h,
+                    height: 8.h,
+                  ),
+                   Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "PayPal balance",
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 7.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black.withOpacity(1)),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 4.h,
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Show story",
+                      "Show payment info",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           decoration: TextDecoration.underline,
                           decorationColor: Colors.blue,
@@ -142,42 +154,7 @@ class RecievedFromOrg extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              height: 7.h,
-            ),
-            Container(
-              height: 1.5.h,
-              width: double.maxFinite,
-              color: Color(0xFFeff2f9),
-            ),
-            SizedBox(
-              height: 7.h,
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 70.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 17.r,
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      Text(
-                        "Message",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 7.sp,
-                            fontWeight: FontWeight.w200,
-                            color: Colors.black.withOpacity(1)),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
+     
             SizedBox(
               height: 7.h,
             ),
@@ -195,7 +172,7 @@ class RecievedFromOrg extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "You and Tommas robinson LLC",
+                    "You and Equity bank limited",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 7.sp,
                         fontWeight: FontWeight.w400,
@@ -226,13 +203,19 @@ class RecievedFromOrg extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 7.h,
+              height: 13.h,
             ),
             Container(
               height: 1.5.h,
               width: double.maxFinite,
               color: Color(0xFFeff2f9),
             ),
+
+
+
+
+
+
             SizedBox(
               height: 7.h,
             ),
@@ -241,42 +224,6 @@ class RecievedFromOrg extends StatelessWidget {
 
 
 
-              Padding(
-              padding: EdgeInsets.symmetric(horizontal: 13.w),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Transaction ID",
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontSize: 6.5.sp,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black.withOpacity(1)),
-                ),
-              ),
-            ),
-  SizedBox(
-              height: 10.h,
-            ),
-          
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 13.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "839FSIDJFBSJFHWI378WEIF",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 6.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black.withOpacity(1)),
-                  ),
-                  Icon(
-                    Icons.copy,
-                    size: 7.h,
-                  )
-                ],
-              ),
-            ),
 
 
 
@@ -286,65 +233,7 @@ class RecievedFromOrg extends StatelessWidget {
 
 
 
-            SizedBox(
-              height: 16.h,
-            ),
-            Container(
-              height: 1.5.h,
-              width: double.maxFinite,
-              color: Color(0xFFeff2f9),
-            ),
-            SizedBox(
-              height: 7.h,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 13.w),
-              child: Row(
-                children: [
-                  SvgPicture.asset(AppImages.copy),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Text(
-                    "Report Melinda",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 6.5.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black.withOpacity(1)),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 9.h,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 13.w),
-              child: Row(
-                children: [
-                  SvgPicture.asset(AppImages.copy),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Text(
-                    "Block Melinda",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 6.5.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black.withOpacity(1)),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 9.h,
-            ),
-            Container(
-              height: 1.5.h,
-              width: double.maxFinite,
-              color: Color(0xFFeff2f9),
-            ),
-                  
+  
           ],
         ),
       ),
