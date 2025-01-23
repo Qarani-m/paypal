@@ -14,6 +14,10 @@ class SettingsHomapage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+                leading: IconButton(
+          icon: Icon(Icons.arrow_back, size: 12.sp), // Adjust size here
+          onPressed: () => Navigator.pop(context),
+        ),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 10.w),
@@ -25,7 +29,7 @@ class SettingsHomapage extends StatelessWidget {
         title: Text(
           "Settings",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontSize: 11.sp,
+              fontSize: 8.sp,
               fontWeight: FontWeight.w400,
               color: Colors.black.withOpacity(1)),
         ),

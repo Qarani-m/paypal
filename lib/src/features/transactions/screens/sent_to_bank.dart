@@ -11,12 +11,16 @@ class SentToBank extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+                leading: IconButton(
+          icon: Icon(Icons.arrow_back, size: 12.sp), // Adjust size here
+          onPressed: () => Navigator.pop(context),
+        ),
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
           "Payment",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontSize: 9.sp,
+              fontSize: 8.sp,
               fontWeight: FontWeight.w400,
               color: Colors.black.withOpacity(1)),
         ),

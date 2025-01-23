@@ -13,11 +13,15 @@ class PaypalBalance extends GetView<WalletController> {
     bool isPrimaryCurrency = true;
     return Scaffold(
       appBar: AppBar(
+                leading: IconButton(
+          icon: Icon(Icons.arrow_back, size: 12.sp), // Adjust size here
+          onPressed: () => Navigator.pop(context),
+        ),
         centerTitle: true,
         title: Text(
                       "PayPal balance",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 11.sp,
+                          fontSize: 8.sp,
                           fontWeight: FontWeight.w400,
                           color: Colors.black.withOpacity(1)),
                     ),
@@ -425,7 +429,7 @@ class OneActivityPayPalBalance extends StatelessWidget {
 
 
 
-          
+
           SizedBox(
             height: 10.h,
           ),

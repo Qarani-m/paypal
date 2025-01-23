@@ -3,6 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:paypal/src/constants/images.dart';
+import 'package:paypal/src/features/payments/screens/payments_homepgae.dart';
+import 'package:paypal/src/features/settings/screens/settings_homapage.dart';
+import 'package:paypal/src/features/wallet/screens/preferences.dart';
+import 'package:paypal/src/features/wallet/screens/wallet_homepage.dart';
 
 class ProfileHomepage extends StatelessWidget {
   const ProfileHomepage({super.key});
@@ -11,12 +15,16 @@ class ProfileHomepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, size: 12.sp), // Adjust size here
+          onPressed: () => Navigator.pop(context),
+        ),
         backgroundColor: Color(0xFFeff2f9),
         centerTitle: true,
         title: Text(
           "Menu",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontSize: 9.sp,
+              fontSize: 8.sp,
               fontWeight: FontWeight.w400,
               color: Colors.black.withOpacity(1)),
         ),
@@ -110,7 +118,7 @@ class ProfileHomepage extends StatelessWidget {
 }
 
 class WhiteSpace extends StatelessWidget {
-  const WhiteSpace({
+  WhiteSpace({
     this.showTwo = true,
     super.key,
     required this.icon,
@@ -123,6 +131,16 @@ class WhiteSpace extends StatelessWidget {
   final String text2;
   final bool showTwo;
 
+  Map<String, dynamic> nextPages = {
+    'Payment preferences': Preferences(),
+    'Add banks and cards': '',
+    'Send to a PayPal account': '',
+    'Pay bills': PaymentsHomepgae(),
+    'Request money': PaymentsHomepgae(),
+    'Your profile': SettingsHomapage(),
+    'Your wallet': WalletHomepage(),
+  };
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -133,7 +151,13 @@ class WhiteSpace extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => Get.toNamed('/preferences', arguments: ''),
+            onTap: () {
+              if (text1 == 'Send to a PayPal account') {
+                print(text1);
+              } else {
+                Get.to(nextPages[text1]);
+              }
+            },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -161,6 +185,141 @@ class WhiteSpace extends StatelessWidget {
                       height: 13.h,
                     ),
                     GestureDetector(
+                      onTap: () {
+                        if (text2 == 'Add banks and cards') {
+                          Get.bottomSheet(Container(
+                            height: 100.h,
+                            padding: EdgeInsets.only(
+                                left: 10.w, right: 5.w, bottom: 4.h),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15.r),
+                                  topRight: Radius.circular(15.r),
+                                )),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Center(
+                                        child: Text(
+                                          'Add to Wallet',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 8.sp,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ),
+                                    ),
+                                    IconButton(
+                                      icon: Icon(
+                                        Icons.close,
+                                        size: 10.h,
+                                      ),
+                                      onPressed: () => Get.back(),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 3.h,
+                                ),
+                                Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      AppImages.bank,
+                                      height: 15.h,
+                                    ),
+                                    SizedBox(
+                                      width: 10.w,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Bank accounts",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall
+                                              ?.copyWith(
+                                                  fontSize: 7.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.black
+                                                      .withOpacity(1)),
+                                        ),
+                                        SizedBox(
+                                          height: 3.h,
+                                        ),
+                                        Text(
+                                          "Transfer money you recieve to your bank account",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall
+                                              ?.copyWith(
+                                                  fontSize: 7.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.black
+                                                      .withOpacity(1)),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      AppImages.bank,
+                                      height: 15.h,
+                                    ),
+                                    SizedBox(
+                                      width: 10.w,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Debits and credit cards",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall
+                                              ?.copyWith(
+                                                  fontSize: 7.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.black
+                                                      .withOpacity(1)),
+                                        ),
+                                        SizedBox(
+                                          height: 3.h,
+                                        ),
+                                        Text(
+                                          "Keep your card information secure while shopping",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall
+                                              ?.copyWith(
+                                                  fontSize: 7.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.black
+                                                      .withOpacity(1)),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ));
+                        } else {
+                          Get.to(nextPages[text2]);
+                        }
+                      },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [

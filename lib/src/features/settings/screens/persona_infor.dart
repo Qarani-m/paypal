@@ -14,10 +14,14 @@ class PersonaInfor extends GetView<SettingsController> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         centerTitle: true,
+                leading: IconButton(
+          icon: Icon(Icons.arrow_back, size: 12.sp), // Adjust size here
+          onPressed: () => Navigator.pop(context),
+        ),
         title: Text(
           "Account information",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontSize: 9.sp,
+              fontSize: 8.sp,
               fontWeight: FontWeight.w400,
               color: Colors.black.withOpacity(1)),
         ),

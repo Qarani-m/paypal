@@ -9,12 +9,13 @@ class PayPalAssistantPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+                leading: IconButton(
+          icon: Icon(Icons.arrow_back, size: 12.sp), // Adjust size here
           onPressed: () => Navigator.pop(context),
         ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+ 
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -22,7 +23,7 @@ class PayPalAssistantPage extends StatelessWidget {
               'PayPal Assistant',
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 9.sp,
+                fontSize: 8.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -37,7 +38,7 @@ class PayPalAssistantPage extends StatelessWidget {
                 'beta',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 7.sp,
+                    fontSize: 6.5.sp,
                     fontWeight: FontWeight.w400),
               ),
             ),

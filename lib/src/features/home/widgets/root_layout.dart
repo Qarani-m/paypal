@@ -16,8 +16,8 @@ class RootLayout extends GetView<NavigationController> {
     NavItem(
       label: 'Home',
       svgPath: 'assets/svg/house.svg',
-      page: const Homepage(),
-      // page: const Homepage1(),
+      // page: const Homepage(),
+      page: const Homepage1(),
     ),
     NavItem(
       label: 'Payments',
