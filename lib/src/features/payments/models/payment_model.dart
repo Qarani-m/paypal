@@ -39,7 +39,7 @@ class PaymentModel {
 
   @override
   String toString() {
-    return 'PaymentModel(name: $name, message: $message, email:$email curency: $curency, amount: $amount, hasProfilePic: $hasProfilePic, hassMessage: $hassMessage)';
+    return 'PaymentModel(name: $name, message: $message, email:$email curency: $curency, amount: $amount, hasProfilePic: $hasProfilePic)';
   }
 
   PaymentModel copyWith({
