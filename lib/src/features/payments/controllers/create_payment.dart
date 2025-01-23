@@ -73,15 +73,15 @@ class CreatePaymentController extends GetxController {
        'exchangeRate': exchangeRate.value, // Add exchange rate logic
        'payPalFee': payPalFee.value, // Add PayPal fee calculation
        'hasProfilePic': 0,
-       'type': category[selectedTab.value],
-       'to':actions[ selectedTab.value]
+       'type': selectedTab.value <= 2 ? category[0]: selectedTab.value <= 4 ? category[1] :category[2],
+       'direction':actions[ selectedTab.value]
 
      };
 
      print(payment);
 
-    //  await _dbHelper.insertOne(payment);
-    //  Get.snackbar('Success', 'Payment saved successfully');
+     await _dbHelper.insertOne(payment);
+     Get.snackbar('Success', 'Payment saved successfully');
      
    } catch (e) {
      Get.snackbar('Error', 'Failed to save payment: $e');

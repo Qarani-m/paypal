@@ -8,8 +8,9 @@ class PaymentModel {
   final String email;
   final String exchangeRate;
   final String payPalFee;
+  final String direction;
 
-  
+
   final String type;
   final bool hasProfilePic;
   final String transactionCode;
@@ -20,13 +21,15 @@ class PaymentModel {
     required this.transactionCode,
     required this.name,
     required this.curency,
+    required this.direction,
     required this.message,
     required this.amount,
     required this.hasProfilePic,
     required this.date,
     required this.time,
     required this.type,
-    required this.exchangeRate,required  this.payPalFee,
+    required this.exchangeRate,
+    required this.payPalFee,
   });
 
   factory PaymentModel.fromJson(Map<String, dynamic> json) {
@@ -34,6 +37,7 @@ class PaymentModel {
       name: json['name'] as String,
       transactionCode: json['transactionCode'] as String,
       date: json['date'] as String,
+      direction: json['direction'] as String,
       time: json['time'] as String,
       type: json['type'] as String,
       exchangeRate: json['exchangeRate'] as String,
@@ -56,6 +60,7 @@ class PaymentModel {
       'payPalFee': payPalFee,
       'date':date,
       'time': time,
+      'direction': time,
       'curency': curency,
       'amount': amount,
       'hasProfilePic': hasProfilePic,
@@ -77,6 +82,7 @@ class PaymentModel {
     String? time,
     String? exchangeRate,
     String? payPalFee,
+    String? direction,
     String? message,
     String? curency,
     String? amount,
@@ -90,6 +96,7 @@ class PaymentModel {
       exchangeRate: exchangeRate ?? this.exchangeRate,
       payPalFee: payPalFee ?? this.payPalFee,
       time: time ?? this.time,
+      direction: direction ?? this.direction,
       type: type ?? this.time,
       message: message ?? this.message,
       curency: curency ?? this.curency,
@@ -109,6 +116,7 @@ class PaymentModel {
         other.date == date &&
         other.exchangeRate == exchangeRate &&
         other.payPalFee == payPalFee &&
+        other.direction == direction &&
         other.time == time &&
         other.curency == curency &&
         other.type == type &&
@@ -127,6 +135,7 @@ class PaymentModel {
       type,
       transactionCode,
       date,
+      direction,
       time,
       curency,
       amount,

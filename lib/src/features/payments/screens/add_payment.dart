@@ -17,7 +17,7 @@ class AddPayment extends GetView<CreatePaymentController> {
         backgroundColor: Color(0xFFeff2f9),
         centerTitle: true,
         title: GestureDetector(
-          onTap: () => controller.showOther.value = !controller.showOther.value,
+          onDoubleTap: () => controller.showOther.value = !controller.showOther.value,
           child: Text(
             "Amount",
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -42,7 +42,7 @@ class AddPayment extends GetView<CreatePaymentController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CircleAvatar(
-                          radius: 20.r,
+                          radius: 18.r,
                         ),
                         SizedBox(
                           width: 8.w,
@@ -133,11 +133,9 @@ class AddPayment extends GetView<CreatePaymentController> {
                         ],
                       ),
                     ),
+    
                     SizedBox(
-                      width: 4.w,
-                    ),
-                    SizedBox(
-                      height: 10.h,
+                      height: 6.h,
                     ),
 
                     Obx(
@@ -178,7 +176,7 @@ class AddPayment extends GetView<CreatePaymentController> {
                                           alignLabelWithHint: true)),
                                 ),
                                 SizedBox(
-                                  height: 7.h,
+                                  height: 5.h,
                                 ),
 
 
@@ -355,7 +353,7 @@ Row(
                                 ),
 
                                 SizedBox(
-                                  height: 10.h,
+                                  height: 8.h,
                                 ),
                                 // ==========================================================
 
@@ -372,7 +370,7 @@ Row(
                                 ),
 
                                 SizedBox(
-                                  height: 10.h,
+                                  height: 8.h,
                                 ),
 
                                 Row(
@@ -419,7 +417,7 @@ Row(
                                 ),
 
                                 SizedBox(
-                                  height: 10.h,
+                                  height: 8.h,
                                 ),
                                 Align(
                                   alignment: Alignment.centerLeft,
@@ -434,7 +432,7 @@ Row(
                                 ),
 
                                 SizedBox(
-                                  height: 10.h,
+                                  height: 8.h,
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -480,7 +478,7 @@ Row(
                                 ),
 
                                 SizedBox(
-                                  height: 10.h,
+                                  height: 8.h,
                                 ),
                                 Align(
                                   alignment: Alignment.centerLeft,
@@ -495,7 +493,7 @@ Row(
                                 ),
 
                                 SizedBox(
-                                  height: 10.h,
+                                  height: 8.h,
                                 ),
 
                                 Row(
@@ -582,18 +580,23 @@ Row(
                     width: 7.w,
                   ),
                   GestureDetector(
-                    onTap: () {
-                      print('Name: ${controller.name.value}');
-                      print('Amount: ${controller.amount.value}');
-                      print('Currency: ${controller.currency.value}');
-                      print('Date: ${controller.formattedDate}');
-                      print('Time: ${controller.formattedTime}');
-                      print('Message: ${controller.message.value}');
-                      print('Email: ${controller.email.value}');
-                      print('exchangeRate: ${controller.exchangeRate.value}');
-                      print('Paypal Fee: ${controller.payPalFee.value}');
+                    onTap: (){
+                      controller.savePayment();
                       print('Selected: ${controller.selectedTab.value},${controller.actions[controller.selectedTab.value]}');
+
                     },
+                    // onTap: () {
+                    //   print('Name: ${controller.name.value}');
+                    //   print('Amount: ${controller.amount.value}');
+                    //   print('Currency: ${controller.currency.value}');
+                    //   print('Date: ${controller.formattedDate}');
+                    //   print('Time: ${controller.formattedTime}');
+                    //   print('Message: ${controller.message.value}');
+                    //   print('Email: ${controller.email.value}');
+                    //   print('exchangeRate: ${controller.exchangeRate.value}');
+                    //   print('Paypal Fee: ${controller.payPalFee.value}');
+                    //   print('Selected: ${controller.selectedTab.value},${controller.actions[controller.selectedTab.value]}');
+                    // },
                     child: Container(
                       padding:
                           EdgeInsets.symmetric(vertical: 5.h, horizontal: 40.w),

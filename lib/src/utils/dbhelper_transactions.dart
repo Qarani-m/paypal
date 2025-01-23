@@ -14,7 +14,7 @@ class DBHelper {
 
  initDb() async {
    String path = join(await getDatabasesPath(), DB_NAME);
-   return await openDatabase(path, version: 3, onCreate: _onCreate);
+   return await openDatabase(path, version: 5, onCreate: _onCreate);
  }
 
  _onCreate(Database db, int version) async {
@@ -32,6 +32,7 @@ class DBHelper {
        exchangeRate TEXT,
        type TEXT,
        payPalFee TEXT,
+       direction TEXT,
        hasProfilePic INTEGER NOT NULL
      )
    ''');
