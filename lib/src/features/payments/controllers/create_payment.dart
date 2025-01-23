@@ -5,10 +5,13 @@ import 'package:get/get.dart';
 
 
 class CreatePaymentController extends GetxController {
+
+  final RxBool showOther = false.obs;
  // Observables
  final name = ''.obs;
  final amount = ''.obs; 
  final message = ''.obs;
+ final email = ''.obs;
  final currency = 'USD'.obs;
  final selectedDate = Rxn<DateTime>();
  final selectedTime = Rxn<TimeOfDay>();
@@ -17,6 +20,7 @@ class CreatePaymentController extends GetxController {
  void updateName(String value) => name.value = value;
  void updateAmount(String value) => amount.value = value;
  void updateMessage(String value) => message.value = value;
+ void updateEmail(String value) => email.value = value;
  void updateCurrency(String value) => currency.value = value;
  void updateDate(DateTime? date) => selectedDate.value = date;
  void updateTime(TimeOfDay? time) => selectedTime.value = time;

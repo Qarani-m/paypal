@@ -3,26 +3,26 @@ class PaymentModel {
   final String message;
   final String curency;
   final String amount;
+  final String email;
   final bool hasProfilePic;
-  final bool hassMessage;
 
   PaymentModel({
+    required this.email,
     required this.name,
     required this.curency,
     required this.message,
     required this.amount,
     required this.hasProfilePic,
-    required this.hassMessage,
   });
 
   factory PaymentModel.fromJson(Map<String, dynamic> json) {
     return PaymentModel(
       name: json['name'] as String,
+      email: json['email'] as String,
       message: json['message'] as String,
       curency: json['curency'] as String,
       amount: json['amount'] as String,
       hasProfilePic: json['hasProfilePic'] as bool,
-      hassMessage: json['hassMessage'] as bool,
     );
   }
 
@@ -33,17 +33,18 @@ class PaymentModel {
       'curency': curency,
       'amount': amount,
       'hasProfilePic': hasProfilePic,
-      'hassMessage': hassMessage,
+      'email': email,
     };
   }
 
   @override
   String toString() {
-    return 'PaymentModel(name: $name, message: $message, curency: $curency, amount: $amount, hasProfilePic: $hasProfilePic, hassMessage: $hassMessage)';
+    return 'PaymentModel(name: $name, message: $message, email:$email curency: $curency, amount: $amount, hasProfilePic: $hasProfilePic, hassMessage: $hassMessage)';
   }
 
   PaymentModel copyWith({
     String? name,
+    String? email,
     String? message,
     String? curency,
     String? amount,
@@ -56,7 +57,7 @@ class PaymentModel {
       curency: curency ?? this.curency,
       amount: amount ?? this.amount,
       hasProfilePic: hasProfilePic ?? this.hasProfilePic,
-      hassMessage: hassMessage ?? this.hassMessage,
+      email: email ?? this.email,
     );
   }
 
@@ -69,7 +70,7 @@ class PaymentModel {
         other.curency == curency &&
         other.amount == amount &&
         other.hasProfilePic == hasProfilePic &&
-        other.hassMessage == hassMessage;
+        other.email == email;
   }
 
   @override
@@ -80,7 +81,7 @@ class PaymentModel {
       curency,
       amount,
       hasProfilePic,
-      hassMessage,
+      email,
     );
   }
 }

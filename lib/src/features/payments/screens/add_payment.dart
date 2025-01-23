@@ -32,7 +32,7 @@ class AddPayment extends GetView<CreatePaymentController> {
             children: [
               Expanded(
                   child: Container(
-                // color: Colors.red,/
+                // color: Colors.red,
                 child: Column(
                   children: [
                     Row(
@@ -50,7 +50,6 @@ class AddPayment extends GetView<CreatePaymentController> {
                             width: 200.w,
                             child: EditableText(
                               onChanged: (text) => controller.updateName(text),
-
                               controller:
                                   TextEditingController(text: "John Doe"),
                               focusNode: FocusNode(),
@@ -63,7 +62,6 @@ class AddPayment extends GetView<CreatePaymentController> {
                                       color: Colors.black.withOpacity(1)),
                               cursorColor: Colors.blue,
                               backgroundCursorColor: Colors.grey,
-                           
                             ),
                           ),
                         )
@@ -89,8 +87,8 @@ class AddPayment extends GetView<CreatePaymentController> {
                                 padding: EdgeInsets.only(top: 7.h),
                                 width: 200.w,
                                 child: TextField(
-                                  onChanged: (text) => controller.updateAmount(text),
-
+                                  onChanged: (text) =>
+                                      controller.updateAmount(text),
                                   autofocus: true,
                                   cursorColor: Colors.black,
                                   cursorWidth: 0.5,
@@ -116,7 +114,7 @@ class AddPayment extends GetView<CreatePaymentController> {
                             child: Row(
                               children: [
                                 Text(
-                                  "USD",
+                                  controller.currency.value,
                                   style: TextStyle(
                                       fontSize: 7.sp,
                                       color: Colors.black,
@@ -137,6 +135,36 @@ class AddPayment extends GetView<CreatePaymentController> {
                     ),
                     SizedBox(
                       height: 10.h,
+                    ),
+                    Container(
+                      // color: Colors.red,
+                      // height: 40.h, // Adjust height as needed
+                      alignment: Alignment.center,
+                      child: TextField(
+                          onChanged: (text) => controller.updateEmail(text),
+                          textAlignVertical: TextAlignVertical.center,
+                          style: TextStyle(fontSize: 8.sp),
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                borderSide: BorderSide.none,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                borderSide: BorderSide.none,
+                              ),
+                              hintText: 'Add email',
+                              hintStyle: TextStyle(
+                                  color: Colors.black26, fontSize: 8.sp),
+                              fillColor: Colors.grey.withOpacity(0.15),
+                              filled: true,
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 6.w, vertical: 5.h),
+                              isDense: true,
+                              alignLabelWithHint: true)),
+                    ),
+                    SizedBox(
+                      height: 20.h,
                     ),
                     Row(
                       children: [
@@ -213,7 +241,7 @@ class AddPayment extends GetView<CreatePaymentController> {
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               )),
@@ -224,8 +252,7 @@ class AddPayment extends GetView<CreatePaymentController> {
                     height: 40.h, // Adjust height as needed
                     alignment: Alignment.center,
                     child: TextField(
-                      onChanged: (text) => controller.updateMessage(text),
-
+                        onChanged: (text) => controller.updateMessage(text),
                         textAlignVertical: TextAlignVertical.center,
                         style: TextStyle(fontSize: 8.sp),
                         decoration: InputDecoration(
@@ -251,14 +278,15 @@ class AddPayment extends GetView<CreatePaymentController> {
                     width: 7.w,
                   ),
                   GestureDetector(
-                      onTap: () {
-    print('Name: ${controller.name.value}');
-    print('Amount: ${controller.amount.value}');
-    print('Currency: ${controller.currency.value}');
-    print('Date: ${controller.formattedDate}');
-    print('Time: ${controller.formattedTime}');
-    print('Message: ${controller.message.value}');
-  },
+                    onTap: () {
+                      print('Name: ${controller.name.value}');
+                      print('Amount: ${controller.amount.value}');
+                      print('Currency: ${controller.currency.value}');
+                      print('Date: ${controller.formattedDate}');
+                      print('Time: ${controller.formattedTime}');
+                      print('Message: ${controller.message.value}');
+                      print('Email: ${controller.email.value}');
+                    },
                     child: Container(
                       padding:
                           EdgeInsets.symmetric(vertical: 5.h, horizontal: 40.w),
