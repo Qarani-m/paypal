@@ -15,38 +15,40 @@ class HomepageButtonContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 10.w, right: 10.w),
-      height: 30.h,
+      // height: 30.h,
       width: double.maxFinite,
       color: Colors.white,
       child: Row(
         children: [
-          Container(
+               Container(
+            padding: EdgeInsets.symmetric(vertical: 5.h),
             alignment: Alignment.center,
             decoration: BoxDecoration(
                 color: Color(0xFF000000),
                 borderRadius: BorderRadius.circular(40.r)),
-            width: 150.w,
+            width: 165.w,
             child: Text(
               textLeft,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w500,
                   color: Colors.white,
-                  fontSize: 16.sp),
+                  fontSize: 10.sp),
             ),
           ),
           Spacer(),
           Container(
+            padding: EdgeInsets.symmetric(vertical: 5.h),
             alignment: Alignment.center,
             decoration: BoxDecoration(
                 color: Color(0xFF000000),
                 borderRadius: BorderRadius.circular(40.r)),
-            width: 150.w,
+            width: 165.w,
             child: Text(
               textRight,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w500,
                   color: Colors.white,
-                  fontSize: 16.sp),
+                  fontSize: 10.sp),
             ),
           )
         ],

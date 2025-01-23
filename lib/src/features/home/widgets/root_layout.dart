@@ -1,5 +1,6 @@
 // lib/src/features/root_layout.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:paypal/src/features/home/controllers/navigation_controller.dart';
 import 'package:paypal/src/features/home/models/nav_item.dart';
@@ -16,6 +17,7 @@ class RootLayout extends GetView<NavigationController> {
       label: 'Home',
       svgPath: 'assets/svg/house.svg',
       page: const Homepage(),
+      // page: const Homepage1(),
     ),
     NavItem(
       label: 'Payments',
@@ -38,7 +40,7 @@ class RootLayout extends GetView<NavigationController> {
         selectedColor: Colors.black,
         unselectedColor: Colors.grey,
         backgroundColor: Colors.white,
-        height: 75,
+        height: 25.h,
       ),
     );
   }

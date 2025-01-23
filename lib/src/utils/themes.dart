@@ -10,7 +10,7 @@ class AppTheme {
   // Light Theme Colors
   static const Color _lightBackground = Colors.white;
   static const Color _lightSurface = Color(0xFFF5F7FA);
-  static const Color _lightText = Color(0xFF243656);
+  static const Color _lightText = Color(0xFF000000);
   static const Color _lightSecondaryText = Color(0xFF6B7280);
   
   // Dark Theme Colors

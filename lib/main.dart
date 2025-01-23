@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
           defaultTransition: Transition.fade,
           smartManagement: SmartManagement.full,
           initialBinding: Appbinding(),
-          initialRoute: '/send_to_individual',
+          initialRoute: '/home',
           getPages: [
             GetPage(
                 name: '/home',

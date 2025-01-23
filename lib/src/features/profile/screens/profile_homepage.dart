@@ -16,20 +16,20 @@ class ProfileHomepage extends StatelessWidget {
         title: Text(
           "Menu",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontSize: 11.sp,
+              fontSize: 9.sp,
               fontWeight: FontWeight.w400,
               color: Colors.black.withOpacity(1)),
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+        padding: EdgeInsets.only(left: 13.w, right: 20.w, top: 20.h),
         child: Column(
           children: [
             Align(
               alignment: Alignment.centerLeft,
               child: Text('Manage finances',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 11.sp,
+                        fontSize: 8.sp,
                         fontWeight: FontWeight.w700,
                       )),
             ),
@@ -48,7 +48,7 @@ class ProfileHomepage extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text('Send and pay',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 11.sp,
+                        fontSize: 8.sp,
                         fontWeight: FontWeight.w700,
                       )),
             ),
@@ -67,7 +67,7 @@ class ProfileHomepage extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text('Get paid',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 11.sp,
+                        fontSize: 8.sp,
                         fontWeight: FontWeight.w700,
                       )),
             ),
@@ -87,7 +87,7 @@ class ProfileHomepage extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text('Profile and support',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 11.sp,
+                        fontSize: 8.sp,
                         fontWeight: FontWeight.w700,
                       )),
             ),
@@ -149,7 +149,7 @@ class WhiteSpace extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall
-                      ?.copyWith(fontSize: 8.sp, color: Colors.black),
+                      ?.copyWith(fontSize: 7.sp, color: Colors.black),
                 )
               ],
             ),
@@ -161,14 +161,12 @@ class WhiteSpace extends StatelessWidget {
                       height: 13.h,
                     ),
                     GestureDetector(
-                      onTap: () => Get.toNamed('/preferences',
-                          arguments: 'Automatic payments'),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
                             AppImages.onlinePurchases,
-                            height: 16.h,
+                            height: 15.h,
                           ),
                           SizedBox(
                             width: 10.w,
@@ -178,7 +176,7 @@ class WhiteSpace extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
-                                ?.copyWith(fontSize: 8.sp, color: Colors.black),
+                                ?.copyWith(fontSize: 7.sp, color: Colors.black),
                           )
                         ],
                       ),

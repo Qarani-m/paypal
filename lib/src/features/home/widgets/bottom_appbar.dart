@@ -25,7 +25,7 @@ class CustomBottomNavigationBar extends GetView<NavigationController> {
     this.backgroundColor = Colors.white,
     this.height,
     this.iconSize = 24,
-    this.fontSize = 8,
+    this.fontSize = 7,
   }) : super(key: key);
 
   @override
@@ -38,7 +38,7 @@ class CustomBottomNavigationBar extends GetView<NavigationController> {
       ),
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: List.generate(
@@ -62,14 +62,15 @@ class CustomBottomNavigationBar extends GetView<NavigationController> {
         behavior: HitTestBehavior.opaque,
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          
           children: [
             SvgPicture.asset(
               item.svgPath,
-              height: 12.h,
-              width: 12.h,
+              height: 10.h,
+              width: 10.h,
               color: isSelected ? selectedColor : unselectedColor,
             ),
-            const SizedBox(height: 4),
+              SizedBox(height: 1.h),
             Text(
               item.label,
               style: TextStyle(
