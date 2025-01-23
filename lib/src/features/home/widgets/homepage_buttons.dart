@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:paypal/src/features/payments/screens/add_payment.dart';
 
 class HomepageButtonContainer extends StatelessWidget {
   const HomepageButtonContainer({
@@ -20,21 +22,24 @@ class HomepageButtonContainer extends StatelessWidget {
       color: Colors.white,
       child: Row(
         children: [
-               Container(
-            padding: EdgeInsets.symmetric(vertical: 5.h),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                color: Color(0xFF000000),
-                borderRadius: BorderRadius.circular(40.r)),
-            width: 165.w,
-            child: Text(
-              textLeft,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                  fontSize: 10.sp),
-            ),
-          ),
+               GestureDetector(
+                onTap: ()=>Get.to(AddPayment()),
+                 child: Container(
+                             padding: EdgeInsets.symmetric(vertical: 5.h),
+                             alignment: Alignment.center,
+                             decoration: BoxDecoration(
+                  color: Color(0xFF000000),
+                  borderRadius: BorderRadius.circular(40.r)),
+                             width: 165.w,
+                             child: Text(
+                               textLeft,
+                               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                    fontSize: 10.sp),
+                             ),
+                           ),
+               ),
           Spacer(),
           Container(
             padding: EdgeInsets.symmetric(vertical: 5.h),

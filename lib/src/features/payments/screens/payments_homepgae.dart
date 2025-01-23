@@ -7,10 +7,16 @@ import 'package:paypal/src/features/payments/controllers/payments_controller.dar
 import 'package:paypal/src/features/wallet/controllers/wallet_controller.dart';
 
 class PaymentsHomepgae extends GetView<PaymentsController> {
-  PaymentsHomepgae({super.key});
+  PaymentsHomepgae({super.key, this.index=0});
+
+
+  final int index;
 
   @override
   Widget build(BuildContext context) {
+     WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.tabController.index = index;
+    });
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 35.h),

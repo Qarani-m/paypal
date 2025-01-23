@@ -203,7 +203,7 @@ class Homepage extends GetView<HomepageController> {
                   children: List.generate(
                       2,
                       (index) => PaymentContainer(
-                        hasImage: ools[index],
+                            hasImage: ools[index],
                             date: '22 Nov',
                             index: index,
                             name: names[index],
@@ -213,30 +213,31 @@ class Homepage extends GetView<HomepageController> {
                           )),
                 ),
 
-
-Column(
-  children: [
-    // Container(
-    //   height: 0.8.h,
-    //   color: Color(0xFFeff2f9),
-    // ),
-    Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-             bottomLeft: Radius.circular(10.r ),
-                bottomRight: Radius.circular( 10.r),
-        )
-      ),
-      padding: EdgeInsets.symmetric(vertical: 5.h),
-      alignment: Alignment.center,
-      child: Text("See more",  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                Column(
+                  children: [
+                    // Container(
+                    //   height: 0.8.h,
+                    //   color: Color(0xFFeff2f9),
+                    // ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(10.r),
+                            bottomRight: Radius.circular(10.r),
+                          )),
+                      padding: EdgeInsets.symmetric(vertical: 5.h),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "See more",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: 6.5.sp,
                             fontWeight: FontWeight.w900,
-                            color: Colors.blue.withOpacity(1)),),
-    ),
-  ],
-)
+                            color: Colors.blue.withOpacity(1)),
+                      ),
+                    ),
+                  ],
+                )
                 // --------------------------------------------------------------------------------
               ],
             ),
@@ -274,10 +275,8 @@ class PaymentContainer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           color: Colors.white,
-          border: Border(bottom: BorderSide(
-            color: Color(0xFFeff2f9),
-            width: 0.8.h
-          )),
+          border: Border(
+              bottom: BorderSide(color: Color(0xFFeff2f9), width: 0.8.h)),
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(index == 0 ? 10.r : 0),
             topRight: Radius.circular(index == 0 ? 10.r : 0),
@@ -290,8 +289,9 @@ class PaymentContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Leading Circle
-                
-                   hasImage ? Container(
+
+                hasImage
+                    ? Container(
                         height: 32.h,
                         width: 32.h,
                         decoration: BoxDecoration(
@@ -370,48 +370,24 @@ class PaymentContainer extends StatelessWidget {
                         : Colors.black),
               ),
             ],
-          )
-
-,
-Column(
-  children: [
+          ),
+          Column(
+            children: [
               SizedBox(
-            height: 6.h,
-          ),
-
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-                          '"Family"',
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontSize: 6.5.sp,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black.withOpacity(1)),
-                        ),
-          ),
-  ],
-)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                height: 6.h,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '"Family"',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize: 6.5.sp,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black.withOpacity(1)),
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );

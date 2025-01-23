@@ -4,6 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/payments/screens/payments_homepgae.dart';
+import 'package:paypal/src/features/profile/screens/add_bank.dart';
+import 'package:paypal/src/features/profile/screens/scan_your%20card.dart';
 import 'package:paypal/src/features/settings/screens/settings_homapage.dart';
 import 'package:paypal/src/features/wallet/screens/preferences.dart';
 import 'package:paypal/src/features/wallet/screens/wallet_homepage.dart';
@@ -135,8 +137,8 @@ class WhiteSpace extends StatelessWidget {
     'Payment preferences': Preferences(),
     'Add banks and cards': '',
     'Send to a PayPal account': '',
-    'Pay bills': PaymentsHomepgae(),
-    'Request money': PaymentsHomepgae(),
+    'Pay bills': PaymentsHomepgae(index:1),
+    'Request money': PaymentsHomepgae(index:2),
     'Your profile': SettingsHomapage(),
     'Your wallet': WalletHomepage(),
   };
@@ -226,92 +228,586 @@ class WhiteSpace extends StatelessWidget {
                                 SizedBox(
                                   height: 3.h,
                                 ),
-                                Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      AppImages.bank,
-                                      height: 15.h,
-                                    ),
-                                    SizedBox(
-                                      width: 10.w,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Bank accounts",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.copyWith(
-                                                  fontSize: 7.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.black
-                                                      .withOpacity(1)),
-                                        ),
-                                        SizedBox(
-                                          height: 3.h,
-                                        ),
-                                        Text(
-                                          "Transfer money you recieve to your bank account",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.copyWith(
-                                                  fontSize: 7.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.black
-                                                      .withOpacity(1)),
-                                        ),
-                                      ],
-                                    )
-                                  ],
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.back();
+
+                                    Get.to(AddBank());
+                                  },
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        AppImages.bank,
+                                        height: 15.h,
+                                      ),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Bank accounts",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall
+                                                ?.copyWith(
+                                                    fontSize: 7.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.black
+                                                        .withOpacity(1)),
+                                          ),
+                                          SizedBox(
+                                            height: 3.h,
+                                          ),
+                                          Text(
+                                            "Transfer money you recieve to your bank account",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall
+                                                ?.copyWith(
+                                                    fontSize: 7.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.black
+                                                        .withOpacity(1)),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 15.h,
                                 ),
-                                Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      AppImages.bank,
-                                      height: 15.h,
-                                    ),
-                                    SizedBox(
-                                      width: 10.w,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Debits and credit cards",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.copyWith(
-                                                  fontSize: 7.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.black
-                                                      .withOpacity(1)),
-                                        ),
-                                        SizedBox(
-                                          height: 3.h,
-                                        ),
-                                        Text(
-                                          "Keep your card information secure while shopping",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.copyWith(
-                                                  fontSize: 7.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.black
-                                                      .withOpacity(1)),
-                                        ),
-                                      ],
-                                    )
-                                  ],
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.back();
+                                    Get.bottomSheet(Container(
+                                      padding: EdgeInsets.only(
+                                          left: 15.w,
+                                          right: 15.w,
+                                          bottom: 4.h,
+                                          top: 6.h),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(15.r),
+                                            topRight: Radius.circular(15.r),
+                                          )),
+                                      height: 70.h,
+                                      width: double.maxFinite,
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Icon(
+                                                Icons.arrow_back,
+                                                color: Colors.black54,
+                                                size: 10.sp,
+                                              ),
+                                              Text(
+                                                "Link your card",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall
+                                                    ?.copyWith(
+                                                        fontSize: 6.sp,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.black
+                                                            .withOpacity(1)),
+                                              ),
+                                              Icon(
+                                                Icons.close,
+                                                color: Colors.black54,
+                                                size: 10.sp,
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 15.h,
+                                          ),
+                                          GestureDetector(
+                                            onTap: () => Get.to(ScanYourCard()),
+                                            child: Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  AppImages.bank,
+                                                  height: 12.h,
+                                                ),
+                                                SizedBox(
+                                                  width: 10.w,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "Scan your card",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodySmall
+                                                          ?.copyWith(
+                                                              fontSize: 7.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: Colors
+                                                                  .black
+                                                                  .withOpacity(
+                                                                      1)),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 9.h,
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              Get.bottomSheet(Container(
+                                                padding: EdgeInsets.only(
+                                                    left: 15.w,
+                                                    right: 15.w,
+                                                    bottom: 4.h,
+                                                    top: 6.h),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(15.r),
+                                                      topRight:
+                                                          Radius.circular(15.r),
+                                                    )),
+                                                height: 200.h,
+                                                width: double.maxFinite,
+                                                child: Column(
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.arrow_back,
+                                                          color: Colors.black54,
+                                                          size: 10.sp,
+                                                        ),
+                                                        Text(
+                                                          "Link a card",
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .bodySmall
+                                                              ?.copyWith(
+                                                                  fontSize:
+                                                                      6.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  color: Colors
+                                                                      .black
+                                                                      .withOpacity(
+                                                                          1)),
+                                                        ),
+                                                        Icon(
+                                                          Icons.close,
+                                                          color: Colors.black54,
+                                                          size: 10.sp,
+                                                        )
+                                                      ],
+                                                    ),
+
+                                                    SizedBox(
+                                                      height: 14.h,
+                                                    ),
+
+                                                    GestureDetector(
+                                                      onTap: () => Get.to(
+                                                          ScanYourCard()),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          Icon(
+                                                            Icons
+                                                                .camera_alt_outlined,
+                                                            color: Colors.blue,
+                                                            size: 10.w,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 4.w,
+                                                          ),
+                                                          Text(
+                                                            "Scan",
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .bodySmall
+                                                                ?.copyWith(
+                                                                    fontSize:
+                                                                        6.sp,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w900,
+                                                                    color: Colors
+                                                                        .blue
+                                                                        .withOpacity(
+                                                                            1)),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10.h,
+                                                    ),
+                                                    Container(
+                                                      child: TextFormField(
+                                                        decoration:
+                                                            InputDecoration(
+                                                          filled: false,
+                                                          contentPadding:
+                                                              EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          15.w,
+                                                                      vertical:
+                                                                          7.h),
+                                                          prefixIcon: Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    top: 7.h),
+                                                            child: Icon(
+                                                              Icons.credit_card,
+                                                              size: 12.sp,
+                                                              color: Colors
+                                                                  .black87,
+                                                            ),
+                                                          ),
+                                                          hintText:
+                                                              'Card number',
+                                                          hintStyle: TextStyle(
+                                                              fontSize: 7.sp,
+                                                              color: Colors
+                                                                  .black54),
+                                                          enabledBorder:
+                                                              OutlineInputBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6.r),
+                                                            borderSide: BorderSide(
+                                                                color:
+                                                                    Colors.grey[
+                                                                        300]!),
+                                                          ),
+                                                          focusedBorder:
+                                                              UnderlineInputBorder(
+                                                            borderSide: BorderSide(
+                                                                color:
+                                                                    Colors.grey[
+                                                                        400]!),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+
+                                                    SizedBox(
+                                                      height: 5.h,
+                                                    ),
+// For expiry and CVV row
+                                                    Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: TextFormField(
+                                                            decoration:
+                                                                InputDecoration(
+                                                              filled: false,
+                                                              hintText:
+                                                                  'Expiry',
+                                                              hintStyle: TextStyle(
+                                                                  fontSize:
+                                                                      7.sp,
+                                                                  color: Colors
+                                                                      .black54),
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            6.r),
+                                                                borderSide: BorderSide(
+                                                                    color: Colors
+                                                                            .grey[
+                                                                        300]!),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(width: 20.w),
+                                                        Expanded(
+                                                          child: TextFormField(
+                                                            decoration:
+                                                                InputDecoration(
+                                                              filled: false,
+                                                              hintText: 'CVV',
+                                                              hintStyle: TextStyle(
+                                                                  fontSize:
+                                                                      7.sp,
+                                                                  color: Colors
+                                                                      .black54),
+                                                              suffixIcon: Icon(
+                                                                Icons
+                                                                    .help_outline,
+                                                                size: 10.sp,
+                                                                color:
+                                                                    Colors.blue,
+                                                              ),
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            6.r),
+                                                                borderSide: BorderSide(
+                                                                    color: Colors
+                                                                            .grey[
+                                                                        300]!),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+
+                                                    SizedBox(
+                                                      height: 5.h,
+                                                    ),
+
+// ====================================================================================
+
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "Billing address",
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .bodySmall
+                                                              ?.copyWith(
+                                                                  fontSize:
+                                                                      6.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  color: Colors
+                                                                      .black
+                                                                      .withOpacity(
+                                                                          0.5)),
+                                                        ),
+                                                        Text(
+                                                          "Change",
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .bodySmall
+                                                              ?.copyWith(
+                                                                  fontSize:
+                                                                      6.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w900,
+                                                                  color: Colors
+                                                                      .blue
+                                                                      .withOpacity(
+                                                                          1)),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Align(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: Text(
+                                                            "Billing address",
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .bodySmall
+                                                                ?.copyWith(
+                                                                    fontSize:
+                                                                        7.sp,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    color: Colors
+                                                                        .black
+                                                                        .withOpacity(
+                                                                            1)),
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          "Billing address",
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .bodySmall
+                                                              ?.copyWith(
+                                                                  fontSize:
+                                                                      7.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  color: Colors
+                                                                      .black
+                                                                      .withOpacity(
+                                                                          1)),
+                                                        ),
+                                                        Text(
+                                                          "Billing address",
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .bodySmall
+                                                              ?.copyWith(
+                                                                  fontSize:
+                                                                      7.sp,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  color: Colors
+                                                                      .black
+                                                                      .withOpacity(
+                                                                          1)),
+                                                        ),
+                                                      ],
+                                                    ),
+
+                                                    SizedBox(
+                                                      height: 10.h,
+                                                    ),
+
+                                                    Container(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                        vertical: 5.h,
+                                                      ),
+                                                      width: double.maxFinite,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.black,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      20.r)),
+                                                      child: Text(
+                                                        'Link Card',
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 8.sp,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w900),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ));
+                                            },
+                                            child: Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  AppImages.bank,
+                                                  height: 12.h,
+                                                ),
+                                                SizedBox(
+                                                  width: 10.w,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "Enter your card information",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodySmall
+                                                          ?.copyWith(
+                                                              fontSize: 7.sp,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: Colors
+                                                                  .black
+                                                                  .withOpacity(
+                                                                      1)),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ));
+                                  },
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        AppImages.bank,
+                                        height: 15.h,
+                                      ),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Debits and credit cards",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall
+                                                ?.copyWith(
+                                                    fontSize: 7.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.black
+                                                        .withOpacity(1)),
+                                          ),
+                                          SizedBox(
+                                            height: 3.h,
+                                          ),
+                                          Text(
+                                            "Keep your card information secure while shopping",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall
+                                                ?.copyWith(
+                                                    fontSize: 7.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.black
+                                                        .withOpacity(1)),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 )
                               ],
                             ),
