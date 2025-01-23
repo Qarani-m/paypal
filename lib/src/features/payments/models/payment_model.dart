@@ -3,21 +3,41 @@ class PaymentModel {
   final String message;
   final String curency;
   final String amount;
+  final String date;
+  final String time;
   final String email;
-  final bool hasProfilePic;
+  final String exchangeRate;
+  final String payPalFee;
 
-  PaymentModel({
+  
+  final String type;
+  final bool hasProfilePic;
+  final String transactionCode;
+
+
+  PaymentModel( {
     required this.email,
+    required this.transactionCode,
     required this.name,
     required this.curency,
     required this.message,
     required this.amount,
     required this.hasProfilePic,
+    required this.date,
+    required this.time,
+    required this.type,
+    required this.exchangeRate,required  this.payPalFee,
   });
 
   factory PaymentModel.fromJson(Map<String, dynamic> json) {
     return PaymentModel(
       name: json['name'] as String,
+      transactionCode: json['transactionCode'] as String,
+      date: json['date'] as String,
+      time: json['time'] as String,
+      type: json['type'] as String,
+      exchangeRate: json['exchangeRate'] as String,
+      payPalFee: json['payPalFee'] as String,
       email: json['email'] as String,
       message: json['message'] as String,
       curency: json['curency'] as String,
@@ -30,6 +50,12 @@ class PaymentModel {
     return {
       'name': name,
       'message': message,
+      'transactionCode': transactionCode,
+      'exchangeRate': exchangeRate,
+      'type': type,
+      'payPalFee': payPalFee,
+      'date':date,
+      'time': time,
       'curency': curency,
       'amount': amount,
       'hasProfilePic': hasProfilePic,
@@ -39,12 +65,18 @@ class PaymentModel {
 
   @override
   String toString() {
-    return 'PaymentModel(name: $name, message: $message, email:$email curency: $curency, amount: $amount, hasProfilePic: $hasProfilePic)';
+    return 'PaymentModel(name: $name, message: $message, email:$email curency: $curency, amount: $amount, hasProfilePic: $hasProfilePic, time:$time, date:$date,code:$transactionCode, payPalFee:$payPalFee, exchangeRate:$exchangeRate type:$type)';
   }
 
   PaymentModel copyWith({
     String? name,
     String? email,
+    String? transactionCode,
+    String? date,
+    String? type,
+    String? time,
+    String? exchangeRate,
+    String? payPalFee,
     String? message,
     String? curency,
     String? amount,
@@ -53,6 +85,12 @@ class PaymentModel {
   }) {
     return PaymentModel(
       name: name ?? this.name,
+      transactionCode: name ?? this.transactionCode,
+      date: date ?? this.date,
+      exchangeRate: exchangeRate ?? this.exchangeRate,
+      payPalFee: payPalFee ?? this.payPalFee,
+      time: time ?? this.time,
+      type: type ?? this.time,
       message: message ?? this.message,
       curency: curency ?? this.curency,
       amount: amount ?? this.amount,
@@ -67,7 +105,13 @@ class PaymentModel {
     return other is PaymentModel &&
         other.name == name &&
         other.message == message &&
+        other.transactionCode == transactionCode &&
+        other.date == date &&
+        other.exchangeRate == exchangeRate &&
+        other.payPalFee == payPalFee &&
+        other.time == time &&
         other.curency == curency &&
+        other.type == type &&
         other.amount == amount &&
         other.hasProfilePic == hasProfilePic &&
         other.email == email;
@@ -78,6 +122,12 @@ class PaymentModel {
     return Object.hash(
       name,
       message,
+      payPalFee,
+      exchangeRate,
+      type,
+      transactionCode,
+      date,
+      time,
       curency,
       amount,
       hasProfilePic,

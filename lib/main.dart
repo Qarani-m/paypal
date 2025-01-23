@@ -106,6 +106,12 @@ class MyApp extends StatelessWidget {
                 transition: Transition.fade),
 
 
+                
+GetPage(
+                name: '/sent_to_bank',
+                page: () => const SentToBank(),
+                transition: Transition.fade),
+
                 GetPage(
                 name: '/send_to_org',
                 page: () => const SettingsHomapage(),
@@ -125,10 +131,7 @@ class MyApp extends StatelessWidget {
                 transition: Transition.fade),
 
 
-                GetPage(
-                name: '/sent_to_bank',
-                page: () => const SentToBank(),
-                transition: Transition.fade),
+                
           ],
 
           // Optional: Global error handling

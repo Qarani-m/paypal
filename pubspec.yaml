@@ -39,6 +39,7 @@ dependencies:
   shared_preferences:
   flutter_svg:
   get_storage: ^2.1.1
+  sqflite: ^2.4.1
 
 
 dev_dependencies:

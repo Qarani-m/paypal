@@ -16,12 +16,15 @@ class AddPayment extends GetView<CreatePaymentController> {
         ),
         backgroundColor: Color(0xFFeff2f9),
         centerTitle: true,
-        title: Text(
-          "Amount",
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontSize: 8.sp,
-              fontWeight: FontWeight.w400,
-              color: Colors.black.withOpacity(1)),
+        title: GestureDetector(
+          onTap: () => controller.showOther.value = !controller.showOther.value,
+          child: Text(
+            "Amount",
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontSize: 8.sp,
+                fontWeight: FontWeight.w400,
+                color: Colors.black.withOpacity(1)),
+          ),
         ),
       ),
       body: Container(
@@ -136,112 +139,413 @@ class AddPayment extends GetView<CreatePaymentController> {
                     SizedBox(
                       height: 10.h,
                     ),
-                    Container(
-                      // color: Colors.red,
-                      // height: 40.h, // Adjust height as needed
-                      alignment: Alignment.center,
-                      child: TextField(
-                          onChanged: (text) => controller.updateEmail(text),
-                          textAlignVertical: TextAlignVertical.center,
-                          style: TextStyle(fontSize: 8.sp),
-                          decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25),
-                                borderSide: BorderSide.none,
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25),
-                                borderSide: BorderSide.none,
-                              ),
-                              hintText: 'Add email',
-                              hintStyle: TextStyle(
-                                  color: Colors.black26, fontSize: 8.sp),
-                              fillColor: Colors.grey.withOpacity(0.15),
-                              filled: true,
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 6.w, vertical: 5.h),
-                              isDense: true,
-                              alignLabelWithHint: true)),
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 5.h, horizontal: 4.w),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Row(children: [
-                              Icon(
-                                Icons.calendar_today,
-                                size: 12.sp,
-                              ),
-                              SizedBox(
-                                width: 4.w,
-                              ),
-                              InkWell(
-                                onTap: () async {
-                                  final date = await showDatePicker(
-                                    context: context,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime(2000),
-                                    lastDate: DateTime(2100),
-                                  );
-                                  if (date != null) {
-                                    // Handle selected date
-                                  }
-                                },
-                                child: Text(
-                                  'Select Date',
-                                  style: TextStyle(
-                                    fontSize: 8.sp,
-                                  ),
+
+                    Obx(
+                      () => controller.showOther.value
+                          ? Column(
+                              children: [
+                                Container(
+                                  // color: Colors.red,
+                                  // height: 40.h, // Adjust height as needed
+                                  alignment: Alignment.center,
+                                  child: TextField(
+                                      onChanged: (text) =>
+                                          controller.updateEmail(text),
+                                      textAlignVertical:
+                                          TextAlignVertical.center,
+                                      style: TextStyle(fontSize: 8.sp),
+                                      decoration: InputDecoration(
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          hintText: 'Add email',
+                                          hintStyle: TextStyle(
+                                              color: Colors.black26,
+                                              fontSize: 8.sp),
+                                          fillColor:
+                                              Colors.grey.withOpacity(0.15),
+                                          filled: true,
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 6.w, vertical: 5.h),
+                                          isDense: true,
+                                          alignLabelWithHint: true)),
                                 ),
-                              ),
-                            ]),
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 5.h, horizontal: 4.w),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Row(children: [
-                              Icon(Icons.access_time),
-                              SizedBox(
-                                width: 4.w,
-                              ),
-                              InkWell(
-                                onTap: () async {
-                                  final time = await showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                  );
-                                  if (time != null) {
-                                    // Handle selected time
-                                  }
-                                },
-                                child: Text(
-                                  'Select Time',
-                                  style: TextStyle(
-                                    fontSize: 8.sp,
-                                  ),
+                                SizedBox(
+                                  height: 7.h,
                                 ),
-                              ),
-                            ]),
-                          ),
-                        ),
-                      ],
+
+
+
+
+
+
+
+
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+
+    Container(
+                                  // color: Colors.red,
+                                  width: 140.h, // Adjust height as needed
+                                  alignment: Alignment.center,
+                                  child: TextField(
+                                      onChanged: (text) =>
+                                          controller.updateExchangeRate(text),
+                                      textAlignVertical:
+                                          TextAlignVertical.center,
+                                      style: TextStyle(fontSize: 8.sp),
+                                      decoration: InputDecoration(
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          hintText: 'Exchange rate',
+                                          hintStyle: TextStyle(
+                                              color: Colors.black26,
+                                              fontSize: 8.sp),
+                                          fillColor:
+                                              Colors.grey.withOpacity(0.15),
+                                          filled: true,
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 6.w, vertical: 5.h),
+                                          isDense: true,
+                                          alignLabelWithHint: true)),
+                                ),
+
+
+
+    Container(
+                                  // color: Colors.red,
+                                  width: 140.h, // Adjust height as needed
+                                  alignment: Alignment.center,
+                                  child: TextField(
+                                      onChanged: (text) =>
+                                          controller.updatePaypalFee(text),
+                                      textAlignVertical:
+                                          TextAlignVertical.center,
+                                      style: TextStyle(fontSize: 8.sp),
+                                      decoration: InputDecoration(
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          hintText: 'Paypal Fee',
+                                          hintStyle: TextStyle(
+                                              color: Colors.black26,
+                                              fontSize: 8.sp),
+                                          fillColor:
+                                              Colors.grey.withOpacity(0.15),
+                                          filled: true,
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 6.w, vertical: 5.h),
+                                          isDense: true,
+                                          alignLabelWithHint: true)),
+                                ),
+  ],
+),
+
+
+                                SizedBox(
+                                  height: 7.h,
+                                ),
+
+
+
+
+
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 5.h, horizontal: 4.w),
+                                        decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.grey),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        child: Row(children: [
+                                          Icon(
+                                            Icons.calendar_today,
+                                            size: 12.sp,
+                                          ),
+                                          SizedBox(
+                                            width: 4.w,
+                                          ),
+                                          InkWell(
+                                            onTap: () async {
+                                              final date = await showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime.now(),
+                                                firstDate: DateTime(2000),
+                                                lastDate: DateTime(2100),
+                                              );
+                                              if (date != null) {
+                                                // Handle selected date
+                                              }
+                                            },
+                                            child: Text(
+                                              'Select Date',
+                                              style: TextStyle(
+                                                fontSize: 8.sp,
+                                              ),
+                                            ),
+                                          ),
+                                        ]),
+                                      ),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Expanded(
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 5.h, horizontal: 4.w),
+                                        decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.grey),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        child: Row(children: [
+                                          Icon(Icons.access_time),
+                                          SizedBox(
+                                            width: 4.w,
+                                          ),
+                                          InkWell(
+                                            onTap: () async {
+                                              final time = await showTimePicker(
+                                                context: context,
+                                                initialTime: TimeOfDay.now(),
+                                              );
+                                              if (time != null) {
+                                                // Handle selected time
+                                              }
+                                            },
+                                            child: Text(
+                                              'Select Time',
+                                              style: TextStyle(
+                                                fontSize: 8.sp,
+                                              ),
+                                            ),
+                                          ),
+                                        ]),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                // ==========================================================
+
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text('Send to:',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(
+                                            fontSize: 8.sp,
+                                            fontWeight: FontWeight.w700,
+                                          )),
+                                ),
+
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: List.generate(
+                                      3,
+                                      (index) => GestureDetector(
+                                            onTap: () => controller
+                                                .updateSelectedTab(index),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: controller.selectedTab
+                                                              .value ==
+                                                          index
+                                                      ? const Color.fromARGB(
+                                                          255, 4, 78, 138)
+                                                      : Colors.grey
+                                                          .withOpacity(0.2),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          30.r)),
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 10.h,
+                                                  horizontal: 20.h),
+                                              child: Text(
+                                                  controller.actions[index],
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall
+                                                      ?.copyWith(
+                                                        fontSize: 8.sp,
+                                                        color: controller
+                                                                    .selectedTab
+                                                                    .value ==
+                                                                index
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                      )),
+                                            ),
+                                          )),
+                                ),
+
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text('Paypal:',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(
+                                            fontSize: 8.sp,
+                                            fontWeight: FontWeight.w700,
+                                          )),
+                                ),
+
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: List.generate(
+                                      2,
+                                      (index) => GestureDetector(
+                                            onTap: () => controller
+                                                .updateSelectedTab(index + 3),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: controller.selectedTab
+                                                              .value ==
+                                                          index + 3
+                                                      ? const Color.fromARGB(
+                                                          255, 4, 78, 138)
+                                                      : Colors.grey
+                                                          .withOpacity(0.2),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          30.r)),
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 10.h,
+                                                  horizontal: 20.h),
+                                              child: Text(
+                                                  controller.actions[index + 3],
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall
+                                                      ?.copyWith(
+                                                        fontSize: 8.sp,
+                                                        color: controller
+                                                                    .selectedTab
+                                                                    .value ==
+                                                                index + 3
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                      )),
+                                            ),
+                                          )),
+                                ),
+
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text('Recieved from',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(
+                                            fontSize: 8.sp,
+                                            fontWeight: FontWeight.w700,
+                                          )),
+                                ),
+
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: List.generate(
+                                      2,
+                                      (index) => GestureDetector(
+                                            onTap: () => controller
+                                                .updateSelectedTab(index + 5),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: controller.selectedTab
+                                                              .value ==
+                                                          index + 5
+                                                      ? const Color.fromARGB(
+                                                          255, 4, 78, 138)
+                                                      : Colors.grey
+                                                          .withOpacity(0.2),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          30.r)),
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 10.h,
+                                                  horizontal: 20.h),
+                                              child: Text(
+                                                  controller.actions[index + 5],
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall
+                                                      ?.copyWith(
+                                                        fontSize: 8.sp,
+                                                        color: controller
+                                                                    .selectedTab
+                                                                    .value ==
+                                                                index + 5
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                      )),
+                                            ),
+                                          )),
+                                ),
+                              ],
+                            )
+                          : Center(),
                     ),
+
+// ==========================================================
                   ],
                 ),
               )),
@@ -286,6 +590,9 @@ class AddPayment extends GetView<CreatePaymentController> {
                       print('Time: ${controller.formattedTime}');
                       print('Message: ${controller.message.value}');
                       print('Email: ${controller.email.value}');
+                      print('exchangeRate: ${controller.exchangeRate.value}');
+                      print('Paypal Fee: ${controller.payPalFee.value}');
+                      print('Selected: ${controller.selectedTab.value},${controller.actions[controller.selectedTab.value]}');
                     },
                     child: Container(
                       padding:
