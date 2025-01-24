@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:paypal/src/utils/dbhelper_transactions.dart';
 
-
+import 'package:path/path.dart' as path;
 
 
 class CreatePaymentController extends GetxController {
@@ -59,33 +63,69 @@ class CreatePaymentController extends GetxController {
   final DBHelper _dbHelper = DBHelper();
 
 
- Future<void> savePayment() async {
-   try {
-     final payment = {
-       'name': name.value,
-       'message': message.value,
-       'currency': currency.value,
-       'amount': amount.value,
-       'transactionCode': DateTime.now().millisecondsSinceEpoch.toString(),
-       'date': selectedDate.value?.toString() ?? '',
-       'time': selectedTime.value?.format(Get.context!) ?? '',
-       'email': email.value, // Add email field in UI if needed
-       'exchangeRate': exchangeRate.value, // Add exchange rate logic
-       'payPalFee': payPalFee.value, // Add PayPal fee calculation
-       'hasProfilePic': 0,
-       'type': selectedTab.value <= 2 ? category[0]: selectedTab.value <= 4 ? category[1] :category[2],
-       'direction':actions[ selectedTab.value]
+Future<void> savePayment() async {
+  try {
+    String? imagePath;
+    if (_imageFile.value != null) {
+      final appDir = await getApplicationDocumentsDirectory();
+      final fileName = 'transaction_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      imagePath = '${appDir.path}/$fileName';
+      await _imageFile.value!.copy(imagePath);
+    }
 
-     };
+    final payment = {
+      'name': name.value,
+      'message': message.value,
+      'currency': currency.value,
+      'amount': amount.value,
+      'transactionCode': DateTime.now().millisecondsSinceEpoch.toString(),
+      'date': selectedDate.value?.toString() ?? '',
+      'time': selectedTime.value?.format(Get.context!) ?? '',
+      'email': email.value,
+      'exchangeRate': exchangeRate.value,
+      'payPalFee': payPalFee.value,
+      'hasProfilePic': _imageFile.value != null ? 1 : 0,
+      'imagePath': imagePath,
+      'type': selectedTab.value <= 2 ? category[0] : selectedTab.value <= 4 ? category[1] : category[2],
+      'direction': actions[selectedTab.value]
+    };
 
-     print(payment);
 
-     await _dbHelper.insertOne(payment);
-     Get.snackbar('Success', 'Payment saved successfully');
-     
-   } catch (e) {
-     Get.snackbar('Error', 'Failed to save payment: $e');
-   }
- }
+    print(payment);
+
+    await _dbHelper.insertOne(payment);
+    Get.snackbar('Success', 'Payment saved successfully');
+    
+  } catch (e) {
+    Get.snackbar('Error', 'Failed to save payment: $e');
+  }
+}
+
+
+
+
+
+
+
+
+ final _imageFile = Rx<File?>(null);
+  File? get imageFile => _imageFile.value;
+  
+  final _picker = ImagePicker();
+
+  Future<void> pickImage() async {
+    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    
+    if (pickedFile != null) {
+      final Directory appDir = await getApplicationDocumentsDirectory();
+      final String fileName = path.basename(pickedFile.path);
+      final File localImage = File('${appDir.path}/$fileName');
+      await File(pickedFile.path).copy(localImage.path);
+      _imageFile.value = localImage;
+    }
+  }
+
+
+  
 
 }

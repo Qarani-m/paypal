@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/payments/controllers/create_payment.dart';
 
 class AddPayment extends GetView<CreatePaymentController> {
@@ -41,9 +42,15 @@ class AddPayment extends GetView<CreatePaymentController> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CircleAvatar(
-                          radius: 18.r,
-                        ),
+                       GestureDetector(
+  onTap: controller.pickImage,
+  child: Obx(() => CircleAvatar(
+    backgroundImage: controller.imageFile != null 
+      ? FileImage(controller.imageFile!) 
+      :   AssetImage(AppImages.atmCard) as ImageProvider,
+    radius: 18.r,
+  )),
+),
                         SizedBox(
                           width: 8.w,
                         ),

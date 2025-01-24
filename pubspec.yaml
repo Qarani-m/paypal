@@ -40,6 +40,9 @@ dependencies:
   flutter_svg:
   get_storage: ^2.1.1
   sqflite: ^2.4.1
+  image_picker:
+  path_provider:
+  path:
 
 
 dev_dependencies:
