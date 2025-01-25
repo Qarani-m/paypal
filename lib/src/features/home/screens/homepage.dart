@@ -30,7 +30,10 @@ class Homepage extends GetView<HomepageController> {
                     children: [
                       SettingAndProfileMenu(),
                       SizedBox(height: 20.h),
-                      PayPalBalance(),
+                      PayPalBalance(
+                        balance:controller.userDetails.balance,
+                        currency:controller.userDetails.currency
+                      ),
                       SizedBox(height: 12.h),
                       Align(
                         alignment: Alignment.centerLeft,

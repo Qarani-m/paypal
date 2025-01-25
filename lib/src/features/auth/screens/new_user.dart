@@ -16,6 +16,7 @@ class UserFormController extends GetxController {
  final name = ''.obs;
  final phone = ''.obs;
  final balance = ''.obs;
+ final currency = ''.obs;
  final email = ''.obs;
  final address = ''.obs;
  final imagePath = ''.obs;
@@ -36,99 +37,113 @@ class UserFormController extends GetxController {
        phone: phone.value,
        email: email.value,
        balance: balance.value,
+       currency: currency.value.toUpperCase(),
        address: address.value,
        imagePath: imagePath.value,
        hasImage: hasImage.value
      );
+
+     print(user);
      storage.write('user_data', user.toJson());
      Get.offNamed('/home');
    }
  }
-}
+} 
 
-// user_form_page.dart
+ 
+
 class UserFormPage extends GetView<UserFormController> {
- @override
- Widget build(BuildContext context) {
-   return Scaffold(
-     appBar: AppBar(title: Text('Create Profile')),
-     body: Form(
-       key: controller.formKey,
-       child: ListView(
-         padding: EdgeInsets.all(16.w),
-         children: [
-           Obx(() => GestureDetector(
-             onTap: controller.pickImage,
-             child: CircleAvatar(
-               radius: 50.r,
-               backgroundImage: controller.hasImage.value 
-                 ? FileImage(File(controller.imagePath.value))
-                 : null,
-               child: !controller.hasImage.value 
-                 ? Icon(Icons.add_a_photo) 
-                 : null,
-             ),
-           )),
-           
-           SizedBox(height: 20.h),
-           
-           TextFormField(
-             onChanged: (v) => controller.name.value = v,
-             validator: (v) => v!.isEmpty ? 'Required' : null,
-             decoration: InputDecoration(
-               labelText: 'Name',
-               border: OutlineInputBorder(),
-             ),
-           ),
-           
-           SizedBox(height: 12.h),
-           
-           TextFormField(
-            keyboardType: TextInputType.number,
-             onChanged: (v) => controller.phone.value = v,
-             validator: (v) => v!.isEmpty ? 'Required' : null,
-             decoration: InputDecoration(
-               labelText: 'Phone',
-               border: OutlineInputBorder(),
-             ),
-           ),
-           
-           SizedBox(height: 12.h),
-           
-           TextFormField(
-            keyboardType: TextInputType.emailAddress,
-           
-             onChanged: (v) => controller.email.value = v,
-             validator: (v) => v!.isEmpty ? 'Required' : null,
-             decoration: InputDecoration(
-               labelText: 'Email',
-               border: OutlineInputBorder(),
-             ),
-           ),
-           
-           SizedBox(height: 12.h),
-           
-           TextFormField(
-             onChanged: (v) => controller.address.value = v,
-             validator: (v) => v!.isEmpty ? 'Required' : null,
-             decoration: InputDecoration(
-               labelText: 'Address',
-               border: OutlineInputBorder(),
-             ),
-           ),
-           
-           SizedBox(height: 20.h),
-           
-           ElevatedButton(
-             onPressed: controller.saveUser,
-             child: Text('Save Profile'),
-             style: ElevatedButton.styleFrom(
-               minimumSize: Size(double.infinity, 50.h),
-             ),
-           )
-         ],
-       ),
-     ),
-   );
- }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Create Profile')),
+      body: Form(
+        key: controller.formKey,
+        child: ListView(
+          padding: EdgeInsets.all(16.w),
+          children: [
+            _buildProfileImagePicker(),
+            SizedBox(height: 20.h),
+            _buildTextField(
+              label: 'Name',
+              onChanged: (v) => controller.name.value = v,
+            ),
+            _buildTextField(
+              label: 'Phone',
+              keyboardType: TextInputType.phone,
+              onChanged: (v) => controller.phone.value = v,
+            ),
+            _buildTextField(
+              label: 'Email',
+              keyboardType: TextInputType.emailAddress,
+              onChanged: (v) => controller.email.value = v,
+            ),
+            _buildTextField(
+              label: 'Balance',
+              keyboardType: TextInputType.number,
+              onChanged: (v) => controller.balance.value = v,
+            ),
+            _buildTextField(
+              label: 'Currency',
+              onChanged: (v) => controller.currency.value = v, // Note: This seems incorrect
+            ),
+            _buildTextField(
+              label: 'Address',
+              onChanged: (v) => controller.address.value = v,
+            ),
+            SizedBox(height: 20.h),
+            _buildSaveButton(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProfileImagePicker() {
+    return Obx(() => GestureDetector(
+      onTap: controller.pickImage,
+      child: CircleAvatar(
+        radius: 50.r,
+        backgroundImage: controller.hasImage.value 
+          ? FileImage(File(controller.imagePath.value))
+          : null,
+        child: !controller.hasImage.value 
+          ? Icon(Icons.add_a_photo) 
+          : null,
+      ),
+    ));
+  }
+
+  Widget _buildTextField({
+    required String label,
+    TextInputType keyboardType = TextInputType.text,
+    required void Function(String) onChanged,
+  }) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 12.h),
+      child: TextFormField(
+        style: TextStyle(
+          fontWeight: FontWeight.w300,
+          fontSize: 8.sp
+        ),
+        keyboardType: keyboardType,
+        onChanged: onChanged,
+        validator: (v) => v!.isEmpty ? 'Required' : null,
+        decoration: InputDecoration(
+          labelText: label,
+          border: OutlineInputBorder(),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSaveButton() {
+    return ElevatedButton(
+      onPressed: controller.saveUser,
+      style: ElevatedButton.styleFrom(
+        minimumSize: Size(double.infinity, 50.h),
+      ),
+      child: Text('Save Profile'),
+    );
+  }
 }

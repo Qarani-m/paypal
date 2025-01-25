@@ -2,6 +2,7 @@ class UserModel {
   final String name;
   final String phone;
   final String email;
+  final String currency;
   final String address;
   final String imagePath;
   final bool hasImage;
@@ -12,6 +13,7 @@ class UserModel {
     this.name = ' ',
     this.phone = ' ',
     this.email = ' ',
+    this.currency = ' ',
     this.address = ' ',
     this.imagePath = ' ',
     this.hasImage = false,
@@ -23,6 +25,7 @@ class UserModel {
       phone: json['phone'] as String? ?? '',
       email: json['email'] as String? ?? '',
       address: json['address'] as String? ?? '',
+      currency: json['currency'] as String? ?? '',
       imagePath: json['imagePath'] as String? ?? '',
       balance: json['balance'] as String? ?? '',
       hasImage: json['hasImage'] as bool? ?? false,
@@ -35,6 +38,7 @@ class UserModel {
         'email': email,
         'address': address,
         'balance': balance,
+        'currency': currency,
         'imagePath': imagePath,
         'hasImage': hasImage,
       };
@@ -44,6 +48,7 @@ class UserModel {
     String? name,
     String? phone,
     String? email,
+    String? currency,
     String? address,
     String? imagePath,
     bool? hasImage,
@@ -56,5 +61,6 @@ class UserModel {
         address: address ?? this.address,
         imagePath: imagePath ?? this.imagePath,
         hasImage: hasImage ?? this.hasImage,
+        currency:currency ?? this.currency,
       );
 }
