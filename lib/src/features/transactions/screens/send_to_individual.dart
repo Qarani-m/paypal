@@ -436,7 +436,7 @@ class SendToIndividual extends StatelessWidget {
 
 
 
-                                      
+
                                 SizedBox(height: 10.h),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -457,7 +457,11 @@ class SendToIndividual extends StatelessWidget {
                                                 style: sameTextStyle),
                                           ],
                                         ),
-                                        Text('US\$16', style: sameTextStyle),
+                                        Text(
+                    "US\$${AppUtilities().formatNumber(transaction.amount)}",
+                                          
+                                          
+                                           style: sameTextStyle),
                                       ],
                                     ),
                                     SizedBox(height: 17.h),
