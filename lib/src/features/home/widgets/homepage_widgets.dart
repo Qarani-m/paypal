@@ -221,19 +221,22 @@ class PaymentContainer extends StatelessWidget {
           Get.toNamed('/refund', arguments: transaction);
         }
 
+
+         if (category == 'Paypal,Recovery') {
+          Get.toNamed('/paypal_recovery', arguments: transaction);
+        }
+
         if (category == 'recieve,Individual') {
-
-
-
-if(message.trim().length>0){
-          Get.to(RecievedFromIndividualV2(), arguments: transaction);
-          return;
-
-}
-
-
+          if (message.trim().length > 0) {
+            Get.to(RecievedFromIndividualV2(), arguments: transaction);
+            return;
+          }
 
           Get.toNamed('/recieved_from_individual', arguments: transaction);
+        }
+
+        if (category == 'recieve,Org') {
+          Get.toNamed('/recieved_from_org', arguments: transaction);
         }
       },
       child: Container(

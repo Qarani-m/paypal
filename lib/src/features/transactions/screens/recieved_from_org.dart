@@ -2,19 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:paypal/src/constants/images.dart';
+import 'package:paypal/src/features/payments/models/payment_model.dart';
+import 'package:paypal/src/utils/utilities.dart';
 
 class RecievedFromOrg extends StatelessWidget {
   const RecievedFromOrg({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final transaction = Get.arguments as PaymentModel;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
-                leading: IconButton(
+        leading: IconButton(
           icon: Icon(Icons.arrow_back, size: 12.sp), // Adjust size here
           onPressed: () => Navigator.pop(context),
         ),
@@ -40,6 +45,9 @@ class RecievedFromOrg extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
+                        padding: EdgeInsets.all(6.5.h),
+                        child: SvgPicture.asset(AppImages.bank,
+                            height: 12.h, width: 12.h),
                         height: 28.h,
                         width: 28.h,
                         decoration: BoxDecoration(
@@ -52,7 +60,7 @@ class RecievedFromOrg extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "PayPal",
+                            transaction.name,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -65,7 +73,7 @@ class RecievedFromOrg extends StatelessWidget {
                             height: 3.h,
                           ),
                           Text(
-                            "Nov 22,05:26 am",
+                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${transaction.time} ${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -86,7 +94,7 @@ class RecievedFromOrg extends StatelessWidget {
                                     decoration: TextDecoration.underline,
                                     decorationColor: Color(0xFF0059b3),
                                     fontSize: 6.5.sp,
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.w800,
                                     color: Color(0xFF0059b3).withOpacity(1)),
                           ),
                         ],
@@ -94,10 +102,10 @@ class RecievedFromOrg extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    "+US\$40.54",
+                    "+US\$${AppUtilities().formatNumber(transaction.amount)}",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 8.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w700,
                         color: Colors.green.withOpacity(1)),
                   ),
                 ],
@@ -121,7 +129,7 @@ class RecievedFromOrg extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Dj fresh",
+                      transaction.message,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 7.sp,
                           fontWeight: FontWeight.w400,
@@ -158,7 +166,7 @@ class RecievedFromOrg extends StatelessWidget {
               height: 7.h,
             ),
             Padding(
-              padding: EdgeInsets.only(right: 70.w),
+              padding: EdgeInsets.only(right: 100.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -199,7 +207,7 @@ class RecievedFromOrg extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "You and Tommas robinson LLC",
+                    "You and ${transaction.name}",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 7.sp,
                         fontWeight: FontWeight.w400,
@@ -240,12 +248,7 @@ class RecievedFromOrg extends StatelessWidget {
             SizedBox(
               height: 7.h,
             ),
-
-
-
-
-
-              Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 13.w),
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -258,17 +261,16 @@ class RecievedFromOrg extends StatelessWidget {
                 ),
               ),
             ),
-  SizedBox(
+            SizedBox(
               height: 10.h,
             ),
-          
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 13.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "839FSIDJFBSJFHWI378WEIF",
+                    transaction.transactionCode,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 6.sp,
                         fontWeight: FontWeight.w400,
@@ -281,15 +283,6 @@ class RecievedFromOrg extends StatelessWidget {
                 ],
               ),
             ),
-
-
-
-
-
-
-
-
-
             SizedBox(
               height: 16.h,
             ),
@@ -310,7 +303,7 @@ class RecievedFromOrg extends StatelessWidget {
                     width: 10.w,
                   ),
                   Text(
-                    "Report Melinda",
+                    "Report ${transaction.name.split(' ')[0]}",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 6.5.sp,
                         fontWeight: FontWeight.w400,
@@ -331,7 +324,7 @@ class RecievedFromOrg extends StatelessWidget {
                     width: 10.w,
                   ),
                   Text(
-                    "Block Melinda",
+                    "Block ${transaction.name.split(' ')[0]}      ",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 6.5.sp,
                         fontWeight: FontWeight.w400,
@@ -348,7 +341,6 @@ class RecievedFromOrg extends StatelessWidget {
               width: double.maxFinite,
               color: Color(0xFFeff2f9),
             ),
-                  
           ],
         ),
       ),

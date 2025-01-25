@@ -461,13 +461,7 @@ class RecievedFromIndividualV2 extends StatelessWidget {
             SizedBox(
               height: 13.h,
             ),
-
-
-
-
-
-
-     Padding(
+            Padding(
               padding: EdgeInsets.only(left: 13.w),
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -482,15 +476,10 @@ class RecievedFromIndividualV2 extends StatelessWidget {
                 ),
               ),
             ),
-
-   SizedBox(
+            SizedBox(
               height: 13.h,
             ),
-
-
-
-
-     Padding(
+            Padding(
               padding: EdgeInsets.only(left: 13.w),
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -505,12 +494,7 @@ class RecievedFromIndividualV2 extends StatelessWidget {
                 ),
               ),
             ),
-
-
-
-
-
-             SizedBox(
+            SizedBox(
               height: 13.h,
             ),
             Container(
@@ -521,35 +505,6 @@ class RecievedFromIndividualV2 extends StatelessWidget {
             SizedBox(
               height: 13.h,
             ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             Padding(
               padding: EdgeInsets.only(right: 120.w),
               child: Row(
@@ -606,111 +561,90 @@ class RecievedFromIndividualV2 extends StatelessWidget {
             SizedBox(
               height: 7.h,
             ),
-
-
-
-
-
-
-
-
-Padding(
-  padding:   EdgeInsets.symmetric(horizontal: 13.w),
-  child: Column(
-    children: [
-      Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-                          "Details",
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontSize: 8.sp,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black.withOpacity(1)),
-                        ),
-      ),
-
-
-      SizedBox(height: 20.h,),
-
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("Amount",style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontSize: 8.sp,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black.withOpacity(1)),
-                        ),
-
-                         Text('US\$${transaction.amount}',style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontSize: 8.sp,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black.withOpacity(1)),
-                        ),
-        ],
-      )
-
-,
-
-SizedBox(height:12.h,),
-
-
-
-          Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("Fee",style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontSize: 8.sp,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black.withOpacity(1)),
-                        ),
-
-
-                         Text('-US\$${transaction.payPalFee}',style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontSize: 8.sp,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black.withOpacity(1)),
-                        ),
-        ],
-      )
-
-
-
-
-,
-
-SizedBox(height:12.h,),
-
-          Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("Total",style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontSize: 8.sp,
-                              fontWeight: FontWeight.w900,
-                              color: Colors.black.withOpacity(1)),
-                        ),
-
-                         Text('US\$${ double.parse(transaction.amount)-double.parse(transaction.payPalFee)}',style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontSize: 8.sp,
-                              fontWeight: FontWeight.w900,
-                              color: Colors.black.withOpacity(1)),
-                        ),
-        ],
-      )
-    ],
-  ),
-),
-
-
-
-
-
-
-
-
-
-
-
-       SizedBox(
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 13.w),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Details",
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 8.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black.withOpacity(1)),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Amount",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 8.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black.withOpacity(1)),
+                      ),
+                      Text(
+                        'US\$${transaction.amount}',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 8.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black.withOpacity(1)),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 12.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Fee",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 8.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black.withOpacity(1)),
+                      ),
+                      Text(
+                        '-US\$${transaction.payPalFee}',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 8.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black.withOpacity(1)),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 12.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Total",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 8.sp,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.black.withOpacity(1)),
+                      ),
+                      Text(
+                        'US\$${double.parse(transaction.amount) - double.parse(transaction.payPalFee)}',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 8.sp,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.black.withOpacity(1)),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
               height: 12.h,
             ),
             Container(
@@ -721,9 +655,7 @@ SizedBox(height:12.h,),
             SizedBox(
               height: 7.h,
             ),
-
-
- Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 13.w),
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -758,11 +690,6 @@ SizedBox(height:12.h,),
                 ],
               ),
             ),
-
-
-
-
-
           ],
         ),
       ),
