@@ -81,10 +81,16 @@ class PayFromYourPhone extends StatelessWidget {
 class PayPalBalance extends StatelessWidget {
   const PayPalBalance({
     super.key,
+    required this.balance,
+    required this.currency,
   });
+
+  final String balance;
+  final String currency;
 
   @override
   Widget build(BuildContext context) {
+    Map<String, String> currencies = {'USD': '\$'};
     return Container(
         padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 10.w),
         decoration: BoxDecoration(
@@ -104,7 +110,7 @@ class PayPalBalance extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "\$0.00",
+                    "${currencies['$currency']}$balance",
                     style: Theme.of(context).textTheme.displayLarge?.copyWith(
                         fontWeight: FontWeight.w900, fontSize: 14.sp),
                   ),
@@ -207,12 +213,12 @@ class PaymentContainer extends StatelessWidget {
         if (category == 'Send,Bank') {
           Get.toNamed('/sent_to_bank', arguments: transaction);
         }
-      //     if (category == 'Send,') {
-      //     Get.toNamed('/sent_to_bank', arguments: transaction);
-      //   }
-      //     if (category == 'Send,Bank') {
-      //     Get.toNamed('/sent_to_bank', arguments: transaction);
-      //   }
+        //     if (category == 'Send,') {
+        //     Get.toNamed('/sent_to_bank', arguments: transaction);
+        //   }
+        //     if (category == 'Send,Bank') {
+        //     Get.toNamed('/sent_to_bank', arguments: transaction);
+        //   }
       },
       child: Container(
         decoration: BoxDecoration(
