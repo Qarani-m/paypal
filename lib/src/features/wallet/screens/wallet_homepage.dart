@@ -213,15 +213,6 @@ class WalletHomepage extends GetView<WalletController> {
                       SizedBox(
                         height: 10.h,
                       ),
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                       Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -364,8 +355,6 @@ class WalletHomepage extends GetView<WalletController> {
                               height: 10.h,
                             ),
 
- 
-
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text('Jun 2024',
@@ -382,7 +371,6 @@ class WalletHomepage extends GetView<WalletController> {
                               height: 3.h,
                             ),
 
-
                             Expanded(
                               child: SingleChildScrollView(
                                 child: Column(
@@ -397,7 +385,10 @@ class WalletHomepage extends GetView<WalletController> {
                               ),
                             ),
 
-                            Text('${controller.mainTabIndex}',style: TextStyle(fontSize: 0.1),),
+                            Text(
+                              '${controller.mainTabIndex}',
+                              style: TextStyle(fontSize: 0.1),
+                            ),
                           ],
                         )),
                   ),

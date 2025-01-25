@@ -189,6 +189,11 @@ class PaymentContainer extends StatelessWidget {
     return GestureDetector(
       onDoubleTap: () => homepageController.updateTransaction(id),
       onLongPress: () => homepageController.deleteTransactions(id),
+      onTap: (){
+
+
+
+      },
       child: Container(
         decoration: BoxDecoration(
             color: Colors.white,
@@ -209,41 +214,23 @@ class PaymentContainer extends StatelessWidget {
 
                   hasImage
                       ? Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                image: AssetImage(imagePath),
-                                fit: BoxFit.cover),
-                          ),
                           height: 32.h,
                           width: 32.h,
-                          child: Image.file(
-                            File(imagePath),
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                width: 40.w,
-                                height: 40.h,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.grey[300],
-                                ),
-                                child:
-                                    Icon(Icons.person, color: Colors.grey[600]),
-                              );
-                            },
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.grey[300],
+                          ),
+                          child: ClipOval(
+                            child: Image.file(
+                              File(imagePath),
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Icon(Icons.person,
+                                    color: Colors.grey[600]);
+                              },
+                            ),
                           ),
                         )
-
-                      // Container(
-                      //     height: 32.h,
-                      //     width: 32.h,
-                      //     decoration: BoxDecoration(
-                      //       shape: BoxShape.circle,
-                      //       image: DecorationImage(
-                      //           image: AssetImage(imagePath),
-                      //           fit: BoxFit.cover),
-                      //     ),
-                      //   )
                       : Container(
                           alignment: Alignment.center,
                           height: 27.h,
@@ -253,7 +240,7 @@ class PaymentContainer extends StatelessWidget {
                             color: const Color(0xFF2e3333),
                           ),
                           child: Text(
-                            "MK",
+                            AppUtilities().getInitials(name),
                             style: TextStyle(
                                 fontSize: 9.sp,
                                 fontWeight: FontWeight.w500,
@@ -307,7 +294,7 @@ class PaymentContainer extends StatelessWidget {
                   '${isRecieved ? "+ " : "- "}US\$$amount',
                   style: TextStyle(
                       fontSize: 7.5.sp,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w800,
                       color: isRecieved
                           ? const Color.fromARGB(255, 38, 126, 41)
                           : Colors.black),
@@ -320,19 +307,44 @@ class PaymentContainer extends StatelessWidget {
                   height: 6.h,
                 ),
                 showDetails
-                    ? Align(
-                        alignment: Alignment.centerLeft,
+                    ? Column(
+                      children: [
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              '"$message"',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                      fontSize: 6.5.sp,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black.withOpacity(1)),
+                            ),
+                          ),
+
+                           SizedBox(
+                      height: 8.h,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 3.h, horizontal: 8.w),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(20.r)),
                         child: Text(
-                          '"$message"',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(
-                                  fontSize: 6.5.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black.withOpacity(1)),
+                          'Add tracking',
+                          style: TextStyle(
+                              fontSize: 7.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black.withOpacity(0.8)),
                         ),
-                      )
+                      ),
+                    )
+                      ],
+                    )
                     : Center(),
               ],
             )
