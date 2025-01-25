@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/payments/models/payment_model.dart';
 import 'package:paypal/src/features/transactions/screens/show_history.dart';
@@ -29,13 +30,16 @@ class SendToIndividual extends StatelessWidget {
       AppImages.bank,
     ];
 
-    // String amount = '40.34';
-    // String reciepient = 'Samuel Akoli';
-    // String date = 'Nov 22';
-    // String time = '05:23 am';
-    // String transactionId = '05:23 am';
+
+    final storage = GetStorage();
+    String address = storage.read('user_data')['address'];
+
+
+
     bool isPaymentCompleted = false;
-    String address = 'Michael Bay\nNairobi\nKamakis\nNairobi 01000\nKenya';
+    // String address = 'Michael Bay\nNairobi\nKamakis\nNairobi 01000\nKenya';
+
+
 
     TextStyle sameTextStyle = Theme.of(context).textTheme.bodySmall!.copyWith(
         fontSize: 8.sp,
@@ -359,7 +363,7 @@ class SendToIndividual extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                isPaymentCompleted
+                                !isPaymentCompleted
                                     ? Align(
                                         alignment: Alignment.centerLeft,
                                         child: Container(
@@ -412,6 +416,27 @@ class SendToIndividual extends StatelessWidget {
                                           ),
                                         ),
                                       ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      
                                 SizedBox(height: 10.h),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -554,7 +579,7 @@ class SendToIndividual extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    address,
+                    address.replaceAll(',','\n' ),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 7.sp,
                         fontWeight: FontWeight.w400,

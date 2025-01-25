@@ -196,6 +196,28 @@ class PaymentContainer extends StatelessWidget {
   final PaymentModel transaction;
   final String category;
   @override
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   Widget build(BuildContext context) {
     print(category);
     return GestureDetector(
@@ -311,14 +333,15 @@ class PaymentContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Correction',
+                  homepageController.getCategory('${transaction.type},${transaction.direction}')
+                  ,
                   style: TextStyle(
                       fontSize: 6.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.grey),
                 ),
                 Text(
-                  '${isRecieved ? "+ " : "- "}US\$$amount',
+                  '${isRecieved ? "+ " : "- "}US\$${AppUtilities().formatNumber(amount.split(' ')[0])}',
                   style: TextStyle(
                       fontSize: 7.5.sp,
                       fontWeight: FontWeight.w800,

@@ -43,78 +43,41 @@ class Refund extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      
-                      
-
-
-
-
-
-
-transaction.hasProfilePic
-                      ? Container(
-                          height: 32.h,
-                          width: 32.h,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.grey[300],
-                          ),
-                          child: ClipOval(
-                            child: Image.file(
-                              File(transaction.imagePath),
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Icon(Icons.person,
-                                    color: Colors.grey[600]);
-                              },
+                      transaction.hasProfilePic
+                          ? Container(
+                              height: 32.h,
+                              width: 32.h,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey[300],
+                              ),
+                              child: ClipOval(
+                                child: Image.file(
+                                  File(transaction.imagePath),
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Icon(Icons.person,
+                                        color: Colors.grey[600]);
+                                  },
+                                ),
+                              ),
+                            )
+                          : Container(
+                              alignment: Alignment.center,
+                              height: 27.h,
+                              width: 27.h,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: const Color(0xFF2e3333),
+                              ),
+                              child: Text(
+                                AppUtilities().getInitials(transaction.name),
+                                style: TextStyle(
+                                    fontSize: 9.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white),
+                              ),
                             ),
-                          ),
-                        )
-                      : Container(
-                          alignment: Alignment.center,
-                          height: 27.h,
-                          width: 27.h,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: const Color(0xFF2e3333),
-                          ),
-                          child: Text(
-                            AppUtilities().getInitials(transaction.name),
-                            style: TextStyle(
-                                fontSize: 9.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white),
-                          ),
-                        ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                      
-                      
-                      // Container(
-                      //   height: 28.h,
-                      //   width: 28.h,
-                      //   decoration: BoxDecoration(
-
-                      //       shape: BoxShape.circle, color: Color(0xFF0059b3)),
-                      // ),
-
-
-
-
-
                       SizedBox(
                         width: 5.w,
                       ),
@@ -207,14 +170,20 @@ transaction.hasProfilePic
                       SizedBox(
                         height: 3.h,
                       ),
-                      Text(
-                        "View details",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 6.5.sp,
-                            fontWeight: FontWeight.w800,
-                            decoration: TextDecoration.underline,
-                            decorationColor: Color(0xFF0059b3),
-                            color: Color(0xFF0059b3).withOpacity(1)),
+                      GestureDetector(
+onTap: (){
+  Get.to(RefundDetails());
+},
+
+                        child: Text(
+                          "View details",
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              fontSize: 6.5.sp,
+                              fontWeight: FontWeight.w800,
+                              decoration: TextDecoration.underline,
+                              decorationColor: Color(0xFF0059b3),
+                              color: Color(0xFF0059b3).withOpacity(1)),
+                        ),
                       ),
                     ],
                   )
@@ -326,6 +295,38 @@ transaction.hasProfilePic
           ],
         ),
       ),
+    );
+  }
+}
+
+
+
+
+
+class RefundDetails extends StatelessWidget {
+  const RefundDetails({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, size: 12.sp), // Adjust size here
+          onPressed: () => Navigator.pop(context),
+        ),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: Text(
+          "Money recieved",
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontSize: 8.sp,
+              fontWeight: FontWeight.w400,
+              color: Colors.black.withOpacity(1)),
+        ),
+      ),
+
     );
   }
 }
