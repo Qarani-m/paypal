@@ -1,17 +1,22 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:paypal/src/constants/images.dart';
+import 'package:get/get.dart';
+import 'package:paypal/src/features/payments/models/payment_model.dart';
+import 'package:paypal/src/utils/utilities.dart';
 
 class Refund extends StatelessWidget {
   const Refund({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final transaction = Get.arguments as PaymentModel;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-                leading: IconButton(
+        leading: IconButton(
           icon: Icon(Icons.arrow_back, size: 12.sp), // Adjust size here
           onPressed: () => Navigator.pop(context),
         ),
@@ -38,12 +43,78 @@ class Refund extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        height: 28.h,
-                        width: 28.h,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Color(0xFF0059b3)),
-                      ),
+                      
+                      
+
+
+
+
+
+
+transaction.hasProfilePic
+                      ? Container(
+                          height: 32.h,
+                          width: 32.h,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.grey[300],
+                          ),
+                          child: ClipOval(
+                            child: Image.file(
+                              File(transaction.imagePath),
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Icon(Icons.person,
+                                    color: Colors.grey[600]);
+                              },
+                            ),
+                          ),
+                        )
+                      : Container(
+                          alignment: Alignment.center,
+                          height: 27.h,
+                          width: 27.h,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: const Color(0xFF2e3333),
+                          ),
+                          child: Text(
+                            AppUtilities().getInitials(transaction.name),
+                            style: TextStyle(
+                                fontSize: 9.sp,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
+                          ),
+                        ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      
+                      
+                      // Container(
+                      //   height: 28.h,
+                      //   width: 28.h,
+                      //   decoration: BoxDecoration(
+
+                      //       shape: BoxShape.circle, color: Color(0xFF0059b3)),
+                      // ),
+
+
+
+
+
                       SizedBox(
                         width: 5.w,
                       ),
@@ -51,7 +122,7 @@ class Refund extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "PayPal",
+                            transaction.name,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -64,7 +135,7 @@ class Refund extends StatelessWidget {
                             height: 3.h,
                           ),
                           Text(
-                            "Nov 22,05:26 am",
+                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${transaction.time} ${int.parse(transaction.time.split(':')[0]) > 11 ? 'pmm' : 'am'}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -93,7 +164,7 @@ class Refund extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    "+US\$40.54",
+                    "-US\$${AppUtilities().formatNumber(transaction.amount)}",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 8.sp,
                         fontWeight: FontWeight.w400,
@@ -127,7 +198,7 @@ class Refund extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "The Original purchase was on Jun 6, 2024",
+                        "The Original purchase was on ${AppUtilities().formatDateLong(transaction.date)}",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: 6.sp,
                             fontWeight: FontWeight.w500,
@@ -189,7 +260,7 @@ class Refund extends StatelessWidget {
                             color: Colors.black.withOpacity(1)),
                       ),
                       Text(
-                        "US\$20",
+                        "-US\$${AppUtilities().formatNumber(transaction.amount)}",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: 7.sp,
                             fontWeight: FontWeight.w400,
@@ -233,7 +304,7 @@ class Refund extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "839FSIDJFBSJFHWI378WEIF",
+                    transaction.transactionCode,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 6.sp,
                         fontWeight: FontWeight.w400,

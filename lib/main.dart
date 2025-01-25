@@ -113,7 +113,7 @@ class MyApp extends StatelessWidget {
             GetPage(
                 name: '/refund',
                 page: () => const Refund(),
-                transition: Transition.fade),
+                transition: Transition.fade),//
             GetPage(
                 name: '/paypal_recovery',
                 page: () => const PaypalLossRecoery(),

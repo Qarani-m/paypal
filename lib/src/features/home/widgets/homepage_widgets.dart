@@ -202,6 +202,7 @@ class PaymentContainer extends StatelessWidget {
       onDoubleTap: () => homepageController.updateTransaction(id),
       onLongPress: () => homepageController.deleteTransactions(id),
       onTap: () {
+        print(category);
         if (category == 'Send,Individual') {
           Get.toNamed('/send_to_individual', arguments: transaction);
         }
@@ -213,9 +214,9 @@ class PaymentContainer extends StatelessWidget {
         if (category == 'Send,Bank') {
           Get.toNamed('/sent_to_bank', arguments: transaction);
         }
-        //     if (category == 'Send,') {
-        //     Get.toNamed('/sent_to_bank', arguments: transaction);
-        //   }
+            if (category == 'Paypal,Refund') {
+            Get.toNamed('/refund', arguments: transaction);
+          }
         //     if (category == 'Send,Bank') {
         //     Get.toNamed('/sent_to_bank', arguments: transaction);
         //   }
