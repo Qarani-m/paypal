@@ -33,4 +33,12 @@ class PaymentsController extends GetxController with GetTickerProviderStateMixin
     tabController.animateTo(index);
     mainTabIndex.value = index;
   }
+
+
+
+  List<String> topContacts = [
+    'Devin Wood',
+    'Samuel Makori',
+    'Sharon Ogeto'
+  ];
 }
