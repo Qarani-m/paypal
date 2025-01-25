@@ -38,13 +38,20 @@ class LoginPage extends GetView<LoginController> {
               child: CircleAvatar(backgroundColor: Color(0xFF0059b3)),
             ),
             SizedBox(
-              height: 30.h,
+              height: 20.h,
             ),
             Text(
               'name',
               style: TextStyle(
-                  fontSize: 7.5.sp,
+                  fontSize: 9.5.sp,
                   fontWeight: FontWeight.w800,
+                  color: Colors.black),
+            ),
+            Text(
+              'emqarani@gmail.com',
+              style: TextStyle(
+                  fontSize: 9.5.sp,
+                  fontWeight: FontWeight.w400,
                   color: Colors.black),
             ),
           ],
