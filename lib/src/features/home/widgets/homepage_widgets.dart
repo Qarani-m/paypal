@@ -110,7 +110,7 @@ class PayPalBalance extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "${currencies['$currency']}$balance",
+                    "${currencies['$currency']}${AppUtilities().formatNumber(balance)}",
                     style: Theme.of(context).textTheme.displayLarge?.copyWith(
                         fontWeight: FontWeight.w900, fontSize: 14.sp),
                   ),
@@ -332,8 +332,8 @@ class PaymentContainer extends StatelessWidget {
                 SizedBox(
                   height: 6.h,
                 ),
-                showDetails
-                    ? Column(
+                showDetails 
+                    ? !category.contains('Paypal')?Column(
                         children: [
                           Align(
                             alignment: Alignment.centerLeft,
@@ -369,8 +369,8 @@ class PaymentContainer extends StatelessWidget {
                             ),
                           )
                         ],
-                      )
-                    : Center(),
+                      ):Container(height: 0,width: 0, color: Colors.red,)
+                    : Container(height: 0,width: 0, color: Colors.black,),
               ],
             )
           ],

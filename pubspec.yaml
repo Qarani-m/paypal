@@ -44,6 +44,7 @@ dependencies:
   path_provider:
   path:
   local_auth:
+  intl:
 
 
 dev_dependencies:

@@ -1,3 +1,6 @@
+import 'package:intl/intl.dart';
+
+
 class AppUtilities{
 
   String formatDateDateFirst(String date) {
@@ -16,5 +19,15 @@ String getInitials(String fullName) {
  final names = fullName.trim().split(' ');
  if (names.length == 1) return names[0][0].toUpperCase();
  return '${names[0][0]}${names[names.length-1][0]}'.toUpperCase();
+}
+
+
+String formatNumber(dynamic number) {
+ if (number is String) {
+   number = double.parse(number);
+ }
+ 
+ final formatter = NumberFormat('#,##0.00');
+ return formatter.format(number);
 }
 }
