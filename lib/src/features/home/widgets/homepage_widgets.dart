@@ -7,6 +7,7 @@ import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/home/controllers/homepage_controller.dart';
 import 'package:paypal/src/features/home/widgets/homepage_buttons.dart';
 import 'package:paypal/src/features/payments/models/payment_model.dart';
+import 'package:paypal/src/features/transactions/screens/recieved_from_individual.dart';
 import 'package:paypal/src/utils/utilities.dart';
 
 class PayFromYourPhone extends StatelessWidget {
@@ -189,37 +190,17 @@ class PaymentContainer extends StatelessWidget {
   final bool showDetails;
   final bool hasImage;
   final String message;
-  final bool isRecieved;
+  final String isRecieved;
   final String imagePath;
   final int id;
   final HomepageController homepageController;
   final PaymentModel transaction;
   final String category;
+
   @override
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   Widget build(BuildContext context) {
-    print(category);
+    bool isRecievedB = isRecieved == 'recieve';
+
     return GestureDetector(
       onDoubleTap: () => homepageController.updateTransaction(id),
       onLongPress: () => homepageController.deleteTransactions(id),
@@ -236,12 +217,24 @@ class PaymentContainer extends StatelessWidget {
         if (category == 'Send,Bank') {
           Get.toNamed('/sent_to_bank', arguments: transaction);
         }
-            if (category == 'Paypal,Refund') {
-            Get.toNamed('/refund', arguments: transaction);
-          }
-        //     if (category == 'Send,Bank') {
-        //     Get.toNamed('/sent_to_bank', arguments: transaction);
-        //   }
+        if (category == 'Paypal,Refund') {
+          Get.toNamed('/refund', arguments: transaction);
+        }
+
+        if (category == 'recieve,Individual') {
+
+
+
+if(message.trim().length>0){
+          Get.to(RecievedFromIndividualV2(), arguments: transaction);
+          return;
+
+}
+
+
+
+          Get.toNamed('/recieved_from_individual', arguments: transaction);
+        }
       },
       child: Container(
         decoration: BoxDecoration(
@@ -333,19 +326,20 @@ class PaymentContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  homepageController.getCategory('${transaction.type},${transaction.direction}')
-                  ,
+                  homepageController.getCategory(
+                      '${transaction.type},${transaction.direction}'),
                   style: TextStyle(
                       fontSize: 6.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.grey),
                 ),
                 Text(
-                  '${isRecieved ? "+ " : "- "}US\$${AppUtilities().formatNumber(amount.split(' ')[0])}',
+                  '${isRecievedB ? "+ " : "- "}US\$${AppUtilities().formatNumber(amount.split(' ')[0])}',
+                  // '${isRecievedB ? "+ " : "- "}US\$${amount}',
                   style: TextStyle(
                       fontSize: 7.5.sp,
                       fontWeight: FontWeight.w800,
-                      color: isRecieved
+                      color: isRecievedB
                           ? const Color.fromARGB(255, 38, 126, 41)
                           : Colors.black),
                 ),
@@ -356,45 +350,56 @@ class PaymentContainer extends StatelessWidget {
                 SizedBox(
                   height: 6.h,
                 ),
-                showDetails 
-                    ? !category.contains('Paypal')?Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              '"$message"',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                      fontSize: 6.5.sp,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black.withOpacity(1)),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 8.h,
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 3.h, horizontal: 8.w),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(20.r)),
-                              child: Text(
-                                'Add tracking',
-                                style: TextStyle(
-                                    fontSize: 7.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.black.withOpacity(0.8)),
+                showDetails
+                    ? !category.contains('Paypal')
+                        ? Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  '"$message"',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(
+                                          fontSize: 6.5.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.black.withOpacity(1)),
+                                ),
                               ),
-                            ),
+                              SizedBox(
+                                height: 8.h,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 3.h, horizontal: 8.w),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius:
+                                          BorderRadius.circular(20.r)),
+                                  child: Text(
+                                    'Add tracking',
+                                    style: TextStyle(
+                                        fontSize: 7.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black.withOpacity(0.8)),
+                                  ),
+                                ),
+                              )
+                            ],
                           )
-                        ],
-                      ):Container(height: 0,width: 0, color: Colors.red,)
-                    : Container(height: 0,width: 0, color: Colors.black,),
+                        : Container(
+                            height: 0,
+                            width: 0,
+                            color: Colors.red,
+                          )
+                    : Container(
+                        height: 0,
+                        width: 0,
+                        color: Colors.black,
+                      ),
               ],
             )
           ],

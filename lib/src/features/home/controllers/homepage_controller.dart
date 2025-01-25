@@ -19,8 +19,8 @@ class HomepageController extends GetxController {
 String getCategory(String category) {
  if (category.toLowerCase().contains('paypal,refund')) {
    return 'Refund sent - Completed ';
- } else if (category.toLowerCase().contains('send,individual')) {
-   return 'Send to Individual';
+ } else if (category.toLowerCase().contains('recieve,individual')) {
+   return 'Money received';
  } else if (category.toLowerCase().contains('send,org')) {
    return 'Send to Organization';
  }
