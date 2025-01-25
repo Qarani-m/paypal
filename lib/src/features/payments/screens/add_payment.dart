@@ -18,7 +18,8 @@ class AddPayment extends GetView<CreatePaymentController> {
         backgroundColor: Color(0xFFeff2f9),
         centerTitle: true,
         title: GestureDetector(
-          onDoubleTap: () => controller.showOther.value = !controller.showOther.value,
+          onDoubleTap: () =>
+              controller.showOther.value = !controller.showOther.value,
           child: Text(
             "Amount",
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -42,15 +43,16 @@ class AddPayment extends GetView<CreatePaymentController> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                       GestureDetector(
-  onTap: controller.pickImage,
-  child: Obx(() => CircleAvatar(
-    backgroundImage: controller.imageFile != null 
-      ? FileImage(controller.imageFile!) 
-      :   AssetImage(AppImages.atmCard) as ImageProvider,
-    radius: 18.r,
-  )),
-),
+                        GestureDetector(
+                          onTap: controller.pickImage,
+                          child: Obx(() => CircleAvatar(
+                                backgroundImage: controller.imageFile != null
+                                    ? FileImage(controller.imageFile!)
+                                    : AssetImage(AppImages.atmCard)
+                                        as ImageProvider,
+                                radius: 18.r,
+                              )),
+                        ),
                         SizedBox(
                           width: 8.w,
                         ),
@@ -97,6 +99,7 @@ class AddPayment extends GetView<CreatePaymentController> {
                                 padding: EdgeInsets.only(top: 7.h),
                                 width: 200.w,
                                 child: TextField(
+                                  keyboardType: TextInputType.number,
                                   onChanged: (text) =>
                                       controller.updateAmount(text),
                                   autofocus: true,
@@ -140,7 +143,7 @@ class AddPayment extends GetView<CreatePaymentController> {
                         ],
                       ),
                     ),
-    
+
                     SizedBox(
                       height: 6.h,
                     ),
@@ -154,6 +157,8 @@ class AddPayment extends GetView<CreatePaymentController> {
                                   // height: 40.h, // Adjust height as needed
                                   alignment: Alignment.center,
                                   child: TextField(
+                                              keyboardType: TextInputType.emailAddress,
+
                                       onChanged: (text) =>
                                           controller.updateEmail(text),
                                       textAlignVertical:
@@ -186,97 +191,90 @@ class AddPayment extends GetView<CreatePaymentController> {
                                   height: 5.h,
                                 ),
 
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      // color: Colors.red,
+                                      width: 140.h, // Adjust height as needed
+                                      alignment: Alignment.center,
+                                      child: TextField(
+                                              keyboardType: TextInputType.number,
 
-
-
-
-
-
-
-Row(
-  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  children: [
-
-    Container(
-                                  // color: Colors.red,
-                                  width: 140.h, // Adjust height as needed
-                                  alignment: Alignment.center,
-                                  child: TextField(
-                                      onChanged: (text) =>
-                                          controller.updateExchangeRate(text),
-                                      textAlignVertical:
-                                          TextAlignVertical.center,
-                                      style: TextStyle(fontSize: 8.sp),
-                                      decoration: InputDecoration(
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            borderSide: BorderSide.none,
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            borderSide: BorderSide.none,
-                                          ),
-                                          hintText: 'Exchange rate',
-                                          hintStyle: TextStyle(
-                                              color: Colors.black26,
-                                              fontSize: 8.sp),
-                                          fillColor:
-                                              Colors.grey.withOpacity(0.15),
-                                          filled: true,
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 6.w, vertical: 5.h),
-                                          isDense: true,
-                                          alignLabelWithHint: true)),
+                                          onChanged: (text) => controller
+                                              .updateExchangeRate(text),
+                                          textAlignVertical:
+                                              TextAlignVertical.center,
+                                          style: TextStyle(fontSize: 8.sp),
+                                          decoration: InputDecoration(
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                                borderSide: BorderSide.none,
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                                borderSide: BorderSide.none,
+                                              ),
+                                              hintText: 'Exchange rate',
+                                              hintStyle: TextStyle(
+                                                  color: Colors.black26,
+                                                  fontSize: 8.sp),
+                                              fillColor:
+                                                  Colors.grey.withOpacity(0.15),
+                                              filled: true,
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      horizontal: 6.w,
+                                                      vertical: 5.h),
+                                              isDense: true,
+                                              alignLabelWithHint: true)),
+                                    ),
+                                    Container(
+                                      // color: Colors.red,
+                                      width: 140.h, // Adjust height as needed
+                                      alignment: Alignment.center,
+                                      child: TextField(
+                                          onChanged: (text) =>
+                                              controller.updatePaypalFee(text),
+                                          textAlignVertical:
+                                              TextAlignVertical.center,
+                                              keyboardType: TextInputType.number,
+                                          style: TextStyle(fontSize: 8.sp),
+                                          decoration: InputDecoration(
+                                            
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                                borderSide: BorderSide.none,
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                                borderSide: BorderSide.none,
+                                              ),
+                                              hintText: 'Paypal Fee',
+                                              hintStyle: TextStyle(
+                                                  color: Colors.black26,
+                                                  fontSize: 8.sp),
+                                              fillColor:
+                                                  Colors.grey.withOpacity(0.15),
+                                              filled: true,
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      horizontal: 6.w,
+                                                      vertical: 5.h),
+                                              isDense: true,
+                                              alignLabelWithHint: true)),
+                                    ),
+                                  ],
                                 ),
-
-
-
-    Container(
-                                  // color: Colors.red,
-                                  width: 140.h, // Adjust height as needed
-                                  alignment: Alignment.center,
-                                  child: TextField(
-                                      onChanged: (text) =>
-                                          controller.updatePaypalFee(text),
-                                      textAlignVertical:
-                                          TextAlignVertical.center,
-                                      style: TextStyle(fontSize: 8.sp),
-                                      decoration: InputDecoration(
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            borderSide: BorderSide.none,
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            borderSide: BorderSide.none,
-                                          ),
-                                          hintText: 'Paypal Fee',
-                                          hintStyle: TextStyle(
-                                              color: Colors.black26,
-                                              fontSize: 8.sp),
-                                          fillColor:
-                                              Colors.grey.withOpacity(0.15),
-                                          filled: true,
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 6.w, vertical: 5.h),
-                                          isDense: true,
-                                          alignLabelWithHint: true)),
-                                ),
-  ],
-),
-
 
                                 SizedBox(
                                   height: 7.h,
                                 ),
-
-
-
-
 
                                 Row(
                                   children: [
@@ -307,7 +305,7 @@ Row(
                                                 lastDate: DateTime(2100),
                                               );
                                               if (date != null) {
-                                                // Handle selected date
+                                                controller.updateDate(date);
                                               }
                                             },
                                             child: Text(
@@ -343,7 +341,7 @@ Row(
                                                 initialTime: TimeOfDay.now(),
                                               );
                                               if (time != null) {
-                                                // Handle selected time
+                                                controller.updateTime(time);
                                               }
                                             },
                                             child: Text(
@@ -587,10 +585,10 @@ Row(
                     width: 7.w,
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       controller.savePayment();
-                      print('Selected: ${controller.selectedTab.value},${controller.actions[controller.selectedTab.value]}');
-
+                      print(
+                          'Selected: ${controller.selectedTab.value},${controller.actions[controller.selectedTab.value]}');
                     },
                     // onTap: () {
                     //   print('Name: ${controller.name.value}');

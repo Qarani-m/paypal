@@ -79,7 +79,7 @@ Future<void> savePayment() async {
       'currency': currency.value,
       'amount': amount.value,
       'transactionCode': DateTime.now().millisecondsSinceEpoch.toString(),
-      'date': selectedDate.value?.toString() ?? '',
+      'date': selectedDate.value?.toString().split(' ')[0] ?? '',
       'time': selectedTime.value?.format(Get.context!) ?? '',
       'email': email.value,
       'exchangeRate': exchangeRate.value,
@@ -93,10 +93,14 @@ Future<void> savePayment() async {
 
     print(payment);
 
-    await _dbHelper.insertOne(payment);
+final result = await _dbHelper.insertOne(payment);
+if (result != null) {
+  print('Transaction added successfully: ${result['transactionCode']}');
+}
     Get.snackbar('Success', 'Payment saved successfully');
     
   } catch (e) {
+    print(e);
     Get.snackbar('Error', 'Failed to save payment: $e');
   }
 }
