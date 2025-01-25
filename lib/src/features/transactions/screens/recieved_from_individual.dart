@@ -114,6 +114,11 @@ class RecievedFromIndividual extends StatelessWidget {
                 ),
               ),
             ),
+
+
+
+
+            
             SizedBox(
               height: 7.h,
             ),

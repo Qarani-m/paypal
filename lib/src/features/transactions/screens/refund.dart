@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/payments/models/payment_model.dart';
 import 'package:paypal/src/utils/utilities.dart';
 
@@ -171,18 +173,20 @@ class Refund extends StatelessWidget {
                         height: 3.h,
                       ),
                       GestureDetector(
-onTap: (){
-  Get.to(RefundDetails());
-},
-
+                        onTap: () {
+                          Get.to(RefundDetails(), arguments: transaction);
+                        },
                         child: Text(
                           "View details",
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              fontSize: 6.5.sp,
-                              fontWeight: FontWeight.w800,
-                              decoration: TextDecoration.underline,
-                              decorationColor: Color(0xFF0059b3),
-                              color: Color(0xFF0059b3).withOpacity(1)),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(
+                                  fontSize: 6.5.sp,
+                                  fontWeight: FontWeight.w800,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Color(0xFF0059b3),
+                                  color: Color(0xFF0059b3).withOpacity(1)),
                         ),
                       ),
                     ],
@@ -299,17 +303,14 @@ onTap: (){
   }
 }
 
-
-
-
-
 class RefundDetails extends StatelessWidget {
   const RefundDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final transaction = Get.arguments as PaymentModel;
 
+    return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
@@ -326,7 +327,367 @@ class RefundDetails extends StatelessWidget {
               color: Colors.black.withOpacity(1)),
         ),
       ),
-
+      body: Padding(
+        padding: EdgeInsets.only(top: 10.h, left: 0.w, right: 0.w),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 13.w),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  padding: EdgeInsets.all(3.w),
+                  width: 50.w,
+                  decoration: BoxDecoration(
+                      color: Colors.black87,
+                      borderRadius: BorderRadius.circular(5.r)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SvgPicture.asset(
+                        AppImages.bank,
+                        height: 7.h,
+                        width: 10.h,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        "Reversed",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 7.sp,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white.withOpacity(1)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 13.w),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      transaction.hasProfilePic
+                          ? Container(
+                              height: 32.h,
+                              width: 32.h,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey[300],
+                              ),
+                              child: ClipOval(
+                                child: Image.file(
+                                  File(transaction.imagePath),
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Icon(Icons.person,
+                                        color: Colors.grey[600]);
+                                  },
+                                ),
+                              ),
+                            )
+                          : Container(
+                              alignment: Alignment.center,
+                              height: 27.h,
+                              width: 27.h,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: const Color(0xFF2e3333),
+                              ),
+                              child: Text(
+                                AppUtilities().getInitials(transaction.name),
+                                style: TextStyle(
+                                    fontSize: 9.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white),
+                              ),
+                            ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            transaction.name,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(
+                                    fontSize: 8.sp,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black.withOpacity(1)),
+                          ),
+                          SizedBox(
+                            height: 3.h,
+                          ),
+                          Text(
+                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${transaction.time} ${int.parse(transaction.time.split(':')[0]) > 11 ? 'pmm' : 'am'}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(
+                                    fontSize: 7.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black.withOpacity(1)),
+                          ),
+                          SizedBox(
+                            height: 3.h,
+                          ),
+                          Text(
+                            "Show history",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: Color(0xFF0059b3),
+                                    fontSize: 6.5.sp,
+                                    fontWeight: FontWeight.w800,
+                                    color: Color(0xFF0059b3).withOpacity(1)),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Text(
+                    "+US\$${AppUtilities().formatNumber(transaction.amount)}",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 8.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.green.withOpacity(1)),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+            Container(
+              height: 1.5.h,
+              width: double.maxFinite,
+              color: Color(0xFFeff2f9),
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 13.w),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Show story",
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      decoration: TextDecoration.underline,
+                      decorationColor: Color(0xFF0059b3),
+                      fontSize: 6.5.sp,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF0059b3).withOpacity(1)),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+            Container(
+              height: 1.5.h,
+              width: double.maxFinite,
+              color: Color(0xFFeff2f9),
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 13.w),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.info,
+                    color: Colors.black54,
+                  ),
+                  SizedBox(
+                    width: 15.w,
+                  ),
+                  Text(
+                    "This purchase was refunded on ${AppUtilities().formatDateLong(transaction.date)}",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 7.sp,
+                        fontWeight: FontWeight.w200,
+                        color: Colors.black.withOpacity(1)),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+            Container(
+              height: 1.5.h,
+              width: double.maxFinite,
+              color: Color(0xFFeff2f9),
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 120.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 17.r,
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      Text(
+                        "Send money",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 7.sp,
+                            fontWeight: FontWeight.w200,
+                            color: Colors.black.withOpacity(1)),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 40.w,
+                  ),
+                  Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 17.r,
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      Text(
+                        "Message",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 7.sp,
+                            fontWeight: FontWeight.w200,
+                            color: Colors.black.withOpacity(1)),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 12.h,
+            ),
+            Container(
+              height: 1.5.h,
+              width: double.maxFinite,
+              color: Color(0xFFeff2f9),
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 13.w),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Transaction ID",
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize: 6.5.sp,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black.withOpacity(1)),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 13.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    transaction.transactionCode,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 6.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black.withOpacity(1)),
+                  ),
+                  Icon(
+                    Icons.copy,
+                    size: 7.h,
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 16.h,
+            ),
+            Container(
+              height: 1.5.h,
+              width: double.maxFinite,
+              color: Color(0xFFeff2f9),
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 13.w),
+              child: Row(
+                children: [
+                  SvgPicture.asset(AppImages.copy),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Text(
+                    "Report ${transaction.name.split(' ')[0]}",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 6.5.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black.withOpacity(1)),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 9.h,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 13.w),
+              child: Row(
+                children: [
+                  SvgPicture.asset(AppImages.copy),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Text(
+                    "Block ${transaction.name.split(' ')[0]}      ",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 6.5.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black.withOpacity(1)),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 9.h,
+            ),
+            Container(
+              height: 1.5.h,
+              width: double.maxFinite,
+              color: Color(0xFFeff2f9),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
