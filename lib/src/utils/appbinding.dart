@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:paypal/src/features/auth/controllers/login_controller.dart';
 import 'package:paypal/src/features/home/controllers/homepage_controller.dart';
 import 'package:paypal/src/features/home/controllers/navigation_controller.dart';
 import 'package:paypal/src/features/payments/controllers/create_payment.dart';
@@ -9,6 +10,7 @@ import 'package:paypal/src/features/wallet/controllers/wallet_controller.dart';
 class Appbinding  extends Bindings{
   @override
   void dependencies() {
+    Get.put(LoginController(), permanent: true);
     Get.put(NavigationController(), permanent: true);
     Get.put(HomepageController(), permanent: true);
     Get.put(WalletController(), permanent: true);

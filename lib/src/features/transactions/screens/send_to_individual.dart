@@ -5,8 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:paypal/src/constants/images.dart';
+import 'package:paypal/src/features/payments/models/payment_model.dart';
 import 'package:paypal/src/features/transactions/screens/show_history.dart';
 import 'package:paypal/src/features/transactions/screens/show_story.dart';
+import 'package:paypal/src/utils/utilities.dart';
 
 class SendToIndividual extends StatelessWidget {
   const SendToIndividual({super.key});
@@ -25,28 +27,25 @@ class SendToIndividual extends StatelessWidget {
       AppImages.bank,
     ];
 
-    String amount = '40.34';
-    String reciepient = 'Samuel Akoli';
-    String date = 'Nov 22';
-    String time = '05:23 am';
-    String transactionId = '05:23 am';
+    // String amount = '40.34';
+    // String reciepient = 'Samuel Akoli';
+    // String date = 'Nov 22';
+    // String time = '05:23 am';
+    // String transactionId = '05:23 am';
     bool isPaymentCompleted = false;
     String address = 'Michael Bay\nNairobi\nKamakis\nNairobi 01000\nKenya';
 
-TextStyle sameTextStyle = Theme.of(context).textTheme.bodySmall!.copyWith(
-         fontSize: 8.sp,
-         fontWeight: FontWeight.w500,
-         color: Colors.black.withOpacity(1)
-       );
-
-
-
+    TextStyle sameTextStyle = Theme.of(context).textTheme.bodySmall!.copyWith(
+        fontSize: 8.sp,
+        fontWeight: FontWeight.w500,
+        color: Colors.black.withOpacity(1));
+final transaction = Get.arguments as PaymentModel;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
-                leading: IconButton(
+        leading: IconButton(
           icon: Icon(Icons.arrow_back, size: 12.sp), // Adjust size here
           onPressed: () => Navigator.pop(context),
         ),
@@ -75,7 +74,7 @@ TextStyle sameTextStyle = Theme.of(context).textTheme.bodySmall!.copyWith(
                         height: 25.h,
                         width: 25.h,
                         decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.blue),
+                            shape: BoxShape.circle, color: Color(0xFF0059b3)),
                       ),
                       SizedBox(
                         width: 5.w,
@@ -84,7 +83,7 @@ TextStyle sameTextStyle = Theme.of(context).textTheme.bodySmall!.copyWith(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            reciepient,
+                            transaction.name,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -97,7 +96,8 @@ TextStyle sameTextStyle = Theme.of(context).textTheme.bodySmall!.copyWith(
                             height: 3.h,
                           ),
                           Text(
-                            "$date,$time",
+                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${transaction.time} ${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
+                            // '',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -110,7 +110,7 @@ TextStyle sameTextStyle = Theme.of(context).textTheme.bodySmall!.copyWith(
                             height: 3.h,
                           ),
                           GestureDetector(
-                            onTap: ()=>Get.to(ShowHistory()),
+                            onTap: () => Get.to(ShowHistory()),
                             child: Text(
                               "Show history",
                               style: Theme.of(context)
@@ -118,10 +118,10 @@ TextStyle sameTextStyle = Theme.of(context).textTheme.bodySmall!.copyWith(
                                   .bodySmall
                                   ?.copyWith(
                                       decoration: TextDecoration.underline,
-                                      decorationColor: Colors.blue,
+                                      decorationColor: Color(0xFF0059b3),
                                       fontSize: 6.5.sp,
                                       fontWeight: FontWeight.w700,
-                                      color: Colors.blue.withOpacity(1)),
+                                      color: Color(0xFF0059b3).withOpacity(1)),
                             ),
                           ),
                         ],
@@ -129,10 +129,10 @@ TextStyle sameTextStyle = Theme.of(context).textTheme.bodySmall!.copyWith(
                     ],
                   ),
                   Text(
-                    "+US\$$amount",
+                    "+US\$${transaction.amount}",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 8.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w800,
                         color: const Color.fromARGB(255, 47, 117, 49)
                             .withOpacity(1)),
                   ),
@@ -157,7 +157,7 @@ TextStyle sameTextStyle = Theme.of(context).textTheme.bodySmall!.copyWith(
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Dj fresh",
+                      transaction.message,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 7.sp,
                           fontWeight: FontWeight.w400,
@@ -170,17 +170,17 @@ TextStyle sameTextStyle = Theme.of(context).textTheme.bodySmall!.copyWith(
                   Align(
                     alignment: Alignment.centerLeft,
                     child: GestureDetector(
-                      onTap: (){
-Get.to(ShowStory());
+                      onTap: () {
+                        Get.to(ShowStory());
                       },
                       child: Text(
                         "Show story",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             decoration: TextDecoration.underline,
-                            decorationColor: Colors.blue,
+                            decorationColor: Color(0xFF0059b3),
                             fontSize: 6.5.sp,
                             fontWeight: FontWeight.w700,
-                            color: Colors.blue.withOpacity(1)),
+                            color: Color(0xFF0059b3).withOpacity(1)),
                       ),
                     ),
                   ),
@@ -188,7 +188,7 @@ Get.to(ShowStory());
               ),
             ),
             SizedBox(
-              height:11.h,
+              height: 11.h,
             ),
             Container(
               height: 1.5.h,
@@ -289,249 +289,204 @@ Get.to(ShowStory());
                   Align(
                     alignment: Alignment.centerLeft,
                     child: GestureDetector(
-                    onTap: () {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  Get.bottomSheet(
-    Container(
-    padding: EdgeInsets.symmetric(horizontal: 13.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(16),
-            child: Row(
- mainAxisAlignment: MainAxisAlignment.spaceBetween,
- children: [
-   Expanded(
-     child: Center(
-       child: Text(
-         'Payment info',
-         style: TextStyle(
-           color: Colors.black,
-           fontSize: 8.sp,
-           fontWeight: FontWeight.w400
-         ),
-       ),
-     ),
-   ),
-   IconButton(
-     icon: Icon(
-       Icons.close,
-       size: 10.h,
-     ),
-     onPressed: () => Get.back(),
-   ),
- ],
-),
-
-
-
-
-
-
-
-          ),
-       isPaymentCompleted?   Align(
-          alignment: Alignment.centerLeft,
-            child: Container(
-              // margin: EdgeInsets.symmetric(horizontal: 16),
-              padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.5.h),
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(4.r),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.check_circle_outline, color: Colors.white, size: 10.h),
-                  SizedBox(width: 4),
-                  Text('Completed', style: TextStyle(fontSize: 7.sp,color: Colors.white)),
-                ],
-              ),
-            ),
-          ): Align(
-          alignment: Alignment.centerLeft,
-            child: Container(
-              // margin: EdgeInsets.symmetric(horizontal: 16),
-              padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.5.h),
-              decoration: BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.circular(4.r),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.priority_high_rounded, color: Colors.white, size: 10.h),
-                  SizedBox(width: 4),
-                  Text('Inprogress', style: TextStyle(fontSize: 7.sp,color: Colors.white)),
-                ],
-              ),
-            ),
-          ),
-
-
-   SizedBox(height: 10.h),
-
-
-
-          Column(
- crossAxisAlignment: CrossAxisAlignment.start,
- children: [
-   Row(
-     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-     children: [
-       Column(
-         crossAxisAlignment: CrossAxisAlignment.start,
-         children: [
-           Text('From', style: sameTextStyle),
-           SizedBox(height: 6.h,),
-           Text('PayPal balance', style: sameTextStyle),
-            
-         ],
-       ),
-       Text('US\$16', style:sameTextStyle),
-     ],
-   ),
-   SizedBox(height: 17.h),
- ],
-),
-
-
-
-
-
-
-
-
-
-
-
-
-
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Details', style: sameTextStyle),
-              SizedBox(height: 17.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text('Amount',style: sameTextStyle,) ,Text('US\$${amount}',style: sameTextStyle,)],
-              ),
-              SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text('Total', style: sameTextStyle.copyWith(
-                  fontWeight: FontWeight.w800
-                ),), Text('US\$${amount}', style: sameTextStyle.copyWith(
-                  fontWeight: FontWeight.w800
-                ),)],
-              ),
-            ],
-          ),
-          SizedBox(height: 17.h,),
-         Column(
- crossAxisAlignment: CrossAxisAlignment.start,
- children: [
-   Row(
-     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-     children: [
-       Column(
-         crossAxisAlignment: CrossAxisAlignment.start, 
-         children: [
-           Text('Transaction ID', style: sameTextStyle),
-   SizedBox(height: 8.h),
-
-           Text(transactionId, style: sameTextStyle),
-         ],
-       ),
-       Icon(Icons.copy, size: 10.h)
-     ],
-   ),
- ],
-),
-          SizedBox(height: 20.h),
-        ],
-      ),
-    ),
-    isScrollControlled: true,
-    backgroundColor: Colors.transparent,
-  );
-},
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                      onTap: () {
+                        Get.bottomSheet(
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 13.w),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(16)),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.all(16),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            'Payment info',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 8.sp,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                        ),
+                                      ),
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.close,
+                                          size: 10.h,
+                                        ),
+                                        onPressed: () => Get.back(),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                isPaymentCompleted
+                                    ? Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Container(
+                                          // margin: EdgeInsets.symmetric(horizontal: 16),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 4.w, vertical: 3.5.h),
+                                          decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius:
+                                                BorderRadius.circular(4.r),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(Icons.check_circle_outline,
+                                                  color: Colors.white,
+                                                  size: 10.h),
+                                              SizedBox(width: 4),
+                                              Text('Completed',
+                                                  style: TextStyle(
+                                                      fontSize: 7.sp,
+                                                      color: Colors.white)),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    : Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Container(
+                                          // margin: EdgeInsets.symmetric(horizontal: 16),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 4.w, vertical: 3.5.h),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                            borderRadius:
+                                                BorderRadius.circular(4.r),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(Icons.priority_high_rounded,
+                                                  color: Colors.white,
+                                                  size: 10.h),
+                                              SizedBox(width: 4),
+                                              Text('Inprogress',
+                                                  style: TextStyle(
+                                                      fontSize: 7.sp,
+                                                      color: Colors.white)),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                SizedBox(height: 10.h),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text('From', style: sameTextStyle),
+                                            SizedBox(
+                                              height: 6.h,
+                                            ),
+                                            Text('PayPal balance',
+                                                style: sameTextStyle),
+                                          ],
+                                        ),
+                                        Text('US\$16', style: sameTextStyle),
+                                      ],
+                                    ),
+                                    SizedBox(height: 17.h),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Details', style: sameTextStyle),
+                                    SizedBox(height: 17.h),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Amount',
+                                          style: sameTextStyle,
+                                        ),
+                                        Text(
+                                          'US\$${transaction .amount}',
+                                          style: sameTextStyle,
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: 12),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Total',
+                                          style: sameTextStyle.copyWith(
+                                              fontWeight: FontWeight.w800),
+                                        ),
+                                        Text(
+                                          'US\$${transaction. amount}',
+                                          style: sameTextStyle.copyWith(
+                                              fontWeight: FontWeight.w800),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 17.h,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text('Transaction ID',
+                                                style: sameTextStyle),
+                                            SizedBox(height: 8.h),
+                                            Text(transaction.transactionCode,
+                                                style: sameTextStyle),
+                                          ],
+                                        ),
+                                        Icon(Icons.copy, size: 10.h)
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 20.h),
+                              ],
+                            ),
+                          ),
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                        );
+                      },
                       child: Text(
                         "Show payment info",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: 6.5.sp,
                             fontWeight: FontWeight.w800,
                             decoration: TextDecoration.underline,
-                            decorationColor: Colors.blue,
-                            color: Colors.blue.withOpacity(1)),
+                            decorationColor: Color(0xFF0059b3),
+                            color: Color(0xFF0059b3).withOpacity(1)),
                       ),
                     ),
                   ),
@@ -643,7 +598,7 @@ Get.to(ShowStory());
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 13.w),
               child: Text(
-                "<h6 if you can\'t work things out with $reciepient, you can report aproblem to us by Jun 24 2025. You may be eligible for <a id=\"open_buyer_protection_link\"> Buyer protection</a></h6>",
+                "<h6 if you can\'t work things out with ${transaction.name}, you can report aproblem to us by Jun 24 2025. You may be eligible for <a id=\"open_buyer_protection_link\"> Buyer protection</a></h6>",
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     fontSize: 6.sp,
                     fontWeight: FontWeight.w500,

@@ -52,6 +52,7 @@ class Homepage extends GetView<HomepageController> {
                           children: List.generate(
                             controller.recentTransactions.length,
                             (index) => PaymentContainer(
+                              transaction:controller.recentTransactions[index],
                               id:controller.recentTransactions[index].id,
                               hasImage: controller.recentTransactions[index].hasProfilePic,
                               date: controller.recentTransactions[index].date,
@@ -63,6 +64,7 @@ class Homepage extends GetView<HomepageController> {
                               message: controller.recentTransactions[index].message,
                               imagePath: controller.recentTransactions[index].imagePath,
                               homepageController: controller,
+                              category: '${controller.recentTransactions[index].type},${controller.recentTransactions[index].direction}'
                             ),
                           ),
                         );}
@@ -84,7 +86,7 @@ class Homepage extends GetView<HomepageController> {
                               ?.copyWith(
                                   fontSize: 6.5.sp,
                                   fontWeight: FontWeight.w900,
-                                  color: Colors.blue.withOpacity(1)),
+                                  color: Color(0xFF0059b3).withOpacity(1)),
                         ),
                       ),
                     ],

@@ -175,7 +175,7 @@ class PayPalAssistantPage extends StatelessWidget {
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.r),
                         borderSide: BorderSide(
-                          color: Colors.blue!,
+                          color: Color(0xFF0059b3)!,
                           width: 1,
                         ),
                       ),
@@ -210,7 +210,7 @@ class ChatBubble extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
         decoration: BoxDecoration(
-          color: isUser ? Colors.blue[100] : Colors.grey[100],
+          color: isUser ? Color(0xFF0059b3).withOpacity(0.3) : Colors.grey[100],
           borderRadius: BorderRadius.circular(10.r),
         ),
         child: Text(

@@ -56,7 +56,7 @@ class MessageCenter extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 7.sp,
                           fontWeight: FontWeight.w700,
-                          color: Colors.blue.withOpacity(1)),
+                          color: Color(0xFF0059b3).withOpacity(1)),
                     ),
                   ],
                 ),
@@ -99,9 +99,9 @@ class MessageCenter extends StatelessWidget {
                           fontSize: 6.sp,
                           fontWeight: FontWeight.w700,
                           decoration: TextDecoration.underline,
-                          decorationColor: Colors.blue,
+                          decorationColor: Color(0xFF0059b3),
                           color:
-                              Colors.blue, // Different color for the link text
+                              Color(0xFF0059b3), // Different color for the link text
                         ),
                   ),
                 ],

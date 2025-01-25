@@ -42,7 +42,7 @@ class Refund extends StatelessWidget {
                         height: 28.h,
                         width: 28.h,
                         decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.blue),
+                            shape: BoxShape.circle, color: Color(0xFF0059b3)),
                       ),
                       SizedBox(
                         width: 5.w,
@@ -83,10 +83,10 @@ class Refund extends StatelessWidget {
                                 .bodySmall
                                 ?.copyWith(
                                     decoration: TextDecoration.underline,
-                                    decorationColor: Colors.blue,
+                                    decorationColor: Color(0xFF0059b3),
                                     fontSize: 6.5.sp,
                                     fontWeight: FontWeight.w800,
-                                    color: Colors.blue.withOpacity(1)),
+                                    color: Color(0xFF0059b3).withOpacity(1)),
                           ),
                         ],
                       ),
@@ -142,8 +142,8 @@ class Refund extends StatelessWidget {
                             fontSize: 6.5.sp,
                             fontWeight: FontWeight.w800,
                             decoration: TextDecoration.underline,
-                            decorationColor: Colors.blue,
-                            color: Colors.blue.withOpacity(1)),
+                            decorationColor: Color(0xFF0059b3),
+                            color: Color(0xFF0059b3).withOpacity(1)),
                       ),
                     ],
                   )

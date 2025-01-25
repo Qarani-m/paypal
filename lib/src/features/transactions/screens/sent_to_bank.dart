@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:paypal/src/constants/images.dart';
+import 'package:paypal/src/features/payments/models/payment_model.dart';
 
 class SentToBank extends StatelessWidget {
   const SentToBank({super.key});
 
   @override
   Widget build(BuildContext context)  {
+final transaction = Get.arguments as PaymentModel;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -42,7 +46,7 @@ class SentToBank extends StatelessWidget {
                         height: 28.h,
                         width: 28.h,
                         decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.blue),
+                            shape: BoxShape.circle, color: Color(0xFF0059b3)),
                       ),
                       SizedBox(
                         width: 5.w,
@@ -83,10 +87,10 @@ class SentToBank extends StatelessWidget {
                                 .bodySmall
                                 ?.copyWith(
                                     decoration: TextDecoration.underline,
-                                    decorationColor: Colors.blue,
+                                    decorationColor: Color(0xFF0059b3),
                                     fontSize: 6.5.sp,
                                     fontWeight: FontWeight.w700,
-                                    color: Colors.blue.withOpacity(1)),
+                                    color: Color(0xFF0059b3).withOpacity(1)),
                           ),
                         ],
                       ),
@@ -149,10 +153,10 @@ class SentToBank extends StatelessWidget {
                       "Show payment info",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           decoration: TextDecoration.underline,
-                          decorationColor: Colors.blue,
+                          decorationColor: Color(0xFF0059b3),
                           fontSize: 6.5.sp,
                           fontWeight: FontWeight.w700,
-                          color: Colors.blue.withOpacity(1)),
+                          color: Color(0xFF0059b3).withOpacity(1)),
                     ),
                   ),
                 ],

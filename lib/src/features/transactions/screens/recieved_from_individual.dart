@@ -43,7 +43,7 @@ class RecievedFromIndividual extends StatelessWidget {
                         height: 28.h,
                         width: 28.h,
                         decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.blue),
+                            shape: BoxShape.circle, color: Color(0xFF0059b3)),
                       ),
                       SizedBox(
                         width: 5.w,
@@ -107,10 +107,10 @@ class RecievedFromIndividual extends StatelessWidget {
                   "Show story",
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       decoration: TextDecoration.underline,
-                      decorationColor: Colors.blue,
+                      decorationColor: Color(0xFF0059b3),
                       fontSize: 6.5.sp,
                       fontWeight: FontWeight.w700,
-                      color: Colors.blue.withOpacity(1)),
+                      color: Color(0xFF0059b3).withOpacity(1)),
                 ),
               ),
             ),

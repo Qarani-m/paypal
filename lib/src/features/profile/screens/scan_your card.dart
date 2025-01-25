@@ -89,10 +89,10 @@ SizedBox(height: 6.h,),
                                                 .bodySmall
                                                 ?.copyWith(
                                                     fontSize: 6.sp,
-                                                    color: Colors.blue,
+                                                    color: Color(0xFF0059b3),
                                                     fontWeight: FontWeight.w800,
                                                   decoration: TextDecoration.underline,
-                                                      decorationColor: Colors.blue
+                                                      decorationColor: Color(0xFF0059b3)
                                                         .withOpacity(1)),
                                           ),
 
@@ -136,10 +136,10 @@ SizedBox(height: 6.h,),
                                                     .bodySmall
                                                     ?.copyWith(
                                                       decoration: TextDecoration.underline,
-                                                      decorationColor: Colors.blue,
+                                                      decorationColor: Color(0xFF0059b3),
                                                         fontSize: 7.sp,
                                                         fontWeight: FontWeight.w900,
-                                                        color: Colors.blue
+                                                        color: Color(0xFF0059b3)
                                                             .withOpacity(1)),
                                               ),
                ),

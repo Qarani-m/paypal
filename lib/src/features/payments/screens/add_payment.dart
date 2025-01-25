@@ -72,7 +72,7 @@ class AddPayment extends GetView<CreatePaymentController> {
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w700,
                                       color: Colors.black.withOpacity(1)),
-                              cursorColor: Colors.blue,
+                              cursorColor: Color(0xFF0059b3),
                               backgroundCursorColor: Colors.grey,
                             ),
                           ),

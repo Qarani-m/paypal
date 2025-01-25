@@ -20,7 +20,7 @@ class CustomBottomNavigationBar extends GetView<NavigationController> {
   const CustomBottomNavigationBar({
     Key? key,
     required this.items,
-    this.selectedColor = Colors.blue,
+    this.selectedColor = const Color(0xFF0059b3),
     this.unselectedColor = Colors.grey,
     this.backgroundColor = Colors.white,
     this.height,

@@ -439,7 +439,7 @@ class WhiteSpace extends StatelessWidget {
                                                           Icon(
                                                             Icons
                                                                 .camera_alt_outlined,
-                                                            color: Colors.blue,
+                                                            color: Color(0xFF0059b3),
                                                             size: 10.w,
                                                           ),
                                                           SizedBox(
@@ -568,7 +568,7 @@ class WhiteSpace extends StatelessWidget {
                                                                     .help_outline,
                                                                 size: 10.sp,
                                                                 color:
-                                                                    Colors.blue,
+                                                                    Color(0xFF0059b3),
                                                               ),
                                                               enabledBorder:
                                                                   OutlineInputBorder(

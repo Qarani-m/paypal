@@ -101,7 +101,7 @@ Future<void> updateTransaction(int id) async {
                      ),
                      focusedBorder: OutlineInputBorder(
                        borderRadius: BorderRadius.circular(12.r),
-                       borderSide: BorderSide(color: Colors.blue, width: 1.5),
+                       borderSide: BorderSide(color: Color(0xFF0059b3), width: 1.5),
                      ),
                      suffixIcon: key == 'Date' || key == 'Time' ? 
                          Icon(Icons.calendar_today) : null,
@@ -149,7 +149,7 @@ Future<void> updateTransaction(int id) async {
              shape: RoundedRectangleBorder(
                borderRadius: BorderRadius.circular(12.r),
              ),
-             backgroundColor: Colors.blue,
+             backgroundColor: Color(0xFF0059b3),
            ),
            child: Text('Update', 
              style: TextStyle(fontSize: 16.sp, color: Colors.white)),

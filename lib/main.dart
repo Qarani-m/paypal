@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:paypal/src/features/auth/auth/login_page.dart';
 import 'package:paypal/src/features/home/screens/homepage.dart';
 import 'package:paypal/src/features/home/widgets/root_layout.dart';
 import 'package:paypal/src/features/profile/screens/profile_homepage.dart';
@@ -56,8 +57,12 @@ class MyApp extends StatelessWidget {
           defaultTransition: Transition.fade,
           smartManagement: SmartManagement.full,
           initialBinding: Appbinding(),
-          initialRoute: '/home',
+          initialRoute: '/auth',
           getPages: [
+            GetPage(
+                name: '/auth',
+                page: () => LoginPage(),
+                transition: Transition.fade),
             GetPage(
                 name: '/home',
                 page: () => RootLayout(),
@@ -83,55 +88,36 @@ class MyApp extends StatelessWidget {
                 page: () => const SettingsHomapage(),
                 transition: Transition.fade),
 
-
-
-
-
-
-                GetPage(
+            // =============================================
+            GetPage(
                 name: '/recieved_from_individual',
                 page: () => const RecievedFromIndividual(),
                 transition: Transition.fade),
-
-
-                GetPage(
+            GetPage(
                 name: '/recieved_from_org',
                 page: () => const RecievedFromOrg(),
                 transition: Transition.fade),
 
-
-                GetPage(
+            GetPage(
                 name: '/send_to_individual',
                 page: () => const SendToIndividual(),
                 transition: Transition.fade),
-
-
-                
-GetPage(
+            GetPage(
                 name: '/sent_to_bank',
                 page: () => const SentToBank(),
                 transition: Transition.fade),
-
-                GetPage(
+            GetPage(
                 name: '/send_to_org',
                 page: () => const SettingsHomapage(),
                 transition: Transition.fade),
-
-
-                                GetPage(
+            GetPage(
                 name: '/refund',
                 page: () => const Refund(),
                 transition: Transition.fade),
-
-
-
-                  GetPage(
+            GetPage(
                 name: '/paypal_recovery',
                 page: () => const PaypalLossRecoery(),
                 transition: Transition.fade),
-
-
-                
           ],
 
           // Optional: Global error handling

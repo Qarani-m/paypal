@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/home/controllers/homepage_controller.dart';
 import 'package:paypal/src/features/home/widgets/homepage_buttons.dart';
+import 'package:paypal/src/features/payments/models/payment_model.dart';
 import 'package:paypal/src/utils/utilities.dart';
 
 class PayFromYourPhone extends StatelessWidget {
@@ -136,7 +137,7 @@ class SettingAndProfileMenu extends StatelessWidget {
             child: Icon(
               Icons.menu,
               size: 10.h,
-              color: Colors.blue,
+              color: Color(0xFF0059b3),
             ),
           ),
         ),
@@ -148,7 +149,7 @@ class SettingAndProfileMenu extends StatelessWidget {
             child: Icon(
               Icons.person_2_outlined,
               size: 10.h,
-              color: Colors.blue,
+              color: Color(0xFF0059b3),
               weight: 0.1,
             ),
           ),
@@ -172,6 +173,8 @@ class PaymentContainer extends StatelessWidget {
     required this.message,
     required this.imagePath,
     required this.id,
+    required this.category,
+    required this.transaction,
   });
   final int index;
   final String name;
@@ -184,15 +187,32 @@ class PaymentContainer extends StatelessWidget {
   final String imagePath;
   final int id;
   final HomepageController homepageController;
+  final PaymentModel transaction;
+  final String category;
   @override
   Widget build(BuildContext context) {
+    print(category);
     return GestureDetector(
       onDoubleTap: () => homepageController.updateTransaction(id),
       onLongPress: () => homepageController.deleteTransactions(id),
-      onTap: (){
+      onTap: () {
+        if (category == 'Send,Individual') {
+          Get.toNamed('/send_to_individual', arguments: transaction);
+        }
 
+        if (category == 'Send,Org') {
+          Get.toNamed('/send_to_org', arguments: transaction);
+        }
 
-
+        if (category == 'Send,Bank') {
+          Get.toNamed('/sent_to_bank', arguments: transaction);
+        }
+      //     if (category == 'Send,') {
+      //     Get.toNamed('/sent_to_bank', arguments: transaction);
+      //   }
+      //     if (category == 'Send,Bank') {
+      //     Get.toNamed('/sent_to_bank', arguments: transaction);
+      //   }
       },
       child: Container(
         decoration: BoxDecoration(
@@ -265,7 +285,7 @@ class PaymentContainer extends StatelessWidget {
 
                         // Subtitle
                         Text(
-                          AppUtilities().formatDate(date),
+                          AppUtilities().formatDateDateFirst(date),
                           style: TextStyle(
                             fontSize: 7.sp,
                             color: Colors.grey,
@@ -308,8 +328,8 @@ class PaymentContainer extends StatelessWidget {
                 ),
                 showDetails
                     ? Column(
-                      children: [
-                        Align(
+                        children: [
+                          Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
                               '"$message"',
@@ -322,29 +342,28 @@ class PaymentContainer extends StatelessWidget {
                                       color: Colors.black.withOpacity(1)),
                             ),
                           ),
-
-                           SizedBox(
-                      height: 8.h,
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 3.h, horizontal: 8.w),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(20.r)),
-                        child: Text(
-                          'Add tracking',
-                          style: TextStyle(
-                              fontSize: 7.sp,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black.withOpacity(0.8)),
-                        ),
-                      ),
-                    )
-                      ],
-                    )
+                          SizedBox(
+                            height: 8.h,
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 3.h, horizontal: 8.w),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(20.r)),
+                              child: Text(
+                                'Add tracking',
+                                style: TextStyle(
+                                    fontSize: 7.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black.withOpacity(0.8)),
+                              ),
+                            ),
+                          )
+                        ],
+                      )
                     : Center(),
               ],
             )
@@ -385,7 +404,7 @@ class Homepage1 extends GetView<HomepageController> {
                         child: Icon(
                           Icons.menu,
                           size: 10.h,
-                          color: Colors.blue,
+                          color: Color(0xFF0059b3),
                         ),
                       ),
                     ),
@@ -397,7 +416,7 @@ class Homepage1 extends GetView<HomepageController> {
                         child: Icon(
                           Icons.person_2_outlined,
                           size: 10.h,
-                          color: Colors.blue,
+                          color: Color(0xFF0059b3),
                           weight: 0.1,
                         ),
                       ),

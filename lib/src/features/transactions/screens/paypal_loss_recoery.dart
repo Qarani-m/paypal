@@ -42,7 +42,7 @@ class PaypalLossRecoery extends StatelessWidget {
                         height: 28.h,
                         width: 28.h,
                         decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.blue),
+                            shape: BoxShape.circle, color: Color(0xFF0059b3)),
                       ),
                       SizedBox(
                         width: 5.w,
