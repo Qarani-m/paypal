@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -39,7 +41,7 @@ class SendToIndividual extends StatelessWidget {
         fontSize: 8.sp,
         fontWeight: FontWeight.w500,
         color: Colors.black.withOpacity(1));
-final transaction = Get.arguments as PaymentModel;
+    final transaction = Get.arguments as PaymentModel;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -70,12 +72,41 @@ final transaction = Get.arguments as PaymentModel;
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        height: 25.h,
-                        width: 25.h,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Color(0xFF0059b3)),
-                      ),
+                      transaction.hasProfilePic
+                          ? Container(
+                              height: 30.h,
+                              width: 30.h,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey[300],
+                              ),
+                              child: ClipOval(
+                                child: Image.file(
+                                  File(transaction.imagePath),
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Icon(Icons.person,
+                                        color: Colors.grey[600]);
+                                  },
+                                ),
+                              ),
+                            )
+                          : Container(
+                              alignment: Alignment.center,
+                              height: 27.h,
+                              width: 27.h,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: const Color(0xFF2e3333),
+                              ),
+                              child: Text(
+                                AppUtilities().getInitials(transaction.name),
+                                style: TextStyle(
+                                    fontSize: 9.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white),
+                              ),
+                            ),
                       SizedBox(
                         width: 5.w,
                       ),
@@ -129,7 +160,7 @@ final transaction = Get.arguments as PaymentModel;
                     ],
                   ),
                   Text(
-                    "+US\$${transaction.amount}",
+                    "+US\$${AppUtilities().formatNumber(transaction.amount)}",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 8.sp,
                         fontWeight: FontWeight.w800,
@@ -421,7 +452,7 @@ final transaction = Get.arguments as PaymentModel;
                                           style: sameTextStyle,
                                         ),
                                         Text(
-                                          'US\$${transaction .amount}',
+                                          'US\$${transaction.amount}',
                                           style: sameTextStyle,
                                         )
                                       ],
@@ -437,7 +468,7 @@ final transaction = Get.arguments as PaymentModel;
                                               fontWeight: FontWeight.w800),
                                         ),
                                         Text(
-                                          'US\$${transaction. amount}',
+                                          'US\$${transaction.amount}',
                                           style: sameTextStyle.copyWith(
                                               fontWeight: FontWeight.w800),
                                         )
