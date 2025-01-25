@@ -11,6 +11,27 @@ class HomepageController extends GetxController {
   final dbHelper = DBHelper();
   UserModel userDetails = new UserModel();
 
+
+
+
+
+
+String getCategory(String category) {
+ if (category.toLowerCase().contains('paypal,refund')) {
+   return 'Refund sent - Completed ';
+ } else if (category.toLowerCase().contains('recieve,individual')) {
+   return 'Money received';
+ } else if (category.toLowerCase().contains('send,org')) {
+   return 'Send to Organization';
+ }
+ return category;
+}
+
+
+
+
+
+
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -188,3 +209,9 @@ class HomepageController extends GetxController {
     );
   }
 }
+
+
+// Refund
+// Send tobank==
+// Send to individual ==
+// send to org ==

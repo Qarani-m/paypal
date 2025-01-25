@@ -77,7 +77,7 @@ class PaymentsHomepgae extends GetView<PaymentsController> {
                     TabBarView(controller: controller.tabController, children: [
               SendTab(),
               BiilsTab(),
-              RequestsTab(),
+              RequestsTab(controller:controller),
               // Column(),
               // Column()
             ]))
@@ -90,8 +90,10 @@ class PaymentsHomepgae extends GetView<PaymentsController> {
 
 class RequestsTab extends StatelessWidget {
   const RequestsTab({
-    super.key,
+    super.key, required this.controller,
   });
+
+  final PaymentsController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +171,10 @@ class RequestsTab extends StatelessWidget {
                             children: [
                               CircleAvatar(
                                 radius: 28.r,
-                                child: Text('DW',
+                                child: Text(
+                                  
+                                  "${controller.topContacts[index][0][0].toUpperCase()}${controller.topContacts[index][1][0].toUpperCase()}"
+                                  ,
                                     textAlign: TextAlign.center,
                                     style: Theme.of(context)
                                         .textTheme
@@ -183,7 +188,7 @@ class RequestsTab extends StatelessWidget {
                               SizedBox(
                                 height: 4.h,
                               ),
-                              Text('Devin Wood James',
+                              Text(controller.topContacts[index],
                                   textAlign: TextAlign.center,
                                   style: Theme.of(context)
                                       .textTheme
@@ -197,46 +202,7 @@ class RequestsTab extends StatelessWidget {
                         )),
               )
 ,
-              SizedBox(height: 25.h,),
-               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: List.generate(
-                    3,
-                    (index) => Container(
-                          width: 65.w,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CircleAvatar(
-                                radius: 28.r,
-                                child: Text('DW',
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                          color: Colors.white,
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w600,
-                                        )),
-                              ),
-                              SizedBox(
-                                height: 4.h,
-                              ),
-                              Text('Devin Wood James',
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.copyWith(
-                                        fontSize: 9.sp,
-                                        fontWeight: FontWeight.w400,
-                                      )),
-                            ],
-                          ),
-                        )),
-              )
+              
             ],
           ),
         ),

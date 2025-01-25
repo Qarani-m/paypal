@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:paypal/src/constants/images.dart';
+import 'package:paypal/src/features/payments/models/payment_model.dart';
+import 'package:paypal/src/utils/utilities.dart';
 
 class PaypalLossRecoery extends StatelessWidget {
   const PaypalLossRecoery({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final transaction = Get.arguments as PaymentModel;
+
     return 
     
     Scaffold(
@@ -38,7 +45,10 @@ class PaypalLossRecoery extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Container(
+                     Container(
+                        padding: EdgeInsets.all(6.5.h),
+                        child: SvgPicture.asset(AppImages.bank,
+                            height: 12.h, width: 12.h),
                         height: 28.h,
                         width: 28.h,
                         decoration: BoxDecoration(
@@ -64,7 +74,8 @@ class PaypalLossRecoery extends StatelessWidget {
                             height: 3.h,
                           ),
                           Text(
-                            "Nov 22,05:26 am",
+                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${transaction.time} ${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
+
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -78,10 +89,11 @@ class PaypalLossRecoery extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    "US\$40.54",
+                    "-US\$${AppUtilities().formatNumber(transaction.amount)}",
+
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 8.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w700,
                         color: Colors.black.withOpacity(1)),
                   ),
                 ],
@@ -161,7 +173,8 @@ class PaypalLossRecoery extends StatelessWidget {
                         color: Colors.black.withOpacity(1)),
                   ),
                   Text(
-                    "US\$40.54",
+                    "US\$${AppUtilities().formatNumber(transaction.amount)}",
+
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 7.sp,
                         fontWeight: FontWeight.w400,
@@ -215,7 +228,8 @@ class PaypalLossRecoery extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "839FSIDJFBSJFHWI378WEIF",
+                    transaction.transactionCode,
+
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 6.sp,
                         fontWeight: FontWeight.w400,

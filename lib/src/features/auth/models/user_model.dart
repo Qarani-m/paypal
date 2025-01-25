@@ -63,4 +63,10 @@ class UserModel {
         hasImage: hasImage ?? this.hasImage,
         currency:currency ?? this.currency,
       );
+
+
+        @override
+  String toString() {
+    return 'UserModel(name: $name, phone: $phone, email: $email, currency: $currency, address: $address, imagePath: $imagePath, hasImage: $hasImage, balance: $balance)';
+  }
 }

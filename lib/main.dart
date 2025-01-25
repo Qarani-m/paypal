@@ -99,9 +99,16 @@ class MyApp extends StatelessWidget {
                 transition: Transition.fade),
 
             GetPage(
-                name: '/send_to_individual',
-                page: () => const SendToIndividual(),
+                name: '/refund',
+                page: () => const Refund(),
+                transition: Transition.fade),//
+            GetPage(
+                name: '/paypal_recovery',
+                page: () => const PaypalLossRecoery(),
                 transition: Transition.fade),
+
+
+            // =================------
             GetPage(
                 name: '/sent_to_bank',
                 page: () => const SentToBank(),
@@ -111,13 +118,13 @@ class MyApp extends StatelessWidget {
                 page: () => const SettingsHomapage(),
                 transition: Transition.fade),
             GetPage(
-                name: '/refund',
-                page: () => const Refund(),
+                name: '/send_to_individual',
+                page: () => const SendToIndividual(),
                 transition: Transition.fade),
-            GetPage(
-                name: '/paypal_recovery',
-                page: () => const PaypalLossRecoery(),
-                transition: Transition.fade),
+
+
+
+                
           ],
 
           // Optional: Global error handling

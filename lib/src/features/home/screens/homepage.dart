@@ -62,7 +62,7 @@ class Homepage extends GetView<HomepageController> {
                               index: index,
                               name: controller.recentTransactions[index].name,
                               amount:'${controller.recentTransactions[index].amount} ${controller.recentTransactions[index].currency}',
-                              isRecieved: controller.recentTransactions[index].type =='Send',
+                              isRecieved: controller.recentTransactions[index].type ,
                               showDetails: controller.recentTransactions[index].message.length>0,
                               message: controller.recentTransactions[index].message,
                               imagePath: controller.recentTransactions[index].imagePath,
