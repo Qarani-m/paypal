@@ -15,6 +15,7 @@ class UserFormController extends GetxController {
 
  final name = ''.obs;
  final phone = ''.obs;
+ final balance = ''.obs;
  final email = ''.obs;
  final address = ''.obs;
  final imagePath = ''.obs;
@@ -34,11 +35,12 @@ class UserFormController extends GetxController {
        name: name.value,
        phone: phone.value,
        email: email.value,
+       balance: balance.value,
        address: address.value,
        imagePath: imagePath.value,
        hasImage: hasImage.value
      );
-     storage.write('user', user.toJson());
+     storage.write('user_data', user.toJson());
      Get.offNamed('/home');
    }
  }

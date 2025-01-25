@@ -12,22 +12,24 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     super.onInit();
- UserModel? fetchedUser = fetchUser();
-  userDetails = fetchedUser ?? UserModel(); // Use fetched user or create empty model
- 
+    UserModel? fetchedUser = fetchUser();
+    userDetails =
+        fetchedUser ?? UserModel(); // Use fetched user or create empty model
+
     authenticateWithFingerprint();
   }
 
-UserModel? fetchUser() {
-  final storage = GetStorage();
-  var savedUser = storage.read('user');
-  
-  if (savedUser != null) {
-    return UserModel.fromJson(savedUser);
+  UserModel? fetchUser() {
+    final storage = GetStorage();
+    var savedUser = storage.read('user_data');
+
+    if (savedUser != null) {
+      return UserModel.fromJson(savedUser);
+    }
+
+    return null;
   }
-  
-  return null;
-}
+
   void authenticateWithFingerprint() async {
     try {
       final LocalAuthentication auth = LocalAuthentication();
@@ -56,7 +58,7 @@ UserModel? fetchUser() {
         );
         if (didAuthenticate) {
           final storage = GetStorage();
-          var savedUser = storage.read('user');
+          var savedUser = storage.read('user_data');
           if (savedUser != null) {
             Get.offNamed('/home');
           } else {
