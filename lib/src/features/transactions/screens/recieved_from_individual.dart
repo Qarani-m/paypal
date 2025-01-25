@@ -521,6 +521,248 @@ class RecievedFromIndividualV2 extends StatelessWidget {
             SizedBox(
               height: 13.h,
             ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            Padding(
+              padding: EdgeInsets.only(right: 120.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 17.r,
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      Text(
+                        "Add tracking",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 7.sp,
+                            fontWeight: FontWeight.w200,
+                            color: Colors.black.withOpacity(1)),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 40.w,
+                  ),
+                  Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 17.r,
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      Text(
+                        "Message",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 7.sp,
+                            fontWeight: FontWeight.w200,
+                            color: Colors.black.withOpacity(1)),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 12.h,
+            ),
+            Container(
+              height: 1.5.h,
+              width: double.maxFinite,
+              color: Color(0xFFeff2f9),
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+
+
+
+
+
+
+
+
+Padding(
+  padding:   EdgeInsets.symmetric(horizontal: 13.w),
+  child: Column(
+    children: [
+      Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+                          "Details",
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              fontSize: 8.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black.withOpacity(1)),
+                        ),
+      ),
+
+
+      SizedBox(height: 20.h,),
+
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text("Amount",style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              fontSize: 8.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black.withOpacity(1)),
+                        ),
+
+                         Text('US\$${transaction.amount}',style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              fontSize: 8.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black.withOpacity(1)),
+                        ),
+        ],
+      )
+
+,
+
+SizedBox(height:12.h,),
+
+
+
+          Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text("Fee",style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              fontSize: 8.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black.withOpacity(1)),
+                        ),
+
+
+                         Text('-US\$${transaction.payPalFee}',style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              fontSize: 8.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black.withOpacity(1)),
+                        ),
+        ],
+      )
+
+
+
+
+,
+
+SizedBox(height:12.h,),
+
+          Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text("Total",style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              fontSize: 8.sp,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.black.withOpacity(1)),
+                        ),
+
+                         Text('US\$${ double.parse(transaction.amount)-double.parse(transaction.payPalFee)}',style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              fontSize: 8.sp,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.black.withOpacity(1)),
+                        ),
+        ],
+      )
+    ],
+  ),
+),
+
+
+
+
+
+
+
+
+
+
+
+       SizedBox(
+              height: 12.h,
+            ),
+            Container(
+              height: 1.5.h,
+              width: double.maxFinite,
+              color: Color(0xFFeff2f9),
+            ),
+            SizedBox(
+              height: 7.h,
+            ),
+
+
+ Padding(
+              padding: EdgeInsets.symmetric(horizontal: 13.w),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Transaction ID",
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize: 8.sp,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black.withOpacity(1)),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 13.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    transaction.transactionCode,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 6.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black.withOpacity(1)),
+                  ),
+                  Icon(
+                    Icons.copy,
+                    size: 7.h,
+                  )
+                ],
+              ),
+            ),
+
+
+
+
+
           ],
         ),
       ),
