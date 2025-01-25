@@ -7,13 +7,15 @@ class UserModel {
  final bool hasImage;
 
  UserModel({
-   required this.name,
-   required this.phone,
-   required this.email, 
-   required this.address,
-   required this.imagePath,
-   required this.hasImage,
+   this.name = '',
+   this.phone = '',
+   this.email = '', 
+   this.address = '',
+   this.imagePath = '',
+   this.hasImage = false,
  });
+
+
 
  factory UserModel.fromJson(Map<String, dynamic> json) {
    return UserModel(

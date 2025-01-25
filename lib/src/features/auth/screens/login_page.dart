@@ -41,14 +41,15 @@ class LoginPage extends GetView<LoginController> {
               height: 20.h,
             ),
             Text(
-              'name',
+              "${controller.userDetails.name}",
               style: TextStyle(
                   fontSize: 9.5.sp,
                   fontWeight: FontWeight.w800,
                   color: Colors.black),
             ),
             Text(
-              'emqarani@gmail.com',
+              "${controller.userDetails.email}",
+
               style: TextStyle(
                   fontSize: 9.5.sp,
                   fontWeight: FontWeight.w400,

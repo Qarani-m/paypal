@@ -82,6 +82,7 @@ class UserFormPage extends GetView<UserFormController> {
            SizedBox(height: 12.h),
            
            TextFormField(
+            keyboardType: TextInputType.number,
              onChanged: (v) => controller.phone.value = v,
              validator: (v) => v!.isEmpty ? 'Required' : null,
              decoration: InputDecoration(
@@ -93,6 +94,8 @@ class UserFormPage extends GetView<UserFormController> {
            SizedBox(height: 12.h),
            
            TextFormField(
+            keyboardType: TextInputType.emailAddress,
+           
              onChanged: (v) => controller.email.value = v,
              validator: (v) => v!.isEmpty ? 'Required' : null,
              decoration: InputDecoration(
