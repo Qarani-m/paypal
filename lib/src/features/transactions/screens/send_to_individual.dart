@@ -30,16 +30,11 @@ class SendToIndividual extends StatelessWidget {
       AppImages.bank,
     ];
 
-
     final storage = GetStorage();
     String address = storage.read('user_data')['address'];
 
-
-
     bool isPaymentCompleted = false;
     // String address = 'Michael Bay\nNairobi\nKamakis\nNairobi 01000\nKenya';
-
-
 
     TextStyle sameTextStyle = Theme.of(context).textTheme.bodySmall!.copyWith(
         fontSize: 8.sp,
@@ -416,27 +411,6 @@ class SendToIndividual extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                 SizedBox(height: 10.h),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -458,10 +432,8 @@ class SendToIndividual extends StatelessWidget {
                                           ],
                                         ),
                                         Text(
-                    "US\$${AppUtilities().formatNumber(transaction.amount)}",
-                                          
-                                          
-                                           style: sameTextStyle),
+                                            "US\$${AppUtilities().formatNumber(transaction.amount)}",
+                                            style: sameTextStyle),
                                       ],
                                     ),
                                     SizedBox(height: 17.h),
@@ -583,7 +555,7 @@ class SendToIndividual extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    address.replaceAll(',','\n' ),
+                    address.replaceAll(',', '\n'),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 7.sp,
                         fontWeight: FontWeight.w400,

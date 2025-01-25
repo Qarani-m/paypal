@@ -1,13 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/profile/screens/profile_homepage.dart';
+import 'package:paypal/src/features/settings/controllers/settings_controller.dart';
 import 'package:paypal/src/features/settings/screens/message_center.dart';
 import 'package:paypal/src/features/settings/screens/persona_infor.dart';
 
-class SettingsHomapage extends StatelessWidget {
+class SettingsHomapage extends GetView<SettingsController> {
   const SettingsHomapage({super.key});
 
   @override
@@ -80,26 +83,63 @@ class SettingsHomapage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Profile image
-                      Container(
-                        width: 50.w,
-                        height: 50.w,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 2,
-                          ),
-                          image: DecorationImage(
-                            image: AssetImage(
-                                AppImages.atmCard), // Replace with your image
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
+                     Center(
+              child: Stack(
+                children: [
+                  controller.user.value.hasImage
+                          ? Container(
+                              height: 32.h,
+                              width: 32.h,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey[300],
+                              ),
+                              child: ClipOval(
+                                child: Image.file(
+                                  File(controller.user.value.imagePath),
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Icon(Icons.person,
+                                        color: Colors.grey[600]);
+                                  },
+                                ),
+                              ),
+                            )
+                          :  Container(
+                    height: 35.h,
+                    width: 35.h,
+                    decoration: BoxDecoration(
+                    color: Colors.grey,
+
+                      shape: BoxShape.circle
+                    ),
+                  ),
+
+
+
+
+
+
+
+
+
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: CircleAvatar(
+                      radius: 7.r,
+                      child:    SvgPicture.asset(
+                    'assets/svg/house.svg',
+                    height: 5.h,
+                  ),
+                    ))
+                ],
+              ),
+            ),
                       SizedBox(height: 8.h),
                       // Name
                       Text(
-                        'Martin Karani',
+                        controller.user.value.name,
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
@@ -109,7 +149,7 @@ class SettingsHomapage extends StatelessWidget {
                       SizedBox(height: 2.h),
                       // Email
                       Text(
-                        'emqarani@gmail.com',
+                        controller.user.value.email,
                         style: TextStyle(
                           fontSize: 9.sp,
                           color: Colors.grey[600],
@@ -222,7 +262,7 @@ class SettingsHomapage extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .displayLarge
-                    ?.copyWith(fontWeight: FontWeight.w600, fontSize: 8.sp),
+                    ?.copyWith(fontWeight: FontWeight.w400, fontSize: 8.sp),
               ),
             ),
             SizedBox(
@@ -235,7 +275,7 @@ class SettingsHomapage extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .displayLarge
-                    ?.copyWith(fontWeight: FontWeight.w600, fontSize: 8.sp),
+                    ?.copyWith(fontWeight: FontWeight.w400, fontSize: 8.sp),
               ),
             ),
           ],

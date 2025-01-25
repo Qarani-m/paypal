@@ -1,15 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:paypal/src/features/payments/models/payment_model.dart';
 import 'package:paypal/src/features/settings/controllers/settings_controller.dart';
+import 'package:paypal/src/utils/utilities.dart';
 
 class PersonaInfor extends GetView<SettingsController> {
   const PersonaInfor({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -35,7 +40,26 @@ class PersonaInfor extends GetView<SettingsController> {
             Center(
               child: Stack(
                 children: [
-                  Container(
+                  controller.user.value.hasImage
+                          ? Container(
+                              height: 32.h,
+                              width: 32.h,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey[300],
+                              ),
+                              child: ClipOval(
+                                child: Image.file(
+                                  File(controller.user.value.imagePath),
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Icon(Icons.person,
+                                        color: Colors.grey[600]);
+                                  },
+                                ),
+                              ),
+                            )
+                          :  Container(
                     height: 35.h,
                     width: 35.h,
                     decoration: BoxDecoration(
@@ -44,6 +68,15 @@ class PersonaInfor extends GetView<SettingsController> {
                       shape: BoxShape.circle
                     ),
                   ),
+
+
+
+
+
+
+
+
+
                   Positioned(
                     bottom: 0,
                     right: 0,
@@ -57,6 +90,13 @@ class PersonaInfor extends GetView<SettingsController> {
                 ],
               ),
             ),
+
+
+
+
+
+
+
             SizedBox(height: 25.h,),
             RightAndLeft(
               text: "Email addresses",
@@ -100,7 +140,7 @@ class PersonaInfor extends GetView<SettingsController> {
                         ],
                       ),
                       Text(
-                        'emqarani@gmail.com',
+                        controller.user.value.email,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: 7.sp, color: Colors.black.withOpacity(1)),
                       ),
@@ -170,7 +210,7 @@ class PersonaInfor extends GetView<SettingsController> {
                         ],
                       ),
                       Text(
-                        '7** **7676',
+                        AppUtilities().obfuscatePhoneNumber(controller.user.value.phone),
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: 7.sp, color: Colors.black.withOpacity(1)),
                       ),
@@ -206,7 +246,7 @@ class PersonaInfor extends GetView<SettingsController> {
                     width: 8.w,
                   ),
                   Text(
-                    '10345 Braodway\nNairobi, 10022\nNairobi, Kenya',
+                    controller.user.value.address.replaceAll(',', '\n'),
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall

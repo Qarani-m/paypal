@@ -59,4 +59,16 @@ class AppUtilities {
     final formatter = NumberFormat('#,##0.00');
     return formatter.format(number);
   }
+
+String obfuscatePhoneNumber(String phoneNumber) {
+  if (phoneNumber.length != 10 || !phoneNumber.startsWith('07')) {
+    throw ArgumentError('Invalid phone number format. Must be 10 digits starting with "07".');
+  }
+  return '${phoneNumber.substring(1, 2)}** **${phoneNumber.substring(6)}';
+}
+
+
+
+
+
 }
