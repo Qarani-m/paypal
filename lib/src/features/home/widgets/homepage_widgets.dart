@@ -148,18 +148,50 @@ class SettingAndProfileMenu extends StatelessWidget {
             ),
           ),
         ),
-        GestureDetector(
-          onTap: () => Get.toNamed("/profile"),
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            radius: 11.r,
-            child: Icon(
-              Icons.person_2_outlined,
-              size: 10.h,
-              color: Color(0xFF0059b3),
-              weight: 0.1,
+        Row(
+          children: [
+            GestureDetector(
+              onTap: () => Get.toNamed("/profile"),
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 11.r,
+                child: Icon(
+                  Icons.question_mark,
+                  size: 10.h,
+                  color: Color(0xFF0059b3),
+                  weight: 0.1,
+                ),
+              ),
             ),
-          ),
+            SizedBox(width: 9.w),
+            GestureDetector(
+              onTap: () => Get.toNamed("/profile"),
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 11.r,
+                child: Icon(
+                  Icons.qr_code,
+                  size: 10.h,
+                  color: Color(0xFF0059b3),
+                  weight: 0.1,
+                ),
+              ),
+            ),
+            SizedBox(width: 9.w),
+            GestureDetector(
+              onTap: () => Get.toNamed("/profile"),
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 11.r,
+                child: Icon(
+                  Icons.person_2_outlined,
+                  size: 10.h,
+                  color: Color(0xFF0059b3),
+                  weight: 0.1,
+                ),
+              ),
+            ),
+          ],
         )
       ],
     );
@@ -221,8 +253,7 @@ class PaymentContainer extends StatelessWidget {
           Get.toNamed('/refund', arguments: transaction);
         }
 
-
-         if (category == 'Paypal,Recovery') {
+        if (category == 'Paypal,Recovery') {
           Get.toNamed('/paypal_recovery', arguments: transaction);
         }
 

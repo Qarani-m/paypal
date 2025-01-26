@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/home/controllers/homepage_controller.dart';
 import 'package:paypal/src/features/home/widgets/homepage_buttons.dart';
 import 'package:paypal/src/features/home/widgets/homepage_widgets.dart';
@@ -31,9 +30,8 @@ class Homepage extends GetView<HomepageController> {
                       SettingAndProfileMenu(),
                       SizedBox(height: 20.h),
                       PayPalBalance(
-                        balance:controller.userDetails.balance,
-                        currency:controller.userDetails.currency
-                      ),
+                          balance: controller.userDetails.balance,
+                          currency: controller.userDetails.currency),
                       SizedBox(height: 12.h),
                       Align(
                         alignment: Alignment.centerLeft,
@@ -47,31 +45,39 @@ class Homepage extends GetView<HomepageController> {
                       SizedBox(height: 6.h),
                       PayFromYourPhone(),
                       SizedBox(height: 12.h),
-                      GetX<HomepageController>(
-                        builder: (controller) {
-                          
-                          // print(controller.recentTransactions[0]);
-                          return  Column(
+                      GetX<HomepageController>(builder: (controller) {
+                        // print(controller.recentTransactions[0]);
+                        return Column(
                           children: List.generate(
                             controller.recentTransactions.length,
                             (index) => PaymentContainer(
-                              transaction:controller.recentTransactions[index],
-                              id:controller.recentTransactions[index].id,
-                              hasImage: controller.recentTransactions[index].hasProfilePic,
-                              date: controller.recentTransactions[index].date,
-                              index: index,
-                              name: controller.recentTransactions[index].name,
-                              amount:'${controller.recentTransactions[index].amount} ${controller.recentTransactions[index].currency}',
-                              isRecieved: controller.recentTransactions[index].type ,
-                              showDetails: controller.recentTransactions[index].message.length>0,
-                              message: controller.recentTransactions[index].message,
-                              imagePath: controller.recentTransactions[index].imagePath,
-                              homepageController: controller,
-                              category: '${controller.recentTransactions[index].type},${controller.recentTransactions[index].direction}'
-                            ),
+                                transaction:
+                                    controller.recentTransactions[index],
+                                id: controller.recentTransactions[index].id,
+                                hasImage: controller
+                                    .recentTransactions[index].hasProfilePic,
+                                date: controller.recentTransactions[index].date,
+                                index: index,
+                                name: controller.recentTransactions[index].name,
+                                amount:
+                                    '${controller.recentTransactions[index].amount} ${controller.recentTransactions[index].currency}',
+                                isRecieved:
+                                    controller.recentTransactions[index].type,
+                                showDetails: controller
+                                        .recentTransactions[index]
+                                        .message
+                                        .length >
+                                    0,
+                                message: controller
+                                    .recentTransactions[index].message,
+                                imagePath: controller
+                                    .recentTransactions[index].imagePath,
+                                homepageController: controller,
+                                category:
+                                    '${controller.recentTransactions[index].type},${controller.recentTransactions[index].direction}'),
                           ),
-                        );}
-                      ),
+                        );
+                      }),
                       Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
