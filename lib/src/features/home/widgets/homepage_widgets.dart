@@ -130,67 +130,70 @@ class SettingAndProfileMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        GestureDetector(
-          onTap: () => Get.toNamed('/settings'),
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            radius: 11.r,
-            child: Icon(
-              Icons.menu,
-              size: 10.h,
-              color: Color(0xFF0059b3),
+    return Padding(
+      padding:   EdgeInsets.only(right: 13.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () => Get.toNamed('/settings'),
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 11.r,
+              child: Icon(
+                Icons.menu,
+                size: 10.h,
+                color: Color(0xFF0059b3),
+              ),
             ),
           ),
-        ),
-        Row(
-          children: [
-            GestureDetector(
-              onTap: () => Get.toNamed("/profile"),
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 11.r,
-                child: Icon(
-                  Icons.question_mark,
-                  size: 10.h,
-                  color: Color(0xFF0059b3),
-                  weight: 0.1,
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () => Get.toNamed("/profile"),
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 11.r,
+                  child: Icon(
+                    Icons.question_mark,
+                    size: 10.h,
+                    color: Color(0xFF0059b3),
+                    weight: 0.1,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(width: 9.w),
-            GestureDetector(
-              onTap: () => Get.toNamed("/profile"),
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 11.r,
-                child: Icon(
-                  Icons.qr_code,
-                  size: 10.h,
-                  color: Color(0xFF0059b3),
-                  weight: 0.1,
+              SizedBox(width: 9.w),
+              GestureDetector(
+                onTap: () => Get.toNamed("/profile"),
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 11.r,
+                  child: Icon(
+                    Icons.qr_code,
+                    size: 10.h,
+                    color: Color(0xFF0059b3),
+                    weight: 0.1,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(width: 9.w),
-            GestureDetector(
-              onTap: () => Get.toNamed("/profile"),
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 11.r,
-                child: Icon(
-                  Icons.person_2_outlined,
-                  size: 10.h,
-                  color: Color(0xFF0059b3),
-                  weight: 0.1,
+              SizedBox(width: 9.w),
+              GestureDetector(
+                onTap: () => Get.toNamed("/profile"),
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 11.r,
+                  child: Icon(
+                    Icons.person_2_outlined,
+                    size: 10.h,
+                    color: Color(0xFF0059b3),
+                    weight: 0.1,
+                  ),
                 ),
               ),
-            ),
-          ],
-        )
-      ],
+            ],
+          )
+        ],
+      ),
     );
   }
 }

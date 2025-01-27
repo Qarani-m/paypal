@@ -14,19 +14,18 @@ class PersonaInfor extends GetView<SettingsController> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         centerTitle: true,
-                leading: IconButton(
-          icon: Icon(Icons.arrow_back, size: 12.sp), // Adjust size here
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, size: 15.h), // Adjust size here
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           "Account information",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontSize: 8.sp,
+              fontSize: 10.sp,
               fontWeight: FontWeight.w400,
               color: Colors.black.withOpacity(1)),
         ),
@@ -35,69 +34,54 @@ class PersonaInfor extends GetView<SettingsController> {
         padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 3.h),
         child: Column(
           children: [
-            SizedBox(height: 30.h,),
-
+            SizedBox(
+              height: 20.h,
+            ),
             Center(
               child: Stack(
                 children: [
                   controller.user.value.hasImage
-                          ? Container(
-                              height: 32.h,
-                              width: 32.h,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.grey[300],
-                              ),
-                              child: ClipOval(
-                                child: Image.file(
-                                  File(controller.user.value.imagePath),
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Icon(Icons.person,
-                                        color: Colors.grey[600]);
-                                  },
-                                ),
-                              ),
-                            )
-                          :  Container(
-                    height: 35.h,
-                    width: 35.h,
-                    decoration: BoxDecoration(
-                    color: Colors.grey,
-
-                      shape: BoxShape.circle
-                    ),
-                  ),
-
-
-
-
-
-
-
-
-
+                      ? Container(
+                          height: 37.h,
+                          width: 37.h,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.grey[300],
+                          ),
+                          child: ClipOval(
+                            child: Image.file(
+                              File(controller.user.value.imagePath),
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Icon(Icons.person,
+                                    color: Colors.grey[600]);
+                              },
+                            ),
+                          ),
+                        )
+                      : Container(
+                          height: 50.h,
+                          width: 50.h,
+                          decoration: BoxDecoration(
+                              color: Colors.white, shape: BoxShape.circle),
+                        ),
                   Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: CircleAvatar(
-                      radius: 7.r,
-                      child:    SvgPicture.asset(
-                    'assets/svg/house.svg',
-                    height: 5.h,
-                  ),
-                    ))
+                      bottom: 0,
+                      right: 0,
+                      child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 8.r,
+                          child: Icon(
+                            Icons.edit_outlined,
+                            size: 10.h,
+                            color: Colors.black,
+                          )))
                 ],
               ),
             ),
-
-
-
-
-
-
-
-            SizedBox(height: 25.h,),
+            SizedBox(
+              height: 25.h,
+            ),
             RightAndLeft(
               text: "Email addresses",
             ),
@@ -112,7 +96,7 @@ class PersonaInfor extends GetView<SettingsController> {
                 children: [
                   SvgPicture.asset(
                     'assets/svg/house.svg',
-                    height: 10.h,
+                    height: 15.h,
                   ),
                   SizedBox(
                     width: 8.w,
@@ -134,7 +118,7 @@ class PersonaInfor extends GetView<SettingsController> {
                                   .textTheme
                                   .bodySmall
                                   ?.copyWith(
-                                      fontSize: 6.sp, color: Colors.black),
+                                      fontSize: 7.sp, color: Colors.black),
                             ),
                           ),
                         ],
@@ -142,7 +126,7 @@ class PersonaInfor extends GetView<SettingsController> {
                       Text(
                         controller.user.value.email,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 7.sp, color: Colors.black.withOpacity(1)),
+                            fontSize: 9.sp, color: Colors.black.withOpacity(1)),
                       ),
                     ],
                   )
@@ -164,7 +148,7 @@ class PersonaInfor extends GetView<SettingsController> {
                 children: [
                   SvgPicture.asset(
                     'assets/svg/house.svg',
-                    height: 11.h,
+                    height: 15.h,
                   ),
                   SizedBox(
                     width: 8.w,
@@ -186,38 +170,28 @@ class PersonaInfor extends GetView<SettingsController> {
                                   .textTheme
                                   .bodySmall
                                   ?.copyWith(
-                                      fontSize: 6.sp, color: Colors.black),
+                                      fontSize: 7.sp, color: Colors.black),
                             ),
                           ),
                           SizedBox(
                             width: 3.w,
                           ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 2.h, horizontal: 3.w),
-                            decoration: BoxDecoration(
-                                color: Colors.orange,
-                                borderRadius: BorderRadius.circular(3.r)),
-                            child: Text(
-                              'Unconfirmed',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                      fontSize: 6.sp, color: Colors.black),
-                            ),
-                          )
                         ],
                       ),
+                      SizedBox(
+                        height: 4.h,
+                      ),
                       Text(
-                        AppUtilities().obfuscatePhoneNumber(controller.user.value.phone),
+                        AppUtilities()
+                            .obfuscatePhoneNumber(controller.user.value.phone),
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 7.sp, color: Colors.black.withOpacity(1)),
+                            fontSize: 10.sp,
+                            color: Colors.black.withOpacity(1)),
                       ),
                       Text(
                         'Mobile',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 7.sp,
+                            fontSize: 9.sp,
                             color: Colors.black.withOpacity(0.4)),
                       )
                     ],
@@ -240,7 +214,7 @@ class PersonaInfor extends GetView<SettingsController> {
                 children: [
                   SvgPicture.asset(
                     'assets/svg/house.svg',
-                    height: 11.h,
+                    height: 15.h,
                   ),
                   SizedBox(
                     width: 8.w,
@@ -250,7 +224,7 @@ class PersonaInfor extends GetView<SettingsController> {
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall
-                        ?.copyWith(fontSize: 7.sp, color: Colors.black),
+                        ?.copyWith(fontSize: 9.sp, color: Colors.black),
                   )
                 ],
               ),
@@ -277,21 +251,21 @@ class RightAndLeft extends StatelessWidget {
       children: [
         Text(text,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontSize: 9.sp,
+                  fontSize: 11.sp,
                   fontWeight: FontWeight.w700,
                 )),
         Row(
           children: [
             Text('See All',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontSize: 7.sp,
+                      fontSize: 9.sp,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black.withOpacity(0.3),
+                      color: Colors.black.withOpacity(0.6),
                     )),
             Icon(
               Icons.arrow_forward_ios,
               size: 9.h,
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withOpacity(0.6),
             )
           ],
         )

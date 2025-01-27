@@ -289,9 +289,9 @@ class _SimpleSliderState extends State<SimpleSlider> {
             padding: EdgeInsets.only(right: 10.w),
             child: Container(
               padding: EdgeInsets.only(
-                top: 10.h,
-                left: 10.w,
-                bottom: 10.h,
+                top: 8.h,
+                left: 8.w,
+                bottom: 8.h,
                 right: 90.w,
               ),
               decoration: index==0?BoxDecoration(
@@ -318,7 +318,7 @@ class _SimpleSliderState extends State<SimpleSlider> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 37.h),
+                  SizedBox(height: 42.h),
                   Text(
                     helpingHand[index],
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
