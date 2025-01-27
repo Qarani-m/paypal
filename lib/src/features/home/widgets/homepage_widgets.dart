@@ -95,23 +95,27 @@ class PayPalBalance extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-          padding: EdgeInsets.only(left: 10.w,right:50.w, top:8.h, bottom:60.h),
+          padding:
+              EdgeInsets.only(left: 10.w, right: 50.w, top: 8.h, bottom: 60.h),
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(6.r)),
           child: Column(
             children: [
-             
-               Text("PayPal balance",
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w400, fontSize: 9.sp)),
-              
-              SizedBox(height: 5.h,),
-              
+              Text("PayPal balance",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(fontWeight: FontWeight.w400, fontSize: 9.sp)),
+              SizedBox(
+                height: 5.h,
+              ),
               Text(
                 // balance,
                 "${currencies['$currency']}${AppUtilities().formatNumber(balance)}",
-                style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                    fontWeight: FontWeight.w900, fontSize: 14.sp),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge
+                    ?.copyWith(fontWeight: FontWeight.w900, fontSize: 14.sp),
               ),
             ],
           )),
@@ -283,8 +287,8 @@ class PaymentContainer extends StatelessWidget {
 
                   hasImage
                       ? Container(
-                          height: 32.h,
-                          width: 32.h,
+                          height: 42.h,
+                          width: 42.h,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.grey[300],
@@ -327,7 +331,7 @@ class PaymentContainer extends StatelessWidget {
                         Text(
                           name,
                           style: TextStyle(
-                              fontSize: 7.5.sp,
+                              fontSize: 9.5.sp,
                               fontWeight: FontWeight.w800,
                               color: Colors.black),
                         ),
@@ -336,7 +340,7 @@ class PaymentContainer extends StatelessWidget {
                         Text(
                           AppUtilities().formatDateDateFirst(date),
                           style: TextStyle(
-                            fontSize: 7.sp,
+                            fontSize: 9.sp,
                             color: Colors.grey,
                           ),
                         ),
@@ -353,10 +357,14 @@ class PaymentContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  homepageController.getCategory(
-                      '${transaction.type},${transaction.direction}'),
+                  homepageController
+                          .getCategory(
+                              '${transaction.type},${transaction.direction}')
+                          .contains('recieve')
+                      ? 'Money recieved'
+                      : 'Money sent',
                   style: TextStyle(
-                      fontSize: 6.sp,
+                      fontSize: 8.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.grey),
                 ),
@@ -364,7 +372,7 @@ class PaymentContainer extends StatelessWidget {
                   '${isRecievedB ? "+ " : "- "}US\$${AppUtilities().formatNumber(amount.split(' ')[0])}',
                   // '${isRecievedB ? "+ " : "- "}US\$${amount}',
                   style: TextStyle(
-                      fontSize: 7.5.sp,
+                      fontSize: 9.5.sp,
                       fontWeight: FontWeight.w800,
                       color: isRecievedB
                           ? const Color.fromARGB(255, 38, 126, 41)
@@ -389,7 +397,7 @@ class PaymentContainer extends StatelessWidget {
                                       .textTheme
                                       .bodySmall
                                       ?.copyWith(
-                                          fontSize: 6.5.sp,
+                                          fontSize: 8.5.sp,
                                           fontWeight: FontWeight.w400,
                                           color: Colors.black.withOpacity(1)),
                                 ),
@@ -409,7 +417,7 @@ class PaymentContainer extends StatelessWidget {
                                   child: Text(
                                     'Add tracking',
                                     style: TextStyle(
-                                        fontSize: 7.sp,
+                                        fontSize: 8.sp,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.black.withOpacity(0.8)),
                                   ),

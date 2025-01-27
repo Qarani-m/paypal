@@ -10,6 +10,6 @@ else
 fi
 
 git commit -m "$commitMessage"
-git push
+git push --force
 
 
