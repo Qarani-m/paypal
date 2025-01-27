@@ -67,7 +67,9 @@ class LoginController extends GetxController {
         }
       }
     } catch (e) {
-      print(e);
+            Get.off(UserFormPage());
+
+      print('====$e');
     }
   }
 }

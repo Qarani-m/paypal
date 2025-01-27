@@ -92,37 +92,30 @@ class PayPalBalance extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<String, String> currencies = {'USD': '\$'};
-    return Container(
-        padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 10.w),
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(6.r)),
-        child: Row(
-          children: [
-            Container(
-              height: 9.h,
-              width: 9.h,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(AppImages.paypalLogo1))),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "${currencies['$currency']}${AppUtilities().formatNumber(balance)}",
-                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                        fontWeight: FontWeight.w900, fontSize: 14.sp),
-                  ),
-                  Text("PayPal balance",
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w400, fontSize: 7.sp)),
-                ],
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+          padding: EdgeInsets.only(left: 10.w,right:50.w, top:8.h, bottom:60.h),
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(6.r)),
+          child: Column(
+            children: [
+             
+               Text("PayPal balance",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w400, fontSize: 9.sp)),
+              
+              SizedBox(height: 5.h,),
+              
+              Text(
+                // balance,
+                "${currencies['$currency']}${AppUtilities().formatNumber(balance)}",
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                    fontWeight: FontWeight.w900, fontSize: 14.sp),
               ),
-            ),
-          ],
-        ));
+            ],
+          )),
+    );
   }
 }
 
