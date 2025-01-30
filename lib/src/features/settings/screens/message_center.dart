@@ -5,9 +5,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:paypal/src/constants/images.dart';
+import 'package:paypal/src/features/settings/controllers/conversation_controller.dart';
 import 'package:paypal/src/features/settings/screens/message_page.dart';
 
-class MessageCenter extends StatelessWidget {
+class MessageCenter extends  GetView<ConversationController> {
   const MessageCenter({super.key});
 
   @override
@@ -36,39 +37,44 @@ class MessageCenter extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      "Need help?",
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 7.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black.withOpacity(1)),
-                    ),
-                    SizedBox(
-                      height: 8.h,
-                    ),
-                    Text(
-                      "Ask PayPal assistant",
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 8.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xFF0059b3).withOpacity(1)),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 9.w,
-                ),
-                SvgPicture.asset(
-                  AppImages.onlinePurchases,
-                  height: 14.h,
-                )
-              ],
+            child: GestureDetector(
+              onTap: (){
+
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Need help?",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 7.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black.withOpacity(1)),
+                      ),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      Text(
+                        "Ask PayPal assistant",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 8.sp,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF0059b3).withOpacity(1)),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 9.w,
+                  ),
+                  SvgPicture.asset(
+                    AppImages.onlinePurchases,
+                    height: 14.h,
+                  )
+                ],
+              ),
             ),
           ),
           SizedBox(
@@ -77,7 +83,13 @@ class MessageCenter extends StatelessWidget {
           GestureDetector(
               onTap: () => Get.to(PayPalAssistantPage()), child: OneMessage()),
           OneMessage(),
-          OneMessage(),
+         
+
+
+
+
+
+
           Padding(
             padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 3.h),
             child: Text.rich(
