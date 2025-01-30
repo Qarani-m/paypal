@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/settings/screens/message_page.dart';
 
@@ -13,7 +14,7 @@ class MessageCenter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-                leading: IconButton(
+        leading: IconButton(
           icon: Icon(Icons.arrow_back, size: 12.sp), // Adjust size here
           onPressed: () => Navigator.pop(context),
         ),
@@ -22,7 +23,7 @@ class MessageCenter extends StatelessWidget {
         title: Text(
           "Message Centre",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontSize: 8.sp,
+              fontSize: 9.sp,
               fontWeight: FontWeight.w400,
               color: Colors.black.withOpacity(1)),
         ),
@@ -44,7 +45,7 @@ class MessageCenter extends StatelessWidget {
                     Text(
                       "Need help?",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 6.sp,
+                          fontSize: 7.sp,
                           fontWeight: FontWeight.w400,
                           color: Colors.black.withOpacity(1)),
                     ),
@@ -54,7 +55,7 @@ class MessageCenter extends StatelessWidget {
                     Text(
                       "Ask PayPal assistant",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 7.sp,
+                          fontSize: 8.sp,
                           fontWeight: FontWeight.w700,
                           color: Color(0xFF0059b3).withOpacity(1)),
                     ),
@@ -65,7 +66,7 @@ class MessageCenter extends StatelessWidget {
                 ),
                 SvgPicture.asset(
                   AppImages.onlinePurchases,
-                  height: 10.h,
+                  height: 14.h,
                 )
               ],
             ),
@@ -74,9 +75,7 @@ class MessageCenter extends StatelessWidget {
             height: 8.h,
           ),
           GestureDetector(
-            
-            onTap: () => Get.to(PayPalAssistantPage()),
-            child: OneMessage()),
+              onTap: () => Get.to(PayPalAssistantPage()), child: OneMessage()),
           OneMessage(),
           OneMessage(),
           Padding(
@@ -86,9 +85,9 @@ class MessageCenter extends StatelessWidget {
                 children: [
                   TextSpan(
                     text:
-                        'Effective from 1 january 2023, messages are availlable in the Message Centre for 3 years from the daate originally sent. If you would like a copy of any previous messages not displayedin the Message Centre, please ',
+                        'Effective from 1 january 2023, messages are availlable in the Message Centre for 3 years from the daate originally sent. If you would like a copy of any previous messages not displayedin the Message Centre,\nplease ',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 6.sp,
+                          fontSize: 6.5.sp,
                           fontWeight: FontWeight.w200,
                           color: Colors.black.withOpacity(1),
                         ),
@@ -100,8 +99,8 @@ class MessageCenter extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                           decoration: TextDecoration.underline,
                           decorationColor: Color(0xFF0059b3),
-                          color:
-                              Color(0xFF0059b3), // Different color for the link text
+                          color: Color(
+                              0xFF0059b3), // Different color for the link text
                         ),
                   ),
                 ],
@@ -118,6 +117,27 @@ class OneMessage extends StatelessWidget {
   const OneMessage({
     super.key,
   });
+  String formatTimeAgo(String dateTimeStr) {
+    // Parse the input date string
+    final DateTime dateTime = DateTime.parse(dateTimeStr.replaceAll(' ', 'T'));
+    final DateTime now = DateTime.now();
+    final Duration difference = now.difference(dateTime);
+
+    // If less than an hour ago
+    if (difference.inHours < 1) {
+      return '${difference.inMinutes} mins ago';
+    }
+    // If it's today but more than an hour ago
+    else if (dateTime.year == now.year &&
+        dateTime.month == now.month &&
+        dateTime.day == now.day) {
+      return DateFormat('h:mma').format(dateTime).toLowerCase();
+    }
+    // For any other date
+    else {
+      return DateFormat('d/MM/yyyy').format(dateTime);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,19 +178,19 @@ class OneMessage extends StatelessWidget {
                                 .ellipsis, // Add ellipsis when overflowing
                             style:
                                 Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      fontSize: 6.7.sp,
+                                      fontSize: 7.7.sp,
                                       height:
                                           1.5, // Line height for better readability
                                     ),
                           ),
                           Text(
-                            '5:59 pm',
+                            formatTimeAgo('2024-01-31 02:12'),
                             maxLines: 3, // Limit to 3 lines
                             overflow: TextOverflow
                                 .ellipsis, // Add ellipsis when overflowing
                             style:
                                 Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      fontSize: 5.7.sp,
+                                      fontSize: 7.7.sp,
                                       color: Colors.black.withOpacity(0.7),
                                       height:
                                           1.5, // Line height for better readability

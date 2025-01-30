@@ -19,11 +19,17 @@ class RootLayout extends GetView<NavigationController> {
       page: const Homepage(),
       // page: const Homepage1(),
     ),
-    NavItem(
-      label: 'Payments',
-      svgPath: 'assets/svg/currency-dollar.svg',
+        NavItem(
+      label: 'Crypto',
+      svgPath: 'assets/svg/bar-chart-line.svg',
       page:   PaymentsHomepgae(),
     ),
+    NavItem(
+      label: 'Send/Request',
+      svgPath: 'assets/svg/arrow-down-up.svg',
+      page:   PaymentsHomepgae(),
+    ),
+  
     NavItem(
       label: 'Wallet',
       svgPath: 'assets/svg/wallet.svg',
@@ -40,7 +46,7 @@ class RootLayout extends GetView<NavigationController> {
         selectedColor: Colors.black,
         unselectedColor: Colors.grey,
         backgroundColor: Colors.white,
-        height: 25.h,
+        height: 35.h,
       ),
     );
   }

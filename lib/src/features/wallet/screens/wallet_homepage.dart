@@ -6,8 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/home/controllers/homepage_controller.dart';
+import 'package:paypal/src/features/home/models/nav_item.dart';
+import 'package:paypal/src/features/home/screens/homepage.dart';
+import 'package:paypal/src/features/home/widgets/bottom_appbar.dart';
 import 'package:paypal/src/features/home/widgets/homepage_widgets.dart';
 import 'package:paypal/src/features/payments/models/payment_model.dart';
+import 'package:paypal/src/features/payments/screens/payments_homepgae.dart';
 import 'package:paypal/src/features/wallet/controllers/wallet_controller.dart';
 import 'package:paypal/src/features/wallet/widgets/custom_searchbar.dart';
 import 'package:collection/collection.dart';
@@ -27,7 +31,41 @@ class WalletHomepage extends GetView<WalletController> {
       }
     });
 
+       final List<NavItem> _navItems = [
+    NavItem(
+      label: 'Home',
+      svgPath: 'assets/svg/house.svg',
+      page: const Homepage(),
+      // page: const Homepage1(),
+    ),
+        NavItem(
+      label: 'Crypto',
+      svgPath: 'assets/svg/bar-chart-line.svg',
+      page:   PaymentsHomepgae(),
+    ),
+    NavItem(
+      label: 'Send/Request',
+      svgPath: 'assets/svg/arrow-down-up.svg',
+      page:   PaymentsHomepgae(),
+    ),
+  
+    NavItem(
+      label: 'Wallet',
+      svgPath: 'assets/svg/wallet.svg',
+      page: const WalletHomepage(),
+    ),
+  ];
+
     return Scaffold(
+      bottomNavigationBar: initialTabIndex == 0
+          ? null
+          : CustomBottomNavigationBar(
+              items: _navItems,
+              selectedColor: Colors.black,
+              unselectedColor: Colors.grey,
+              backgroundColor: Colors.white,
+              height: 35.h,
+            ),
       body: Padding(
         padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 60.h),
         child: Column(

@@ -21,6 +21,9 @@ class SendToIndividual extends StatelessWidget {
       'Get answers',
       'Report problem',
     ];
+
+    Map<String, String> nameAndSigns = {'GBP': '£', 'EURO': '€', 'USD': '\$'};
+
     List<String> howCanWeHelpImages = [
       AppImages.bank,
       AppImages.bank,
@@ -316,32 +319,29 @@ class SendToIndividual extends StatelessWidget {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Padding(
-                                  padding: EdgeInsets.all(16),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: Center(
-                                          child: Text(
-                                            'Payment info',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 8.sp,
-                                                fontWeight: FontWeight.w400),
-                                          ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Center(
+                                        child: Text(
+                                          'Payment info',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 9.sp,
+                                              fontWeight: FontWeight.w400),
                                         ),
                                       ),
-                                      IconButton(
-                                        icon: Icon(
-                                          Icons.close,
-                                          size: 10.h,
-                                        ),
-                                        onPressed: () => Get.back(),
+                                    ),
+                                    IconButton(
+                                      icon: Icon(
+                                        Icons.close,
+                                        size: 10.h,
                                       ),
-                                    ],
-                                  ),
+                                      onPressed: () => Get.back(),
+                                    ),
+                                  ],
                                 ),
                                 !isPaymentCompleted
                                     ? Align(
@@ -428,7 +428,7 @@ class SendToIndividual extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text('Details', style: sameTextStyle),
-                                    SizedBox(height: 17.h),
+                                    SizedBox(height: 20.h),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -443,7 +443,22 @@ class SendToIndividual extends StatelessWidget {
                                         )
                                       ],
                                     ),
-                                    SizedBox(height: 12),
+                                    SizedBox(height: 13.h),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Fee',
+                                          style: sameTextStyle,
+                                        ),
+                                        Text(
+                                          'US\$${transaction.payPalFee}',
+                                          style: sameTextStyle,
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: 13.h),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -463,7 +478,70 @@ class SendToIndividual extends StatelessWidget {
                                   ],
                                 ),
                                 SizedBox(
+                                  height: 20.h,
+                                ),
+                                transaction.currency == 'USD'
+                                    ? Column()
+                                    : Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text('Exchange rate ',
+                                                  style: sameTextStyle),
+                                              SizedBox(
+                                                width: 5.w,
+                                              ),
+                                              Icon(
+                                                Icons.help_outline_sharp,
+                                                color: Colors.blue,
+                                                size: 17.w,
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 20.h,
+                                          ),
+                                          Text(
+                                              '${nameAndSigns[transaction.currency]}${transaction.amount} ${transaction.currency} = \$${double.parse(transaction.amount) * double.parse(transaction.exchangeRate)} USD',
+                                              style: sameTextStyle),
+                                          SizedBox(
+                                            height: 3.h,
+                                          ),
+                                          Text(
+                                              '1 ${transaction.currency} = ${transaction.exchangeRate} USD',
+                                              style: sameTextStyle),
+                                        ],
+                                      ),
+                                SizedBox(
                                   height: 17.h,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text('For', style: sameTextStyle),
+                                            SizedBox(height: 8.h),
+                                            Text('Friends and famil',
+                                                style: sameTextStyle),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 16.h,
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -499,7 +577,7 @@ class SendToIndividual extends StatelessWidget {
                       child: Text(
                         "Show payment info",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 8.5.sp,
+                            fontSize: 9.5.sp,
                             fontWeight: FontWeight.w800,
                             decoration: TextDecoration.underline,
                             decorationColor: Color(0xFF0059b3),

@@ -370,7 +370,7 @@ class SentToBank extends StatelessWidget {
 
 
 
- Column(
+Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(

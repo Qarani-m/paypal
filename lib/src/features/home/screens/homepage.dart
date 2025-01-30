@@ -243,10 +243,7 @@ class Homepage extends GetView<HomepageController> {
               ),
             ),
           ),
-          HomepageButtonContainer(
-            textLeft: "Send",
-            textRight: "Request",
-          )
+     
         ],
       ),
     );
