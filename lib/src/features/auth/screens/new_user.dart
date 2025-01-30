@@ -124,6 +124,8 @@ class UserFormPage extends GetView<UserFormController> {
       child: TextFormField(
         style: TextStyle(
           fontWeight: FontWeight.w300,
+                      color: Colors.black,
+
           fontSize: 8.sp
         ),
         keyboardType: keyboardType,

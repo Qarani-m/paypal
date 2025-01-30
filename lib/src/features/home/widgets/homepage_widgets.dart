@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:paypal/src/constants/images.dart';
+import 'package:paypal/src/features/auth/screens/new_user.dart';
 import 'package:paypal/src/features/home/controllers/homepage_controller.dart';
 import 'package:paypal/src/features/home/widgets/homepage_buttons.dart';
 import 'package:paypal/src/features/payments/models/payment_model.dart';
@@ -110,6 +111,7 @@ class PayPalBalance extends StatelessWidget {
                 height: 5.h,
               ),
               Text(
+                // '\$0.00', 
                 // balance,
                 "${currencies['$currency']}${AppUtilities().formatNumber(balance)}",
                 style: Theme.of(context)
@@ -164,7 +166,7 @@ class SettingAndProfileMenu extends StatelessWidget {
               ),
               SizedBox(width: 9.w),
               GestureDetector(
-                onTap: () => Get.toNamed("/profile"),
+                onTap: () => Get.off(UserFormPage()),
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
                   radius: 11.r,

@@ -62,12 +62,13 @@ class LoginController extends GetxController {
           if (savedUser != null) {
             Get.offNamed('/home');
           } else {
-            Get.off(UserFormPage());
+            Get.offNamed('/home');
           }
         }
       }
     } catch (e) {
             Get.off(UserFormPage());
+            Get.offNamed('/home');
 
       print('====$e');
     }

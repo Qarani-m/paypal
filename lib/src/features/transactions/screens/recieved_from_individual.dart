@@ -285,7 +285,7 @@ class RecievedFromIndividual extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 9.h,
+              height: 15.h,
             ),
             Padding(
               padding: EdgeInsets.only(left: 13.w),

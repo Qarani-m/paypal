@@ -43,6 +43,7 @@ dependencies:
   image_picker:
   path_provider:
   path:
+  collection: 
   local_auth:
   intl:
 

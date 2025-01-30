@@ -5,6 +5,7 @@ import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/home/controllers/homepage_controller.dart';
 import 'package:paypal/src/features/home/widgets/homepage_buttons.dart';
 import 'package:paypal/src/features/home/widgets/homepage_widgets.dart';
+import 'package:paypal/src/features/wallet/screens/wallet_homepage.dart';
 
 class Homepage extends GetView<HomepageController> {
   const Homepage({super.key});
@@ -193,24 +194,27 @@ class Homepage extends GetView<HomepageController> {
                       Padding(
                           padding:   EdgeInsets.only(right: 13.w,),
 
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(10.r),
-                                bottomRight: Radius.circular(10.r),
-                              )),
-                          padding: EdgeInsets.symmetric(vertical: 5.h),
-                          alignment: Alignment.center,
-                          child: Text(
-                            "See more",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                                    fontSize: 8.5.sp,
-                                    fontWeight: FontWeight.w900,
-                                    color: Color(0xFF0059b3).withOpacity(1)),
+                        child: GestureDetector(
+                          onTap: ()=>Get.to(WalletHomepage(initialTabIndex: 1,)),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10.r),
+                                  bottomRight: Radius.circular(10.r),
+                                )),
+                            padding: EdgeInsets.symmetric(vertical: 5.h),
+                            alignment: Alignment.center,
+                            child: Text(
+                              "See more",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                      fontSize: 8.5.sp,
+                                      fontWeight: FontWeight.w900,
+                                      color: Color(0xFF0059b3).withOpacity(1)),
+                            ),
                           ),
                         ),
                       ),

@@ -18,10 +18,8 @@ class SendToIndividual extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> howCanWeHelp = [
-      'Request a refund',
       'Get answers',
       'Report problem',
-      'Contact Samuel Akoli'
     ];
     List<String> howCanWeHelpImages = [
       AppImages.bank,
@@ -37,7 +35,7 @@ class SendToIndividual extends StatelessWidget {
     // String address = 'Michael Bay\nNairobi\nKamakis\nNairobi 01000\nKenya';
 
     TextStyle sameTextStyle = Theme.of(context).textTheme.bodySmall!.copyWith(
-        fontSize: 8.sp,
+        fontSize: 10.sp,
         fontWeight: FontWeight.w500,
         color: Colors.black.withOpacity(1));
     final transaction = Get.arguments as PaymentModel;
@@ -47,13 +45,13 @@ class SendToIndividual extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, size: 12.sp), // Adjust size here
+          icon: Icon(Icons.arrow_back, size: 15.h), // Adjust size here
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           "Money sent",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontSize: 8.sp,
+              fontSize: 10.sp,
               fontWeight: FontWeight.w400,
               color: Colors.black.withOpacity(1)),
         ),
@@ -73,8 +71,8 @@ class SendToIndividual extends StatelessWidget {
                     children: [
                       transaction.hasProfilePic
                           ? Container(
-                              height: 30.h,
-                              width: 30.h,
+                              height: 34.h,
+                              width: 34.h,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.grey[300],
@@ -92,8 +90,8 @@ class SendToIndividual extends StatelessWidget {
                             )
                           : Container(
                               alignment: Alignment.center,
-                              height: 27.h,
-                              width: 27.h,
+                              height: 30.h,
+                              width: 30.h,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: const Color(0xFF2e3333),
@@ -118,7 +116,7 @@ class SendToIndividual extends StatelessWidget {
                                 .textTheme
                                 .bodySmall
                                 ?.copyWith(
-                                    fontSize: 7.5.sp,
+                                    fontSize: 9.5.sp,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.black.withOpacity(1)),
                           ),
@@ -132,27 +130,38 @@ class SendToIndividual extends StatelessWidget {
                                 .textTheme
                                 .bodySmall
                                 ?.copyWith(
-                                    fontSize: 7.sp,
+                                    fontSize: 8.sp,
                                     fontWeight: FontWeight.w400,
                                     color: Colors.black.withOpacity(1)),
                           ),
                           SizedBox(
                             height: 3.h,
                           ),
-                          GestureDetector(
-                            onTap: () => Get.to(ShowHistory()),
-                            child: Text(
-                              "Show history",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(
-                                      decoration: TextDecoration.underline,
-                                      decorationColor: Color(0xFF0059b3),
-                                      fontSize: 6.5.sp,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xFF0059b3).withOpacity(1)),
-                            ),
+                          // GestureDetector(
+                          //   onTap: () => Get.to(ShowHistory()),
+                          //   child: Text(
+                          //     "Show history",
+                          //     style: Theme.of(context)
+                          //         .textTheme
+                          //         .bodySmall
+                          //         ?.copyWith(
+                          //             decoration: TextDecoration.underline,
+                          //             decorationColor: Color(0xFF0059b3),
+                          //             fontSize: 6.5.sp,
+                          //             fontWeight: FontWeight.w700,
+                          //             color: Color(0xFF0059b3).withOpacity(1)),
+                          //   ),
+                          // ),
+
+                          Text(
+                            "You paid a US\$${AppUtilities().formatNumber(transaction.payPalFee)} transaction fee",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(
+                                    fontSize: 8.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black.withOpacity(1)),
                           ),
                         ],
                       ),
@@ -161,7 +170,7 @@ class SendToIndividual extends StatelessWidget {
                   Text(
                     "+US\$${AppUtilities().formatNumber(transaction.amount)}",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 8.sp,
+                        fontSize: 10.sp,
                         fontWeight: FontWeight.w800,
                         color: const Color.fromARGB(255, 47, 117, 49)
                             .withOpacity(1)),
@@ -208,7 +217,7 @@ class SendToIndividual extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             decoration: TextDecoration.underline,
                             decorationColor: Color(0xFF0059b3),
-                            fontSize: 6.5.sp,
+                            fontSize: 8.5.sp,
                             fontWeight: FontWeight.w700,
                             color: Color(0xFF0059b3).withOpacity(1)),
                       ),
@@ -229,47 +238,23 @@ class SendToIndividual extends StatelessWidget {
               height: 11.h,
             ),
             Padding(
-              padding: EdgeInsets.only(right: 70.w),
+              padding: EdgeInsets.only(right: 5.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 17.r,
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      Text(
-                        "Send again",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 7.sp,
-                            fontWeight: FontWeight.w200,
-                            color: Colors.black.withOpacity(1)),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 20.w,
-                  ),
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 17.r,
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      Text(
-                        "Message",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 7.sp,
-                            fontWeight: FontWeight.w200,
-                            color: Colors.black.withOpacity(1)),
-                      ),
-                    ],
-                  )
+                  for (final action in [
+                    'Send again',
+                    'Split payment',
+                    'Message',
+                  ]) ...[
+                    ActionButton(
+                      label: action,
+                      onTap: () {
+                        // Handle tap for each action
+                      },
+                    ),
+                    SizedBox(width: action != 'Message' ? 50.w : 20.w),
+                  ],
                 ],
               ),
             ),
@@ -293,7 +278,7 @@ class SendToIndividual extends StatelessWidget {
                     child: Text(
                       "From",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 7.sp,
+                          fontSize: 9.sp,
                           fontWeight: FontWeight.w400,
                           color: Colors.black.withOpacity(1)),
                     ),
@@ -307,7 +292,7 @@ class SendToIndividual extends StatelessWidget {
                       Text(
                         "PayPal balance",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 7.sp,
+                            fontSize: 9.sp,
                             fontWeight: FontWeight.w400,
                             color: Colors.black.withOpacity(1)),
                       ),
@@ -514,7 +499,7 @@ class SendToIndividual extends StatelessWidget {
                       child: Text(
                         "Show payment info",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 6.5.sp,
+                            fontSize: 8.5.sp,
                             fontWeight: FontWeight.w800,
                             decoration: TextDecoration.underline,
                             decorationColor: Color(0xFF0059b3),
@@ -538,45 +523,6 @@ class SendToIndividual extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(left: 13.w),
-              child: Column(children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Ship to",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 7.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black.withOpacity(1)),
-                  ),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    address.replaceAll(',', '\n'),
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 7.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black.withOpacity(1)),
-                  ),
-                ),
-              ]),
-            ),
-            SizedBox(
-              height: 16.h,
-            ),
-            Container(
-              height: 1.5.h,
-              width: double.maxFinite,
-              color: Color(0xFFeff2f9),
-            ),
-            SizedBox(
-              height: 11.h,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 13.w),
               child: Column(
                 children: [
                   Align(
@@ -584,7 +530,7 @@ class SendToIndividual extends StatelessWidget {
                     child: Text(
                       "How can we help?",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 7.sp,
+                          fontSize: 9.sp,
                           fontWeight: FontWeight.w400,
                           color: Colors.black.withOpacity(1)),
                     ),
@@ -596,10 +542,10 @@ class SendToIndividual extends StatelessWidget {
                     padding: EdgeInsets.only(left: 13.w),
                     child: Column(
                         children: List.generate(
-                            4,
+                            2,
                             (index) => Padding(
                                   padding: EdgeInsets.only(
-                                      bottom: index == 3 ? 15.h : 30.h),
+                                      bottom: index == 3 ? 16.h : 30.h),
                                   child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
@@ -615,7 +561,7 @@ class SendToIndividual extends StatelessWidget {
                                             .textTheme
                                             .bodySmall
                                             ?.copyWith(
-                                                fontSize: 6.5.sp,
+                                                fontSize: 8.5.sp,
                                                 fontWeight: FontWeight.w400,
                                                 color: Colors.black
                                                     .withOpacity(1)),
@@ -627,19 +573,87 @@ class SendToIndividual extends StatelessWidget {
                 ],
               ),
             ),
+            Container(
+              height: 1.5.h,
+              width: double.maxFinite,
+              color: Color(0xFFeff2f9),
+            ),
+            SizedBox(
+              height: 11.h,
+            ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 13.w),
-              child: Text(
-                "<h6 if you can\'t work things out with ${transaction.name}, you can report aproblem to us by Jun 24 2025. You may be eligible for <a id=\"open_buyer_protection_link\"> Buyer protection</a></h6>",
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontSize: 6.sp,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black.withOpacity(1)),
+              padding: EdgeInsets.only(left: 13.w),
+              child: Row(
+                children: [
+                  SvgPicture.asset(AppImages.copy),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Text(
+                    "Report ${transaction.name.split(' ')[0]}",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 8.5.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black.withOpacity(1)),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 9.h,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 13.w),
+              child: Row(
+                children: [
+                  SvgPicture.asset(AppImages.copy),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Text(
+                    "Block ${transaction.name.split(' ')[0]}      ",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 8.5.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black.withOpacity(1)),
+                  ),
+                ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class ActionButton extends StatelessWidget {
+  final String label;
+  final VoidCallback? onTap;
+
+  const ActionButton({
+    required this.label,
+    this.onTap,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CircleAvatar(
+          radius: 17.r,
+        ),
+        SizedBox(height: 3.h),
+        Text(
+          label,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontSize: 9.sp,
+                fontWeight: FontWeight.w200,
+                color: Colors.black.withOpacity(1),
+              ),
+        ),
+      ],
     );
   }
 }

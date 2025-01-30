@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:paypal/src/features/auth/screens/login_page.dart';
+import 'package:paypal/src/features/auth/screens/new_user.dart';
 import 'package:paypal/src/features/home/screens/homepage.dart';
 import 'package:paypal/src/features/home/widgets/root_layout.dart';
 import 'package:paypal/src/features/profile/screens/profile_homepage.dart';
@@ -28,7 +29,10 @@ void main() async {
   // Initialize any required dependencies here
   await initServices();
 await GetStorage.init();
-  runApp(const MyApp());
+  final storage = GetStorage();
+  String initialRoute = storage.read('user_data') != null ? '/home' : '/user_form';
+
+  runApp(  MyApp(initialRoute: initialRoute));
 }
 
 Future<void> initServices() async {
@@ -38,8 +42,10 @@ Future<void> initServices() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.initialRoute});
+ final String initialRoute;
 
+ 
   @override
   Widget build(BuildContext context) {
     // ScreenUtil initialization with design size
@@ -57,7 +63,7 @@ class MyApp extends StatelessWidget {
           defaultTransition: Transition.fade,
           smartManagement: SmartManagement.full,
           initialBinding: Appbinding(),
-          initialRoute: '/auth',
+     initialRoute: initialRoute,
           getPages: [
             GetPage(
                 name: '/auth',
@@ -87,7 +93,10 @@ class MyApp extends StatelessWidget {
                 name: '/profile',
                 page: () => const SettingsHomapage(),
                 transition: Transition.fade),
-
+    GetPage(
+                name: '/user_form',
+                page: () => UserFormPage(),
+                transition: Transition.fade),
             // =============================================
             GetPage(
                 name: '/recieved_from_individual',

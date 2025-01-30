@@ -9,7 +9,9 @@ import 'package:paypal/src/utils/dbhelper_transactions.dart';
 class HomepageController extends GetxController {
   final RxList<PaymentModel> recentTransactions = <PaymentModel>[].obs;
   final dbHelper = DBHelper();
-  UserModel userDetails = new UserModel();
+  UserModel userDetails = new UserModel(
+    balance: '0.00'
+  );
 
 
 
@@ -129,7 +131,9 @@ String getCategory(String category) {
                     child: TextFormField(
                       controller: controllers[key],
                       readOnly: isReadOnly,
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
+                        
                         labelText: key,
                         filled: true,
                         fillColor:
