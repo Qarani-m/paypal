@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/settings/controllers/conversation_controller.dart';
+import 'package:paypal/src/features/settings/models/messages_model.dart';
 import 'package:paypal/src/features/settings/screens/message_page.dart';
 
 class MessageCenter extends  GetView<ConversationController> {
@@ -40,6 +41,9 @@ class MessageCenter extends  GetView<ConversationController> {
             child: GestureDetector(
               onTap: (){
 
+controller.startNewConversation();
+
+
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -48,7 +52,7 @@ class MessageCenter extends  GetView<ConversationController> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        "Need help?",
+                        "Need help?${controller.conversations.length}",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: 7.sp,
                             fontWeight: FontWeight.w400,
@@ -80,13 +84,33 @@ class MessageCenter extends  GetView<ConversationController> {
           SizedBox(
             height: 8.h,
           ),
-          GestureDetector(
-              onTap: () => Get.to(PayPalAssistantPage()), child: OneMessage()),
-          OneMessage(),
+          // GestureDetector(
+          //     onTap: () => Get.to(PayPalAssistantPage()), child: OneMessage()),
+          // OneMessage(),
          
 
 
+ Expanded(
+              child: Obx(() => ListView.builder(
+                    itemCount: controller.conversations.length,
+                    itemBuilder: (context, index) {
+                      final conversation = controller.conversations[index];
+                      return GestureDetector(
+                        onTap: (){
 
+                          // Get.
+                        },
+                        child: OneMessage(
+                          conversation: conversation,
+                          onTap: () {
+                            controller.loadConversation(conversation.id!);
+                            // Get.to(() => MessagesView()); // Your existing messages view
+                          },
+                        ),
+                      );
+                    },
+                  )),
+            ),
 
 
 
@@ -126,9 +150,15 @@ class MessageCenter extends  GetView<ConversationController> {
 }
 
 class OneMessage extends StatelessWidget {
+ final Conversation conversation;
+  final VoidCallback onTap;
+
   const OneMessage({
-    super.key,
-  });
+    required this.conversation,
+    required this.onTap,
+    Key? key,
+  }) : super(key: key);
+
   String formatTimeAgo(String dateTimeStr) {
     // Parse the input date string
     final DateTime dateTime = DateTime.parse(dateTimeStr.replaceAll(' ', 'T'));
@@ -159,7 +189,7 @@ class OneMessage extends StatelessWidget {
           padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 3.h),
           child: Container(
             padding:
-                EdgeInsets.only(left: 10.w, right: 10.w, top: 8.h, bottom: 8.h),
+                EdgeInsets.only(left: 20.w, right: 10.w, top: 8.h, bottom: 20.h),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(5.r),
@@ -196,7 +226,7 @@ class OneMessage extends StatelessWidget {
                                     ),
                           ),
                           Text(
-                            formatTimeAgo('2024-01-31 02:12'),
+                            formatTimeAgo('${conversation.date} ${conversation.time}'),
                             maxLines: 3, // Limit to 3 lines
                             overflow: TextOverflow
                                 .ellipsis, // Add ellipsis when overflowing
@@ -214,7 +244,7 @@ class OneMessage extends StatelessWidget {
                         height: 4.h,
                       ),
                       Text(
-                        "This star communicator is ruled by Mercury, the planet that governs — of course — communication. Virgo, another Mercury-ruled sign, is more about precision with words, whereas Gemini uses words to create a sense of magic and enchantment. They will delight all who they come across and use their charm to extract the most important thing of all: Information.",
+                        '',
                         maxLines: 3, // Limit to 3 lines
                         overflow: TextOverflow
                             .ellipsis, // Add ellipsis when overflowing
