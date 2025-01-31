@@ -33,6 +33,10 @@ class Message {
       date: map['date'],
     );
   }
+  @override
+  String toString() {
+    return 'Message(id: $id, content: $content, isFromSupport: $isFromSupport, time: $time, date: $date)';
+  }
 }
 
 // Conversation Model
@@ -64,5 +68,10 @@ class Conversation {
       time: map['time'],
       messages: messages,
     );
+  }
+
+  @override
+  String toString() {
+    return 'Conversation(id: $id, date: $date, time: $time, messages: ${messages.toString()})';
   }
 }
