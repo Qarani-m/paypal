@@ -98,7 +98,7 @@ controller.startNewConversation();
                       return GestureDetector(
                         onTap: (){
 
-                          // Get.
+                          Get.to(PayPalAssistantPage(), arguments: {'conversation':conversation.messages});
                         },
                         child: OneMessage(
                           conversation: conversation,

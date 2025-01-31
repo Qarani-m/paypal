@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:paypal/src/features/settings/controllers/conversation_controller.dart';
 
-class PayPalAssistantPage extends StatelessWidget {
-  const PayPalAssistantPage({super.key});
+class PayPalAssistantPage extends GetView<ConversationController> {
+    PayPalAssistantPage({super.key});
+
+
+
+  final messages = Get.arguments['conversation'];
 
   @override
   Widget build(BuildContext context) {
@@ -109,6 +115,7 @@ class PayPalAssistantPage extends StatelessWidget {
                   ),
                 ),
 
+
                 // Assistant messages
                 ChatBubble(
                   message:
@@ -120,6 +127,35 @@ class PayPalAssistantPage extends StatelessWidget {
                       "If I can't then I'll try to transfer you to a Customer Support Agent.",
                   isUser: false,
                 ),
+
+
+
+
+
+                ListView.builder(
+  itemCount: messages.length + 2, // +2 for your initial assistant messages
+  itemBuilder: (context, index) {
+    // Show the initial assistant messages first
+    if (index == 0) {
+      return ChatBubble(
+        message: "Hi! I'm your PayPal Assistant and always here to help. I'm still in beta testing, so talking to you helps me learn.",
+        isUser: false,
+      );
+    } else if (index == 1) {
+      return ChatBubble(
+        message: "If I can't then I'll try to transfer you to a Customer Support Agent.",
+        isUser: false,
+      );
+    } else {
+      // Show the actual conversation messages
+      final message = messages[index - 2]; // Subtract 2 to account for initial messages
+      return ChatBubble(
+        message: message.content,
+        isUser: !message.isFromSupport, // Reverse since isUser true means it's from user
+      );
+    }
+  },
+)
               ],
             ),
           ),
