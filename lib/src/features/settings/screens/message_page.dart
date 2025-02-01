@@ -7,14 +7,9 @@ import 'package:paypal/src/features/settings/models/messages_model.dart';
 class PayPalAssistantPage extends GetView<ConversationController> {
   PayPalAssistantPage({super.key});
 
- 
-
   @override
   Widget build(BuildContext context) {
-
-
-
-final args = Get.arguments;
+    final args = Get.arguments;
     if (args == null) {
       // Handle case when no arguments were passed
       return Scaffold(
@@ -25,12 +20,6 @@ final args = Get.arguments;
     }
 
     final conversation = args['conversation'] as Conversation;
-    
-
- 
-
-
-
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -45,7 +34,7 @@ final args = Get.arguments;
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'PayPal Assistant',
+              'PayPal Assistant',  
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 8.sp,
@@ -115,7 +104,7 @@ final args = Get.arguments;
                 ],
               ),
             ),
-        
+
             // Chat messages
             Expanded(
               child: ListView(
@@ -134,7 +123,7 @@ final args = Get.arguments;
                       ),
                     ),
                   ),
-        
+
                   // Assistant messages
                   ChatBubble(
                     message:
@@ -146,73 +135,55 @@ final args = Get.arguments;
                         "If I can't then I'll try to transfer you to a Customer Support Agent.",
                     isUser: false,
                   ),
-        
-                    Container(
+
+                  Container(
                       height: 200.h,
                       color: Colors.red,
-            child: Column(children: List.generate(3, (index){
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-       if (index == 0) {
-                  return Column(
-                    children: [
-                      // Timestamp
-                      Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 8.h),
-                          child: Text(
-                            'Jan 22 at 08:32 pm',
-                            style: TextStyle(
-                              fontSize: 7.5.sp,
-                              color: Colors.black.withOpacity(0.6),
-                            ),
-                          ),
-                        ),
-                      ),
-                      ChatBubble(
-                        message: "Hi! I'm your PayPal Assistant and always here to help. I'm still in beta testing, so talking to you helps me learn.",
-                        isUser: false,
-                      ),
-                    ],
-                  );
-                } else if (index == 1) {
-                  return ChatBubble(
-                    message: "If I can't then I'll try to transfer you to a Customer Support Agent.",
-                    isUser: false,
-                  );
-                } else {
-                  final message = conversation.messages[index - 2];
-                  return ChatBubble(
-                    message: message.content,
-                    isUser: !message.isFromSupport,
-                  );
-                }
-            
-            }
-            
-            
-            
-            
-            
-            
-            ),)
-          ),
+                      child: Column(
+                        children: List.generate(3, (index) {
+                          if (index == 0) {
+                            return Column(
+                              children: [
+                                // Timestamp
+                                Center(
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 8.h),
+                                    child: Text(
+                                      'Jan 22 at 08:32 pm',
+                                      style: TextStyle(
+                                        fontSize: 7.5.sp,
+                                        color: Colors.black.withOpacity(0.6),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                ChatBubble(
+                                  message:
+                                      "Hi! I'm your PayPal Assistant and always here to help. I'm still in beta testing, so talking to you helps me learn.",
+                                  isUser: false,
+                                ),
+                              ],
+                            );
+                          } else if (index == 1) {
+                            return ChatBubble(
+                              message:
+                                  "If I can't then I'll try to transfer you to a Customer Support Agent.",
+                              isUser: false,
+                            );
+                          } else {
+                            final message = conversation.messages[index - 2];
+                            return ChatBubble(
+                              message: message.content,
+                              isUser: !message.isFromSupport,
+                            );
+                          }
+                        }),
+                      )),
                 ],
               ),
             ),
-        
+
             // Input field
             Container(
               padding: EdgeInsets.only(bottom: 8.w, top: 4.h, right: 10.w),
