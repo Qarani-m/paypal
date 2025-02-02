@@ -77,7 +77,7 @@ class CustomBottomNavigationBar extends GetView<NavigationController> {
                 fontSize: 10.sp,
                 
                 color: isSelected ? selectedColor : unselectedColor,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ],
