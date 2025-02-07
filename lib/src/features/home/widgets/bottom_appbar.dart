@@ -66,15 +66,15 @@ class CustomBottomNavigationBar extends GetView<NavigationController> {
           children: [
             SvgPicture.asset(
               item.svgPath,
-              height: 15.h,
-              width: 15.h,
+              height: 13.h,
+              width: 13.h,
               color: isSelected ? selectedColor : unselectedColor,
             ),
               SizedBox(height: 1.h),
             Text(
               item.label,
               style: TextStyle(
-                fontSize: 10.sp,
+                fontSize: 9.sp,
                 
                 color: isSelected ? selectedColor : unselectedColor,
                 fontWeight: FontWeight.w400,

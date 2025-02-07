@@ -1,44 +1,121 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:paypal/src/features/auth/models/user_model.dart';
+import 'package:paypal/src/features/home/models/contacts_model.dart';
 import 'package:paypal/src/features/payments/models/payment_model.dart';
+import 'package:paypal/src/utils/dbhelper/dbhelper_users.dart';
 import 'package:paypal/src/utils/dbhelper_transactions.dart';
+import 'package:path/path.dart' as path;
 
 class HomepageController extends GetxController {
   final RxList<PaymentModel> recentTransactions = <PaymentModel>[].obs;
   final dbHelper = DBHelper();
-  UserModel userDetails = new UserModel(
-    balance: '0.00'
+  final dbHelperContacts = DatabaseHelperContact();
+  Rx<UserModel> userDetails = new UserModel(balance: '0.00',currency: 'USD').obs;
+  final _imageFile = Rx<File?>(null);
+  File? get imageFile => _imageFile.value;
+
+  final _picker = ImagePicker();
+
+  Future<void> pickImage() async {
+    final XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      final Directory appDir = await getApplicationDocumentsDirectory();
+      final String fileName = path.basename(pickedFile.path);
+      final File localImage = File('${appDir.path}/$fileName');
+      await File(pickedFile.path).copy(localImage.path);
+      _imageFile.value = localImage;
+    }
+
+
+
+    print('=================${_imageFile.value}');
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+  final RxList<ContactModel> contacts = <ContactModel>[].obs;
+
+Future<void> saveUser(String name, bool hasImage, String? imageUrl) async {
+  String? finalImageUrl;
+
+  if (_imageFile.value != null) {
+    finalImageUrl = _imageFile.value!.path; // Use the picked image file path
+  } else if (hasImage && imageUrl != null) {
+    finalImageUrl = imageUrl; // Use the provided imageUrl if available
+  }
+
+  final newContact = ContactModel(
+    name: name,
+    hasImage: finalImageUrl != null,
+    imageUrl: finalImageUrl,
   );
 
-
-
-
-
-
-String getCategory(String category) {
- if (category.toLowerCase().contains('paypal,refund')) {
-   return 'Refund sent - Completed ';
- } else if (category.toLowerCase().contains('recieve,individual')) {
-   return 'Money received';
- } else if (category.toLowerCase().contains('send,org')) {
-   return 'Send to Organization';
- }
- return category;
+  await dbHelperContacts.insertUser(newContact);
 }
 
+  String getCategory(String category) {
+    if (category.toLowerCase().contains('paypal,refund')) {
+      return 'Refund sent - Completed ';
+    } else if (category.toLowerCase().contains('recieve,individual')) {
+      return 'Money received';
+    } else if (category.toLowerCase().contains('send,org')) {
+      return 'Send to Organization';
+    }
+    return category;
+  }
 
+  Future<void> deleteContact(int id) async {
+    final dbHelper = DatabaseHelperContact();
 
+    // Deleting a user by ID
+    await dbHelper.deleteUserById(1);
+  }
 
-
+  Future<void> loadTopThreeContacts() async {
+    final loadedContacts = await dbHelperContacts.getFirstThreeUsers();
+    contacts.assignAll(loadedContacts);
+  }
 
   @override
   Future<void> onInit() async {
     super.onInit();
+    await loadTopThreeContacts();
     UserModel? fetchedUser = fetchUser();
-    userDetails =
+    userDetails.value =
         fetchedUser ?? UserModel(); // Use fetched user or create empty model
     await loadRecentTransactions();
   }
@@ -133,7 +210,6 @@ String getCategory(String category) {
                       readOnly: isReadOnly,
                       style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
-                        
                         labelText: key,
                         filled: true,
                         fillColor:

@@ -34,6 +34,38 @@ class SettingsHomapage extends GetView<SettingsController> {
       {'text': 'Look and sell like a pro with SellerProfile'},
     ];
 
+
+
+
+    final Map<String, List<Widget>> iconsMap={
+      "one":[
+        SvgPicture.asset('assets/svg/settings/person.svg'),
+        SvgPicture.asset('assets/svg/settings/shield.svg'),
+        SvgPicture.asset('assets/svg/settings/eye.svg'),
+        SvgPicture.asset('assets/svg/settings/person.svg'),
+        SvgPicture.asset('assets/svg/settings/person.svg')
+      ],
+
+      'two':[
+        SvgPicture.asset('assets/svg/settings/person.svg'),
+        SvgPicture.asset('assets/svg/settings/help.svg')
+      ],
+
+
+      'three':[
+        SvgPicture.asset('assets/svg/settings/bin.svg'),
+      ],
+
+
+
+      'four':[
+        SvgPicture.asset('assets/svg/settings/logout.svg')
+      ],
+
+
+
+    };
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -204,19 +236,23 @@ class SettingsHomapage extends GetView<SettingsController> {
                 ),
           
                 child:Column(
-                  children: topMenu
-                      .map((item) => Column(
-                            children: [
-                              GestureDetector(
-                                onTap: item['onTap'],
-                                child: TheActualContent(text: item['text']),
-                              ),
-                              if (item != topMenu.last)
-                                SizedBox(height: 15.h),
-                            ],
-                          ))
-                      .toList(),
-                ),
+ children: List.generate(
+   topMenu.length,
+   (index) => Column(
+     children: [
+       GestureDetector(
+         onTap: topMenu[index]['onTap'],
+         child: TheActualContent(
+           text: topMenu[index]['text'],
+           icon: iconsMap['one']![index]
+         ),
+       ),
+       if (index != topMenu.length - 1)
+         SizedBox(height: 15.h),
+     ],
+   ),
+ ),
+),
           ),
           
                  SizedBox(
@@ -288,6 +324,7 @@ class SettingsHomapage extends GetView<SettingsController> {
                     borderRadius: BorderRadius.circular(8.r),
                     color: Colors.white),
                 child: TheActualContent(
+       icon: SvgPicture.asset('assets/svg/settings/logout.svg'),
                   text: "Log out",
                 ),
               ),
@@ -328,19 +365,17 @@ class SettingsHomapage extends GetView<SettingsController> {
 class TheActualContent extends StatelessWidget {
   const TheActualContent({
     super.key,
-    required this.text,
+    required this.text,   this.icon=const Icon(Icons.abc),
   });
   final String text;
+  final Widget icon;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            AppImages.onlinePurchases,
-            height: 14.h,
-          ),
+         icon,
           SizedBox(
             width: 10.w,
           ),

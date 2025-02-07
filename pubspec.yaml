@@ -40,7 +40,7 @@ dependencies:
   flutter_svg:
   get_storage: ^2.1.1
   sqflite: ^2.4.1
-  image_picker:
+  image_picker: ^1.1.2
   path_provider:
   path:
   collection: 
@@ -74,8 +74,10 @@ flutter:
   assets:
     - assets/
     - assets/fonts/
+    - assets/svg/settings/
     - assets/svg/
     - assets/flags/
+    - assets/images/homepage/
     - assets/images/
     - assets/fonts/
   #   - images/a_dot_ham.jpeg
