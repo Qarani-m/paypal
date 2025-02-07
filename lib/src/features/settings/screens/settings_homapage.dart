@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,42 +30,24 @@ class SettingsHomapage extends GetView<SettingsController> {
       {'text': 'Help'},
     ];
 
-        final List<Map<String, dynamic>> topMenu = [
+    final List<Map<String, dynamic>> topMenu = [
       {'text': 'Invite friends'},
       {'text': 'Look and sell like a pro with SellerProfile'},
     ];
 
-
-
-
-    final Map<String, List<Widget>> iconsMap={
-      "one":[
-        SvgPicture.asset('assets/svg/settings/person.svg'),
-        SvgPicture.asset('assets/svg/settings/shield.svg'),
-        SvgPicture.asset('assets/svg/settings/eye.svg'),
-        SvgPicture.asset('assets/svg/settings/person.svg'),
-        SvgPicture.asset('assets/svg/settings/person.svg')
-      ],
-
-      'two':[
+    final Map<String, List<Widget>> iconsMap = {
+      "one": [SvgPicture.asset('assets/svg/settings/person.svg')],
+      'two': [
         SvgPicture.asset('assets/svg/settings/person.svg'),
         SvgPicture.asset('assets/svg/settings/help.svg')
       ],
-
-
-      'three':[
+      'three': [
         SvgPicture.asset('assets/svg/settings/bin.svg'),
       ],
-
-
-
-      'four':[
-        SvgPicture.asset('assets/svg/settings/logout.svg')
-      ],
-
-
-
+      'four': [SvgPicture.asset('assets/svg/settings/logout.svg')],
     };
+
+    List<String> settings = ['settings', 'settings2'];
 
     return Scaffold(
       appBar: AppBar(
@@ -114,17 +97,17 @@ class SettingsHomapage extends GetView<SettingsController> {
                         )),
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Colors.blue,
                           image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage('assets/images/settings.png')),
+                              image: AssetImage(
+                                  'assets/images/${settings[Random().nextInt(settings.length)]}.png')),
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10.r),
                             topRight: Radius.circular(10.r),
                           )),
                     ),
                   ),
-          
+
                   // Profile content
                   Positioned(
                     left: 0,
@@ -177,7 +160,7 @@ class SettingsHomapage extends GetView<SettingsController> {
                             ],
                           ),
                         ),
-          
+
                         SizedBox(height: 8.h),
                         // Name
                         Text(
@@ -199,7 +182,7 @@ class SettingsHomapage extends GetView<SettingsController> {
                               decorationColor: Colors.blue),
                         ),
                         SizedBox(height: 10.h),
-          
+
                         Align(
                           alignment: Alignment.center,
                           child: Container(
@@ -225,83 +208,137 @@ class SettingsHomapage extends GetView<SettingsController> {
               SizedBox(
                 height: 15.h,
               ),
-          
-          
-          Container(
-          
+              Container(
                 padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.r),
                   color: Colors.white,
                 ),
-          
-                child:Column(
- children: List.generate(
-   topMenu.length,
-   (index) => Column(
-     children: [
-       GestureDetector(
-         onTap: topMenu[index]['onTap'],
-         child: TheActualContent(
-           text: topMenu[index]['text'],
-           icon: iconsMap['one']![index]
-         ),
-       ),
-       if (index != topMenu.length - 1)
-         SizedBox(height: 15.h),
-     ],
-   ),
- ),
-),
-          ),
-          
-                 SizedBox(
+                child: Column(
+                  children: List.generate(
+                    topMenu.length,
+                    (index) => Column(
+                      children: [
+                        GestureDetector(
+                          onTap: topMenu[index]['onTap'],
+                          child: TheActualContent(
+                              text: topMenu[index]['text'],
+                              icon: Container(
+                                height: 25.h,
+                                width: 25.h,
+                                decoration: BoxDecoration(
+                                    // color: Colors.red,
+
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/images/inviteFriends/${index}.png'))),
+                              )),
+                        ),
+                        if (index != topMenu.length - 1) SizedBox(height: 15.h),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
                 height: 15.h,
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.r),
-                  color: Colors.white,
-                ),
-                child: Column(
-                  children: accountMenuItems
-                      .map((item) => Column(
-                            children: [
-                              GestureDetector(
-                                onTap: item['onTap'],
-                                child: TheActualContent(text: item['text']),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.r),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    children: List.generate(
+                      accountMenuItems.length,
+                      (index) {
+                        final item =
+                            accountMenuItems[index]; // Access item with index
+                        return Column(
+                          children: [
+                            GestureDetector(
+                              onTap: item['onTap'],
+                              child: TheActualContent(
+                                text: item['text'],
+                                icon: Container(
+                                  height: 18.h,
+                                  width: 18.h,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/accountinfor/$index.png'),
+                                    ),
+                                  ),
+                                ),
                               ),
-                              if (item != accountMenuItems.last)
-                                SizedBox(height: 15.h),
-                            ],
-                          ))
-                      .toList(),
-                ),
+                            ),
+                            if (index != accountMenuItems.length - 1)
+                              SizedBox(height: 15.h),
+                          ],
+                        );
+                      },
+                    ),
+                  )),
+              SizedBox(
+                height: 10.h,
               ),
+              Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.r),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    children: List.generate(
+                      supportMenuItems.length,
+                      (index) {
+                        final item = supportMenuItems[index];
+                        return Column(
+                          children: [
+                            GestureDetector(
+                              onTap: item['onTap'],
+                              child: TheActualContent(
+                                  text: item['text'],
+                                  icon: Container(
+                                    height: 18.h,
+                                    width: 18.h,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/images/taxdocuments/$index.png'),
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                            if (index != supportMenuItems.length - 1)
+                              SizedBox(height: 15.h),
+                          ],
+                        );
+                      },
+                    ),
+                  )),
               SizedBox(
                 height: 10.h,
               ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.r),
-                  color: Colors.white,
-                ),
-                child: Column(
-                  children: supportMenuItems
-                      .map((item) => Column(
-                            children: [
-                              GestureDetector(
-                                onTap: item['onTap'],
-                                child: TheActualContent(text: item['text']),
-                              ),
-                              if (item != supportMenuItems.last)
-                                SizedBox(height: 15.h),
-                            ],
-                          ))
-                      .toList(),
-                ),
+                    borderRadius: BorderRadius.circular(8.r),
+                    color: Colors.white),
+                child: TheActualContent(
+                    text: 'Close your account',
+                    icon: Container(
+                      height: 18.h,
+                      width: 18.h,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/closeaccount/0.png'),
+                        ),
+                      ),
+                    )),
               ),
               SizedBox(
                 height: 10.h,
@@ -312,19 +349,7 @@ class SettingsHomapage extends GetView<SettingsController> {
                     borderRadius: BorderRadius.circular(8.r),
                     color: Colors.white),
                 child: TheActualContent(
-                  text: 'Close your account',
-                ),
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.r),
-                    color: Colors.white),
-                child: TheActualContent(
-       icon: SvgPicture.asset('assets/svg/settings/logout.svg'),
+                  icon: SvgPicture.asset('assets/svg/settings/logout.svg'),
                   text: "Log out",
                 ),
               ),
@@ -365,7 +390,8 @@ class SettingsHomapage extends GetView<SettingsController> {
 class TheActualContent extends StatelessWidget {
   const TheActualContent({
     super.key,
-    required this.text,   this.icon=const Icon(Icons.abc),
+    required this.text,
+    this.icon = const Icon(Icons.abc),
   });
   final String text;
   final Widget icon;
@@ -375,7 +401,7 @@ class TheActualContent extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-         icon,
+          icon,
           SizedBox(
             width: 10.w,
           ),

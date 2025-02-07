@@ -48,7 +48,7 @@ class ProfileHomepage extends StatelessWidget {
                 height: 7.h,
               ),
               WhiteSpace(
-                icon: '',
+                icon: 'shopandsave',
                 texts: ['Rewards', 'Package Tracking'],
               ),
               SizedBox(
@@ -68,7 +68,7 @@ class ProfileHomepage extends StatelessWidget {
                 height: 7.h,
               ),
               WhiteSpace(
-                icon: '',
+                icon: 'managefinances',
                 texts: [
                   'Crypto',
                   'Payment preferences',
@@ -89,7 +89,7 @@ class ProfileHomepage extends StatelessWidget {
               SizedBox(
                 height: 7.h,
               ),
-              WhiteSpace(icon: '', texts: [
+              WhiteSpace(icon: 'sendandpay', texts: [
                 'Send to a PayPal account',
                 'Mobile wallet transfers',
                 'Send to a bank account',
@@ -98,7 +98,6 @@ class ProfileHomepage extends StatelessWidget {
                 'Reload phones',
                 'Paybills',
                 'In-person & QR code',
-                'Pay bills',
               ]),
               SizedBox(
                 height: 7.h,
@@ -115,7 +114,7 @@ class ProfileHomepage extends StatelessWidget {
                 height: 7.h,
               ),
               WhiteSpace(
-                icon: '',
+                icon: 'getpaid',
                 texts: [
                   'Request money',
                   'Pool money',
@@ -140,7 +139,7 @@ class ProfileHomepage extends StatelessWidget {
                 height: 7.h,
               ),
               WhiteSpace(
-                  icon: '',
+                  icon: 'profileandsupport',
                   texts: ['Your Profile', 'Your wallet', 'Help Centre']),
               SizedBox(
                 height: 7.h,
@@ -224,6 +223,15 @@ class ThaSpaces extends StatelessWidget {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                           icon.length>1? Container(
+                              height: 20.h,
+                              width: 20.h,
+                              decoration: BoxDecoration(
+                              // color: Colors.red,
+
+                                image: DecorationImage(image: AssetImage('assets/images/$icon/${index}.png'))
+                              ),
+                            ):
                             SvgPicture.asset(
                               AppImages.onlinePurchases,
                               height: 15.h,

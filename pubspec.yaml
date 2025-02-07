@@ -79,6 +79,15 @@ flutter:
     - assets/flags/
     - assets/images/homepage/
     - assets/images/
+    - assets/images/getpaid/
+    - assets/images/sendandpay/
+    - assets/images/managefinances/
+    - assets/images/inviteFriends/
+    - assets/images/accountinfor/
+    - assets/images/taxdocuments/
+    - assets/images/closeaccount/
+    - assets/images/profileandsupport/
+    - assets/images/shopandsave/
     - assets/fonts/
   #   - images/a_dot_ham.jpeg
 
