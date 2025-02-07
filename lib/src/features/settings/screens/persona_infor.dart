@@ -94,10 +94,25 @@ class PersonaInfor extends GetView<SettingsController> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SvgPicture.asset(
-                    'assets/svg/house.svg',
-                    height: 15.h,
-                  ),
+              
+
+
+
+Container(
+                                height: 25.h,
+                                width: 25.h,
+                                decoration: BoxDecoration(
+                                    // color: Colors.red,
+
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/images/usedetails/0.png'))),
+                              )
+
+
+
+,
+
                   SizedBox(
                     width: 8.w,
                   ),
@@ -146,10 +161,21 @@ class PersonaInfor extends GetView<SettingsController> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SvgPicture.asset(
-                    'assets/svg/house.svg',
-                    height: 15.h,
-                  ),
+                 Container(
+                                height: 25.h,
+                                width: 25.h,
+                                decoration: BoxDecoration(
+                                    // color: Colors.red,
+
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/images/usedetails/1.png'))),
+                              )
+
+
+
+,
+
                   SizedBox(
                     width: 8.w,
                   ),
@@ -212,10 +238,21 @@ class PersonaInfor extends GetView<SettingsController> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SvgPicture.asset(
-                    'assets/svg/house.svg',
-                    height: 15.h,
-                  ),
+                 Container(
+                                height: 25.h,
+                                width: 25.h,
+                                decoration: BoxDecoration(
+                                    // color: Colors.red,
+
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/images/usedetails/2.png'))),
+                              )
+
+
+
+,
+
                   SizedBox(
                     width: 8.w,
                   ),
@@ -258,13 +295,13 @@ class RightAndLeft extends StatelessWidget {
           children: [
             Text('See All',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontSize: 9.sp,
+                      fontSize: 8.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.black.withOpacity(0.6),
                     )),
             Icon(
               Icons.arrow_forward_ios,
-              size: 9.h,
+              size: 7.h,
               color: Colors.black.withOpacity(0.6),
             )
           ],

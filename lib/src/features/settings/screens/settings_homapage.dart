@@ -55,6 +55,7 @@ class SettingsHomapage extends GetView<SettingsController> {
           icon: Icon(Icons.arrow_back, size: 15.h), // Adjust size here
           onPressed: () => Navigator.pop(context),
         ),
+        elevation: 0,
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 10.w),
@@ -378,6 +379,9 @@ class SettingsHomapage extends GetView<SettingsController> {
                       .displayLarge
                       ?.copyWith(fontWeight: FontWeight.w400, fontSize: 8.sp),
                 ),
+              ),
+              SizedBox(
+                height: 25.h,
               ),
             ],
           ),
