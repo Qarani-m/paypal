@@ -81,3 +81,77 @@ Future<void> deleteUserById(int id) async {
 }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ChatBubble(
+                                    // message:
+                                        // "If I can't then I'll try to transfer you to a Customer Support Agent.",
+                                    // isUser: false,
+                                  // );
+
+
+
+
+//  Center(
+//                                         child: Padding(
+//                                           padding: EdgeInsets.symmetric(
+//                                               vertical: 8.h),
+//                                           child: Text(
+//                                             'Jan 22 at 08:32 pm',
+//                                             style: TextStyle(
+//                                               fontSize: 7.5.sp,
+//                                               color:
+//                                                   Colors.black.withOpacity(0.6),
+//                                             ),
+//                                           ),
+//                                         ),
+//                                       ),
+//                                       ChatBubble(
+//                                         message:
+//                                             "Hi! I'm your PayPal Assistant and always here to help. I'm still in beta testing, so talking to you helps me learn.",
+//                                         isUser: false,
+//                                       ),

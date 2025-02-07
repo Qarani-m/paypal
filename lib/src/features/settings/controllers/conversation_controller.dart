@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:paypal/src/features/settings/models/messages_model.dart';
 import 'package:paypal/src/features/settings/service/messages_dbhelper.dart';
 
 class ConversationController extends GetxController {
-  final DatabaseHelper _dbHelper = DatabaseHelper();
+  final DatabaseHelperMessages _dbHelper = DatabaseHelperMessages();
   final RxList<Conversation> conversations = <Conversation>[].obs;
   final Rx<Conversation?> currentConversation = Rx<Conversation?>(null);
   final RxList<Message> currentMessages = <Message>[].obs;
@@ -17,8 +18,57 @@ class ConversationController extends GetxController {
 
   // Load all conversations
   Future<void> loadConversations() async {
-    conversations.value = await _dbHelper.getConversations();
+    // conversations.value = await _dbHelper.getConversations();
+
+
+
+
+
+ final List<Conversation> conversationMaps = await _dbHelper.getConversations();
+  List<Conversation> conversationsWithMessages = [];
+
+  for (var convMap in conversationMaps) {
+    final messages = await _dbHelper.getMessagesByConversationId(convMap.id!);
+
+    final messageList = messages.map((m) => Message.fromMap(m)).toList();
+    conversationsWithMessages.add(
+ Conversation(
+   id: convMap.id,
+   date: convMap.date,
+   time: convMap.time,
+   messages: messageList
+ )
+);
   }
+
+  conversations.value = conversationsWithMessages;
+    
+  }
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // Start a new conversation
   Future<void> startNewConversation() async {
@@ -68,4 +118,46 @@ class ConversationController extends GetxController {
       currentMessages.clear();
     }
   }
+
+
+
+
+
+
+
+
+RxBool isTyping = false.obs;
+TextEditingController messageController = TextEditingController();
+
+
+Future<void> saveMessage(int conversationId) async {
+ try {
+   String message = messageController.text;
+   Message messageMap = Message(
+     content: messageController.text, 
+     isFromSupport: false, 
+     time: '', 
+     date: '',
+   );
+   
+   await _dbHelper.insertMessage(conversationId, messageMap);
+   Get.snackbar('Success', "Message saved successfully");
+   
+ } catch (e) {
+   Get.snackbar(
+     'Error',
+     'Failed to save message: ${e.toString()}',
+     backgroundColor: Colors.red,
+     colorText: Colors.white,
+   );
+   print('Error saving message: $e'); // For debugging
+ }
 }
+
+
+
+
+
+
+}
+

@@ -9,7 +9,7 @@ import 'package:paypal/src/features/settings/controllers/conversation_controller
 import 'package:paypal/src/features/settings/models/messages_model.dart';
 import 'package:paypal/src/features/settings/screens/message_page.dart';
 
-class MessageCenter extends  GetView<ConversationController> {
+class MessageCenter extends GetView<ConversationController> {
   const MessageCenter({super.key});
 
   @override
@@ -39,11 +39,8 @@ class MessageCenter extends  GetView<ConversationController> {
               color: Colors.white,
             ),
             child: GestureDetector(
-              onTap: (){
-
-controller.startNewConversation();
-
-
+              onTap: () {
+                controller.startNewConversation();
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -73,23 +70,15 @@ controller.startNewConversation();
                   SizedBox(
                     width: 9.w,
                   ),
-                  
-
-
- Container(
-                      height: 18.h,
-                      width: 18.h,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/messages/2.png'),
-                        ),
+                  Container(
+                    height: 18.h,
+                    width: 18.h,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/messages/2.png'),
                       ),
- )
-
-
-
-
-
+                    ),
+                  )
                 ],
               ),
             ),
@@ -100,32 +89,30 @@ controller.startNewConversation();
           // GestureDetector(
           //     onTap: () => Get.to(PayPalAssistantPage()), child: OneMessage()),
           // OneMessage(),
-         
-
-
- Expanded(
-              child: Obx(() => ListView.builder(
-                    itemCount: controller.conversations.length,
-                    itemBuilder: (context, index) {
-                      final conversation = controller.conversations[index];
-                      return GestureDetector(
-                        onTap: (){
-
-                          Get.to(PayPalAssistantPage(), arguments: {'conversation':conversation});
-                        },
-                        child: OneMessage(
-                          conversation: conversation,
-                          onTap: () {
-                            controller.loadConversation(conversation.id!);
-                            // Get.to(() => MessagesView()); // Your existing messages view
-                          },
-                        ),
+          Obx(
+            () => Column(
+              children: List.generate(
+                controller.conversations.length,
+                (index) {
+                  final conversation = controller.conversations[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(
+                        PayPalAssistantPage(),
+                        arguments: {'conversation': conversation},
                       );
                     },
-                  )),
+                    child: OneMessage(
+                      conversation: conversation,
+                      onTap: () {
+                        controller.loadConversation(conversation.id!);
+                      },
+                    ),
+                  );
+                },
+              ),
             ),
-
-
+          ),
 
           Padding(
             padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 3.h),
@@ -136,8 +123,8 @@ controller.startNewConversation();
                     text:
                         'Effective from 1 january 2023, messages are availlable in the Message Centre for 3 years from the daate originally sent. If you would like a copy of any previous messages not displayedin the Message Centre,\nplease ',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 6.5.sp,
-                          fontWeight: FontWeight.w200,
+                          fontSize: 6.sp,
+                          fontWeight: FontWeight.w500,
                           color: Colors.black.withOpacity(1),
                         ),
                   ),
@@ -163,7 +150,7 @@ controller.startNewConversation();
 }
 
 class OneMessage extends StatelessWidget {
- final Conversation conversation;
+  final Conversation conversation;
   final VoidCallback onTap;
 
   const OneMessage({
@@ -201,8 +188,8 @@ class OneMessage extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 3.h),
           child: Container(
-            padding:
-                EdgeInsets.only(left: 20.w, right: 10.w, top: 8.h, bottom: 20.h),
+            padding: EdgeInsets.only(
+                left: 20.w, right: 10.w, top: 8.h, bottom: 20.h),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(5.r),
@@ -210,17 +197,15 @@ class OneMessage extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              Container(
-                      height: 18.h,
-                      width: 18.h,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/messages/2.png'),
-                        ),
-                      ),
- )
-
-,
+                Container(
+                  height: 18.h,
+                  width: 18.h,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/messages/2.png'),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   width: 7.w,
                 ),
@@ -246,7 +231,8 @@ class OneMessage extends StatelessWidget {
                                     ),
                           ),
                           Text(
-                            formatTimeAgo('${conversation.date} ${conversation.time}'),
+                            formatTimeAgo(
+                                '${conversation.date} ${conversation.time}'),
                             maxLines: 3, // Limit to 3 lines
                             overflow: TextOverflow
                                 .ellipsis, // Add ellipsis when overflowing

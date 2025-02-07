@@ -18,8 +18,14 @@ class PayPalAssistantPage extends GetView<ConversationController> {
         ),
       );
     }
-
+    List<String> starterMessages = [
+      'Hi, Damian! Thanks for being a valuable customer of\PayPal',
+      'I\'m your PayPal Assistant and always here tohelp, I\'m\nstillin beta testing, so talking to you helps me learn',
+      'What can i help you with?'
+    ];
     final conversation = args['conversation'] as Conversation;
+
+    print(conversation);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -34,7 +40,7 @@ class PayPalAssistantPage extends GetView<ConversationController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'PayPal Assistant',  
+              'PayPal Assistant',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 8.sp,
@@ -62,127 +68,107 @@ class PayPalAssistantPage extends GetView<ConversationController> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Divider(
-              color: Colors.grey.withOpacity(0.2),
-            ),
-            // Header section
-            Padding(
-              padding: EdgeInsets.only(top: 16.w, left: 16.w, right: 16.w),
+            Container(
+              // color: Colors.green,
               child: Column(
                 children: [
+                  Divider(
+                    color: Colors.grey.withOpacity(0.2),
+                  ),
+                  // Header section
                   Padding(
-                    padding: EdgeInsets.only(right: 130.w),
+                    padding:
+                        EdgeInsets.only(top: 16.w, left: 16.w, right: 16.w),
                     child: Column(
                       children: [
-                        Text(
-                          'Talk to me',
-                          style: TextStyle(
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                        Padding(
+                          padding: EdgeInsets.only(right: 130.w),
+                          child: Column(
+                            children: [
+                              Text(
+                                'Talk to me',
+                                style: TextStyle(
+                                    fontSize: 13.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              ),
+                              Text(
+                                "I'm powered by generative AI",
+                                style: TextStyle(
+                                    fontSize: 8.sp,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
                         ),
+                        SizedBox(height: 10.h),
                         Text(
-                          "I'm powered by generative AI",
+                          'We use automated processing of personal data when you interact with this customer service chatbot.',
+                          textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 8.sp,
-                              color: Colors.black,
+                              fontSize: 7.5.sp,
+                              color: Colors.black.withOpacity(0.6),
                               fontWeight: FontWeight.w400),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 10.h),
-                  Text(
-                    'We use automated processing of personal data when you interact with this customer service chatbot.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 7.5.sp,
-                        color: Colors.black.withOpacity(0.6),
-                        fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
-            ),
 
-            // Chat messages
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                children: [
-                  // Timestamp
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.h),
-                      child: Text(
-                        'Jan 22 at 08:32 pm',
-                        style: TextStyle(
-                          fontSize: 7.5.sp,
-                          color: Colors.black.withOpacity(0.6),
-                        ),
-                      ),
+                  // Chat messages
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 13.w),
+                    child: Column(
+                      // padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                            height: 300.h,
+                            // color: Colors.red,
+                            child: Column(children: [
+                              Column(
+                                children: List.generate(
+                                    starterMessages.length,
+                                    (index) => ChatBubble(
+                                          message: starterMessages[index],
+                                          isUser: false,
+                                        )),
+                              ),
+                              SizedBox(
+                                height: 14.h,
+                              ),
+                              SizedBox(
+                                height: 14.h,
+                              ),
+                              Column(
+                                children: List.generate(
+                                    conversation.messages.length, (index) {
+                                  print(
+                                      '--->${conversation.messages[index].content}');
+
+                                  return ChatBubble(
+                                    message:
+                                        conversation.messages[index].content,
+                                    isUser: !conversation
+                                        .messages[index].isFromSupport,
+                                  );
+                                }),
+                              ),
+                            ])),
+                      ],
                     ),
                   ),
-
-                  // Assistant messages
-                  ChatBubble(
-                    message:
-                        "Hi! I'm your PayPal Assistant and always here to help. I'm still in beta testing, so talking to you helps me learn.",
-                    isUser: false,
-                  ),
-                  ChatBubble(
-                    message:
-                        "If I can't then I'll try to transfer you to a Customer Support Agent.",
-                    isUser: false,
-                  ),
-
-                  Container(
-                      height: 200.h,
-                      color: Colors.red,
-                      child: Column(
-                        children: List.generate(3, (index) {
-                          if (index == 0) {
-                            return Column(
-                              children: [
-                                // Timestamp
-                                Center(
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 8.h),
-                                    child: Text(
-                                      'Jan 22 at 08:32 pm',
-                                      style: TextStyle(
-                                        fontSize: 7.5.sp,
-                                        color: Colors.black.withOpacity(0.6),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                ChatBubble(
-                                  message:
-                                      "Hi! I'm your PayPal Assistant and always here to help. I'm still in beta testing, so talking to you helps me learn.",
-                                  isUser: false,
-                                ),
-                              ],
-                            );
-                          } else if (index == 1) {
-                            return ChatBubble(
-                              message:
-                                  "If I can't then I'll try to transfer you to a Customer Support Agent.",
-                              isUser: false,
-                            );
-                          } else {
-                            final message = conversation.messages[index - 2];
-                            return ChatBubble(
-                              message: message.content,
-                              isUser: !message.isFromSupport,
-                            );
-                          }
-                        }),
-                      )),
                 ],
               ),
             ),
+
+// SizedBox(height: 30.h,),
+
+// Expanded(
+//   child: Container(),
+// ),
 
             // Input field
             Container(
@@ -196,52 +182,85 @@ class PayPalAssistantPage extends GetView<ConversationController> {
                   ),
                 ),
               ),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: Icon(size: 10.h, Icons.menu, color: Colors.grey),
-                    onPressed: () {},
-                  ),
-                  Expanded(
-                    child: TextField(
-                      cursorColor: Colors.black,
-                      cursorHeight: 10.h,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.transparent,
-                        hintText: 'Enter a message',
-                        hintStyle: TextStyle(
-                          color: Colors.grey[400],
-                          fontSize: 7.sp,
-                          height: 2.99,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                            color: Colors.grey[300]!,
-                            width: 0.3,
+              child: Obx(
+                () => Row(
+                  children: [
+                    controller.isTyping.value
+                        ? SizedBox()
+                        : IconButton(
+                            icon: Icon(
+                                size: 13.h, Icons.menu, color: Colors.grey),
+                            onPressed: () {},
+                          ),
+                    SizedBox(width: controller.isTyping.value ? 16.w : 0.w),
+                    Expanded(
+                      child: TextField(
+                        cursorColor: Colors.black,
+                        cursorHeight: 10.h,
+                        style: TextStyle(fontSize: 9.sp),
+                        controller: controller.messageController,
+                        decoration: InputDecoration(
+                          suffixIcon: !controller.isTyping.value
+                              ? SizedBox()
+                              : Padding(
+                                  padding: EdgeInsets.all(5.r),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      controller.saveMessage(conversation.id!);
+                                      controller.messageController.text = '';
+                                    },
+                                    child: CircleAvatar(
+                                        radius: 4.r,
+                                        child: Icon(
+                                          Icons.arrow_upward,
+                                          color: Colors.white,
+                                          size: 15.w,
+                                        )),
+                                  ),
+                                ),
+                          filled: true,
+                          fillColor: Colors.transparent,
+                          hintText: 'Enter a message',
+                          hintStyle: TextStyle(
+                            color: Colors.grey[400],
+                            fontSize: 7.sp,
+                            height: 2.99,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.r),
+                            borderSide: BorderSide(
+                              color: Colors.grey[300]!,
+                              width: 0.3,
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(24.r),
+                            borderSide: BorderSide.none,
+                          ),
+                          contentPadding: EdgeInsets.only(
+                            left: 8.w,
+                            top: 8.h,
+                            bottom: 8.h,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.r),
+                            borderSide: BorderSide(
+                              color: Color(0xFF0059b3)!,
+                              width: 1,
+                            ),
                           ),
                         ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24.r),
-                          borderSide: BorderSide.none,
-                        ),
-                        contentPadding: EdgeInsets.only(
-                          left: 8.w,
-                          top: 8.h,
-                          bottom: 8.h,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                            color: Color(0xFF0059b3)!,
-                            width: 1,
-                          ),
-                        ),
+                        onChanged: (value) {
+                          if (value.length == 0) {
+                            controller.isTyping.value = false;
+                          } else {
+                            controller.isTyping.value = true;
+                          }
+                        },
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
@@ -268,16 +287,20 @@ class ChatBubble extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 5.h),
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
         decoration: BoxDecoration(
-          color: isUser ? Color(0xFF0059b3).withOpacity(0.3) : Colors.grey[100],
-          borderRadius: BorderRadius.circular(10.r),
+          color: isUser ? Colors.black.withOpacity(1) : Colors.grey[100],
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10.r),
+              topRight: Radius.circular(10.r),
+              bottomLeft: Radius.circular(isUser ? 10.r : 0),
+              bottomRight: Radius.circular(isUser ? 0.r : 10)),
         ),
         child: Text(
           message,
           style: TextStyle(
             fontSize: 7.sp,
-            color: Colors.black87,
+            color: isUser ? Colors.white : Colors.black,
           ),
         ),
       ),

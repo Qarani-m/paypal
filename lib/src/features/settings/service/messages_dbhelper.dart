@@ -2,13 +2,13 @@ import 'package:paypal/src/features/settings/models/messages_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class DatabaseHelper {
-  static final DatabaseHelper _instance = DatabaseHelper._internal();
+class DatabaseHelperMessages {
+  static final DatabaseHelperMessages _instance = DatabaseHelperMessages._internal();
   static Database? _database;
 
-  factory DatabaseHelper() => _instance;
+  factory DatabaseHelperMessages() => _instance;
 
-  DatabaseHelper._internal();
+  DatabaseHelperMessages._internal();
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -72,7 +72,15 @@ class DatabaseHelper {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
-
+Future<List<Map<String, dynamic>>> getMessagesByConversationId(int conversationId) async {
+ final db = await database;
+ return await db.query(
+   'messages',
+   where: 'conversationId = ?',
+   whereArgs: [conversationId],
+   orderBy: 'id ASC',
+ );
+}
   // Get all conversations with their messages
   Future<List<Conversation>> getConversations() async {
     final db = await database;
