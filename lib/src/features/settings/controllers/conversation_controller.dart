@@ -16,59 +16,30 @@ class ConversationController extends GetxController {
     loadConversations();
   }
 
+
+  RxString placeHolder = 'true'.obs;
+
   // Load all conversations
   Future<void> loadConversations() async {
     // conversations.value = await _dbHelper.getConversations();
 
+    final List<Conversation> conversationMaps =
+        await _dbHelper.getConversations();
+    List<Conversation> conversationsWithMessages = [];
 
+    for (var convMap in conversationMaps) {
+      final messages = await _dbHelper.getMessagesByConversationId(convMap.id!);
 
+      final messageList = messages.map((m) => Message.fromMap(m)).toList();
+      conversationsWithMessages.add(Conversation(
+          id: convMap.id,
+          date: convMap.date,
+          time: convMap.time,
+          messages: messageList));
+    }
 
-
- final List<Conversation> conversationMaps = await _dbHelper.getConversations();
-  List<Conversation> conversationsWithMessages = [];
-
-  for (var convMap in conversationMaps) {
-    final messages = await _dbHelper.getMessagesByConversationId(convMap.id!);
-
-    final messageList = messages.map((m) => Message.fromMap(m)).toList();
-    conversationsWithMessages.add(
- Conversation(
-   id: convMap.id,
-   date: convMap.date,
-   time: convMap.time,
-   messages: messageList
- )
-);
+    conversations.value = conversationsWithMessages;
   }
-
-  conversations.value = conversationsWithMessages;
-    
-  }
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   // Start a new conversation
   Future<void> startNewConversation() async {
@@ -77,7 +48,7 @@ class ConversationController extends GetxController {
       time: DateTime.now().toString().split(' ')[1].substring(0, 5),
       messages: [],
     );
-    
+
     final id = await _dbHelper.insertConversation(conversation);
     await loadConversations();
     await loadConversation(id);
@@ -119,45 +90,31 @@ class ConversationController extends GetxController {
     }
   }
 
+  RxBool isTyping = false.obs;
+  TextEditingController messageController = TextEditingController();
 
+  Future<void> saveMessage(int conversationId) async {
+    try {
+      String message = messageController.text;
+      Message messageMap = Message(
+        content: messageController.text,
+        isFromSupport: false,
+        time: '',
+        date: '',
+      );
 
+      await _dbHelper.insertMessage(conversationId, messageMap);
+      // Get.snackbar('Success', "Message saved successfully");
 
-
-
-
-
-RxBool isTyping = false.obs;
-TextEditingController messageController = TextEditingController();
-
-
-Future<void> saveMessage(int conversationId) async {
- try {
-   String message = messageController.text;
-   Message messageMap = Message(
-     content: messageController.text, 
-     isFromSupport: false, 
-     time: '', 
-     date: '',
-   );
-   
-   await _dbHelper.insertMessage(conversationId, messageMap);
-   Get.snackbar('Success', "Message saved successfully");
-   
- } catch (e) {
-   Get.snackbar(
-     'Error',
-     'Failed to save message: ${e.toString()}',
-     backgroundColor: Colors.red,
-     colorText: Colors.white,
-   );
-   print('Error saving message: $e'); // For debugging
- }
+      loadConversation(conversationId);
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Failed to save message: ${e.toString()}',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      print('Error saving message: $e'); // For debugging
+    }
+  }
 }
-
-
-
-
-
-
-}
-

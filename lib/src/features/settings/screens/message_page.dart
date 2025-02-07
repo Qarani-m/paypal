@@ -66,205 +66,283 @@ class PayPalAssistantPage extends GetView<ConversationController> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              // color: Colors.green,
-              child: Column(
+body: SingleChildScrollView(
+  child: SizedBox(
+    height: MediaQuery.of(context).size.height,
+    child: Column(
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  Column(
                 children: [
-                  Divider(
-                    color: Colors.grey.withOpacity(0.2),
-                  ),
-                  // Header section
-                  Padding(
-                    padding:
-                        EdgeInsets.only(top: 16.w, left: 16.w, right: 16.w),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(right: 130.w),
-                          child: Column(
-                            children: [
-                              Text(
-                                'Talk to me',
-                                style: TextStyle(
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+              
+                  Column(
+                    children: [
+                      Container(
+                        // color: Colors.green,
+                        child: Column(
+                          children: [
+                            Divider(
+                              color: Colors.grey.withOpacity(0.2),
+                            ),
+                            // Header section
+                            Padding(
+                              padding:
+                                  EdgeInsets.only(top: 16.w, left: 16.w, right: 16.w),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 130.w),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'Talk to me',
+                                          style: TextStyle(
+                                              fontSize: 13.sp,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                        Text(
+                                          "I'm powered by generative AI",
+                                          style: TextStyle(
+                                              fontSize: 8.sp,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  Text(
+                                    'We use automated processing of personal data when you interact with this customer service chatbot.',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 7.5.sp,
+                                        color: Colors.black.withOpacity(0.6),
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                "I'm powered by generative AI",
-                                style: TextStyle(
-                                    fontSize: 8.sp,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
+                            ),
+                          ],
+                        ),
+                      ),
+                                  
+                                  
+                                  
+                                  
+                      // Chat messages
+                      Obx(()=> Container(
+                          color:Colors.blue,
+                          height: MediaQuery.of(context).size.height*0.73,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 13.w),
+                            child: Column(
+                              // padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                      // height: 300.h,
+                                      color: Colors.red,
+                                      child: Column(children: [
+                                        Column(
+                                          children: List.generate(
+                                              starterMessages.length,
+                                              (index) => ChatBubble(
+                                                    message: starterMessages[index],
+                                                    isUser: false,
+                                                  )),
+                                        ),
+                                        SizedBox(
+                                          height: 14.h,
+                                        ),
+                                        SizedBox(
+                                          height: 14.h,
+                                        ),
+                                        Text(controller.placeHolder.value, style: TextStyle(fontSize: 0),),
+                                        SingleChildScrollView(
+                                          child: Column(
+                                            children: List.generate(
+                                                conversation.messages.length, (index) {
+                                              return ChatBubble(
+                                                message:
+                                                    conversation.messages[index].content,
+                                                isUser: !conversation
+                                                    .messages[index].isFromSupport,
+                                              );
+                                            }),
+                                          ),
+                                        ),
+                                      ])),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        SizedBox(height: 10.h),
-                        Text(
-                          'We use automated processing of personal data when you interact with this customer service chatbot.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 7.5.sp,
-                              color: Colors.black.withOpacity(0.6),
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  // Chat messages
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 13.w),
-                    child: Column(
-                      // padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                            height: 300.h,
-                            // color: Colors.red,
-                            child: Column(children: [
-                              Column(
-                                children: List.generate(
-                                    starterMessages.length,
-                                    (index) => ChatBubble(
-                                          message: starterMessages[index],
-                                          isUser: false,
-                                        )),
-                              ),
-                              SizedBox(
-                                height: 14.h,
-                              ),
-                              SizedBox(
-                                height: 14.h,
-                              ),
-                              Column(
-                                children: List.generate(
-                                    conversation.messages.length, (index) {
-                                  print(
-                                      '--->${conversation.messages[index].content}');
-
-                                  return ChatBubble(
-                                    message:
-                                        conversation.messages[index].content,
-                                    isUser: !conversation
-                                        .messages[index].isFromSupport,
-                                  );
-                                }),
-                              ),
-                            ])),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               ),
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+        Container(
+          padding: EdgeInsets.only(bottom: 8.w, top: 4.h, right: 10.w),
+          decoration: BoxDecoration(
+            color: Colors.red,
+            border: Border(
+              top: BorderSide(
+                color: Colors.grey[200]!,
+                width: 1,
+              ),
             ),
+          ),
+          child: MessageArea(controller: controller, conversation: conversation),
+        ),
+      ],
+    ),
+  ),
+)
+    );
+  }
+}
 
-// SizedBox(height: 30.h,),
+class MessageArea extends StatelessWidget {
+  const MessageArea({
+    super.key,
+    required this.controller,
+    required this.conversation,
+  });
 
-// Expanded(
-//   child: Container(),
-// ),
+  final ConversationController controller;
+  final Conversation conversation;
 
-            // Input field
-            Container(
-              padding: EdgeInsets.only(bottom: 8.w, top: 4.h, right: 10.w),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border(
-                  top: BorderSide(
-                    color: Colors.grey[200]!,
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => Row(
+        children: [
+          controller.isTyping.value
+              ? SizedBox()
+              : IconButton(
+                  icon: Icon(
+                      size: 13.h, Icons.menu, color: Colors.grey),
+                  onPressed: () {},
+                ),
+          SizedBox(width: controller.isTyping.value ? 16.w : 0.w),
+          Expanded(
+            child: TextField(
+              cursorColor: Colors.black,
+              cursorHeight: 10.h,
+              style: TextStyle(fontSize: 9.sp),
+              controller: controller.messageController,
+              decoration: InputDecoration(
+                suffixIcon: !controller.isTyping.value
+                    ? SizedBox()
+                    : Padding(
+                        padding: EdgeInsets.all(5.r),
+                        child: GestureDetector(
+                          onTap: () {
+                            controller.saveMessage(conversation.id!);
+                            controller.messageController.text = '';
+                          },
+                          child: CircleAvatar(
+                              radius: 4.r,
+                              child: Icon(
+                                Icons.arrow_upward,
+                                color: Colors.white,
+                                size: 15.w,
+                              )),
+                        ),
+                      ),
+                filled: true,
+                fillColor: Colors.transparent,
+                hintText: 'Enter a message',
+                hintStyle: TextStyle(
+                  color: Colors.grey[400],
+                  fontSize: 7.sp,
+                  height: 2.99,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.r),
+                  borderSide: BorderSide(
+                    color: Colors.grey[300]!,
+                    width: 0.3,
+                  ),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(24.r),
+                  borderSide: BorderSide.none,
+                ),
+                contentPadding: EdgeInsets.only(
+                  left: 8.w,
+                  top: 8.h,
+                  bottom: 8.h,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.r),
+                  borderSide: BorderSide(
+                    color: Color(0xFF0059b3)!,
                     width: 1,
                   ),
                 ),
               ),
-              child: Obx(
-                () => Row(
-                  children: [
-                    controller.isTyping.value
-                        ? SizedBox()
-                        : IconButton(
-                            icon: Icon(
-                                size: 13.h, Icons.menu, color: Colors.grey),
-                            onPressed: () {},
-                          ),
-                    SizedBox(width: controller.isTyping.value ? 16.w : 0.w),
-                    Expanded(
-                      child: TextField(
-                        cursorColor: Colors.black,
-                        cursorHeight: 10.h,
-                        style: TextStyle(fontSize: 9.sp),
-                        controller: controller.messageController,
-                        decoration: InputDecoration(
-                          suffixIcon: !controller.isTyping.value
-                              ? SizedBox()
-                              : Padding(
-                                  padding: EdgeInsets.all(5.r),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      controller.saveMessage(conversation.id!);
-                                      controller.messageController.text = '';
-                                    },
-                                    child: CircleAvatar(
-                                        radius: 4.r,
-                                        child: Icon(
-                                          Icons.arrow_upward,
-                                          color: Colors.white,
-                                          size: 15.w,
-                                        )),
-                                  ),
-                                ),
-                          filled: true,
-                          fillColor: Colors.transparent,
-                          hintText: 'Enter a message',
-                          hintStyle: TextStyle(
-                            color: Colors.grey[400],
-                            fontSize: 7.sp,
-                            height: 2.99,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.r),
-                            borderSide: BorderSide(
-                              color: Colors.grey[300]!,
-                              width: 0.3,
-                            ),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(24.r),
-                            borderSide: BorderSide.none,
-                          ),
-                          contentPadding: EdgeInsets.only(
-                            left: 8.w,
-                            top: 8.h,
-                            bottom: 8.h,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.r),
-                            borderSide: BorderSide(
-                              color: Color(0xFF0059b3)!,
-                              width: 1,
-                            ),
-                          ),
-                        ),
-                        onChanged: (value) {
-                          if (value.length == 0) {
-                            controller.isTyping.value = false;
-                          } else {
-                            controller.isTyping.value = true;
-                          }
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              onChanged: (value) {
+                if (value.length == 0) {
+                  controller.isTyping.value = false;
+                } else {
+                  controller.isTyping.value = true;
+                }
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
