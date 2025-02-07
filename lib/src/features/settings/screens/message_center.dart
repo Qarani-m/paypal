@@ -14,6 +14,7 @@ class MessageCenter extends GetView<ConversationController> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -89,11 +90,11 @@ class MessageCenter extends GetView<ConversationController> {
           // GestureDetector(
           //     onTap: () => Get.to(PayPalAssistantPage()), child: OneMessage()),
           // OneMessage(),
-          Obx(
-            () => Column(
+        Column(
               children: List.generate(
                 controller.conversations.length,
                 (index) {
+                  controller.loadConversations();
                   final conversation = controller.conversations[index];
                   return GestureDetector(
                     onTap: () {
@@ -112,7 +113,7 @@ class MessageCenter extends GetView<ConversationController> {
                 },
               ),
             ),
-          ),
+          
 
           Padding(
             padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 3.h),

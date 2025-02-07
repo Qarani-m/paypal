@@ -23,9 +23,10 @@ class PayPalAssistantPage extends GetView<ConversationController> {
       'I\'m your PayPal Assistant and always here tohelp, I\'m\nstillin beta testing, so talking to you helps me learn',
       'What can i help you with?'
     ];
-    final conversation = args['conversation'] as Conversation;
+    // final conversation = args['conversation'] as Conversation;
 
-    print(conversation);
+    // Conversation conversation =  controller.loadConversation(conversation.id!);
+    controller.isFromSupport.value = false;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -48,61 +49,90 @@ class PayPalAssistantPage extends GetView<ConversationController> {
               ),
             ),
             SizedBox(width: 8.w),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-              decoration: BoxDecoration(
-                color: Color(0xFF3f20bc),
-                borderRadius: BorderRadius.circular(5.r),
-              ),
-              child: Text(
-                'beta',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 6.5.sp,
-                    fontWeight: FontWeight.w400),
+            Obx(
+              () => Container(
+                padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+                decoration: BoxDecoration(
+                  color: Color(
+                      controller.isFromSupport.value ? 0xFFdc143c : 0xFF3f20bc),
+                  borderRadius: BorderRadius.circular(5.r),
+                ),
+                child: Text(
+                  'beta',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 6.5.sp,
+                      fontWeight: FontWeight.w400),
+                ),
               ),
             ),
           ],
         ),
         centerTitle: true,
       ),
-body: SingleChildScrollView(
-  child: SizedBox(
-    height: MediaQuery.of(context).size.height,
-    child: Column(
-      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  Column(
-                children: [
-              
-                  Column(
-                    children: [
-                      Container(
-                        // color: Colors.green,
-                        child: Column(
-                          children: [
-                            Divider(
-                              color: Colors.grey.withOpacity(0.2),
-                            ),
-                            // Header section
-                            Padding(
-                              padding:
-                                  EdgeInsets.only(top: 16.w, left: 16.w, right: 16.w),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 130.w),
+
+      body: FutureBuilder<Conversation>(
+        future: controller.loadConversation(args['conversation'].id),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final conversation = snapshot.data!;
+            return MainBody(
+                starterMessages: starterMessages,
+                controller: controller,
+                conversation: conversation);
+          }
+          return Center(child: CircularProgressIndicator());
+        },
+      ),
+
+// body:
+    );
+  }
+}
+
+class MainBody extends StatelessWidget {
+  const MainBody({
+    super.key,
+    required this.starterMessages,
+    required this.controller,
+    required this.conversation,
+  });
+
+  final List<String> starterMessages;
+  final ConversationController controller;
+  final Conversation conversation;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      // color: Colors.green,
+                      child: Column(
+                        children: [
+                          Divider(
+                            color: Colors.grey.withOpacity(0.2),
+                          ),
+                          // Header section
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: 16.w, left: 16.w, right: 16.w),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 130.w),
+                                  child: GestureDetector(
+                                    onTap: () =>
+                                        controller.isFromSupport.value =
+                                            !controller.isFromSupport.value,
                                     child: Column(
                                       children: [
                                         Text(
@@ -122,133 +152,101 @@ body: SingleChildScrollView(
                                       ],
                                     ),
                                   ),
-                                  SizedBox(height: 10.h),
-                                  Text(
-                                    'We use automated processing of personal data when you interact with this customer service chatbot.',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 7.5.sp,
-                                        color: Colors.black.withOpacity(0.6),
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                                  
-                                  
-                                  
-                                  
-                      // Chat messages
-                      Obx(()=> Container(
-                          color:Colors.blue,
-                          height: MediaQuery.of(context).size.height*0.73,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 13.w),
-                            child: Column(
-                              // padding: EdgeInsets.symmetric(horizontal: 16.w),
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                      // height: 300.h,
-                                      color: Colors.red,
-                                      child: Column(children: [
-                                        Column(
-                                          children: List.generate(
-                                              starterMessages.length,
-                                              (index) => ChatBubble(
-                                                    message: starterMessages[index],
-                                                    isUser: false,
-                                                  )),
-                                        ),
-                                        SizedBox(
-                                          height: 14.h,
-                                        ),
-                                        SizedBox(
-                                          height: 14.h,
-                                        ),
-                                        Text(controller.placeHolder.value, style: TextStyle(fontSize: 0),),
-                                        SingleChildScrollView(
-                                          child: Column(
-                                            children: List.generate(
-                                                conversation.messages.length, (index) {
-                                              return ChatBubble(
-                                                message:
-                                                    conversation.messages[index].content,
-                                                isUser: !conversation
-                                                    .messages[index].isFromSupport,
-                                              );
-                                            }),
-                                          ),
-                                        ),
-                                      ])),
+                                ),
+                                SizedBox(height: 10.h),
+                                Text(
+                                  'We use automated processing of personal data when you interact with this customer service chatbot.',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 7.5.sp,
+                                      color: Colors.black.withOpacity(0.6),
+                                      fontWeight: FontWeight.w400),
                                 ),
                               ],
                             ),
                           ),
+                        ],
+                      ),
+                    ),
+
+                    // Chat messages
+                    Container(
+                      // color: Colors.blue,
+                      height: MediaQuery.of(context).size.height * 0.73,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 13.w),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            // padding: EdgeInsets.symmetric(horizontal: 16.w),
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                  // height: 300.h,
+                                  // color: Colors.red,
+                                  child: Column(children: [
+                                Column(
+                                  children: List.generate(
+                                      starterMessages.length,
+                                      (index) => ChatBubble(
+                                            message: starterMessages[index],
+                                            isUser: false,
+                                          )),
+                                ),
+                                SizedBox(
+                                  height: 14.h,
+                                ),
+                                SizedBox(
+                                  height: 14.h,
+                                ),
+                                Text(
+                                  controller.placeHolder.value,
+                                  style: TextStyle(fontSize: 0),
+                                ),
+                                Obx(
+                                  () => Column(
+                                    children: List.generate(
+                                        conversation.messages.length, (index) {
+                                      return ChatBubble(
+                                          message: controller
+                                              .currentConversation
+                                              .value!
+                                              .messages[index]
+                                              .content,
+                                          isUser: !controller
+                                              .currentConversation
+                                              .value!
+                                              .messages[index]
+                                              .isFromSupport);
+                                    }),
+                                  ),
+                                ),
+                              ])),
+                            ],
+                          ),
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-        Container(
-          padding: EdgeInsets.only(bottom: 8.w, top: 4.h, right: 10.w),
-          decoration: BoxDecoration(
-            color: Colors.red,
-            border: Border(
-              top: BorderSide(
-                color: Colors.grey[200]!,
-                width: 1,
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ),
-          child: MessageArea(controller: controller, conversation: conversation),
+            Container(
+              padding: EdgeInsets.only(bottom: 8.w, top: 4.h, right: 10.w),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                border: Border(
+                  top: BorderSide(
+                    color: Colors.grey[200]!,
+                    width: 1,
+                  ),
+                ),
+              ),
+              child: MessageArea(
+                  controller: controller, conversation: conversation),
+            ),
+          ],
         ),
-      ],
-    ),
-  ),
-)
+      ),
     );
   }
 }
@@ -271,14 +269,13 @@ class MessageArea extends StatelessWidget {
           controller.isTyping.value
               ? SizedBox()
               : IconButton(
-                  icon: Icon(
-                      size: 13.h, Icons.menu, color: Colors.grey),
+                  icon: Icon(size: 13.h, Icons.menu, color: Colors.grey),
                   onPressed: () {},
                 ),
           SizedBox(width: controller.isTyping.value ? 16.w : 0.w),
           Expanded(
             child: TextField(
-              cursorColor: Colors.black,
+              // cursorColor: Colors.black,
               cursorHeight: 10.h,
               style: TextStyle(fontSize: 9.sp),
               controller: controller.messageController,
@@ -291,6 +288,9 @@ class MessageArea extends StatelessWidget {
                           onTap: () {
                             controller.saveMessage(conversation.id!);
                             controller.messageController.text = '';
+                            controller.placeHolder.value =
+                                DateTime.now().toString();
+                            controller.loadConversation(conversation.id!);
                           },
                           child: CircleAvatar(
                               radius: 4.r,

@@ -18,9 +18,11 @@ class ConversationController extends GetxController {
 
 
   RxString placeHolder = 'true'.obs;
+  RxBool isFromSupport = false.obs;
 
   // Load all conversations
   Future<void> loadConversations() async {
+
     // conversations.value = await _dbHelper.getConversations();
 
     final List<Conversation> conversationMaps =
@@ -55,13 +57,15 @@ class ConversationController extends GetxController {
   }
 
   // Load a specific conversation
-  Future<void> loadConversation(int conversationId) async {
-    final conversation = await _dbHelper.getConversation(conversationId);
-    if (conversation != null) {
-      currentConversation.value = conversation;
-      currentMessages.value = conversation.messages;
-    }
+Future<Conversation> loadConversation(int conversationId) async {
+  final conversation = await _dbHelper.getConversation(conversationId);
+  if (conversation != null) {
+    currentConversation.value = conversation;
+    currentMessages.value = conversation.messages;
+    return conversation;
   }
+  throw Exception('Conversation not found');
+}
 
   // Send a new message
   Future<void> sendMessage(String content, bool isFromSupport) async {
@@ -98,7 +102,7 @@ class ConversationController extends GetxController {
       String message = messageController.text;
       Message messageMap = Message(
         content: messageController.text,
-        isFromSupport: false,
+        isFromSupport: isFromSupport.value,
         time: '',
         date: '',
       );
@@ -106,7 +110,8 @@ class ConversationController extends GetxController {
       await _dbHelper.insertMessage(conversationId, messageMap);
       // Get.snackbar('Success', "Message saved successfully");
 
-      loadConversation(conversationId);
+await      loadConversation(conversationId);
+      
     } catch (e) {
       Get.snackbar(
         'Error',
