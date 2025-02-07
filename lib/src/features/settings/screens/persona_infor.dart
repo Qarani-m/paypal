@@ -94,27 +94,19 @@ class PersonaInfor extends GetView<SettingsController> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-              
-
-
-
-Container(
-                                height: 25.h,
-                                width: 25.h,
-                                decoration: BoxDecoration(
-                                    // color: Colors.red,
-
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/images/usedetails/0.png'))),
-                              )
-
-
-
-,
-
+                  Container(
+                    height: 15.h,
+                    width: 15.h,
+                    alignment: Alignment.topCenter,
+                    decoration: BoxDecoration(
+                        color: Colors.yellow,
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image:
+                                AssetImage('assets/images/usedetails/0.png'))),
+                  ),
                   SizedBox(
-                    width: 8.w,
+                    width: 15.w,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,23 +153,19 @@ Container(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                 Container(
-                                height: 25.h,
-                                width: 25.h,
-                                decoration: BoxDecoration(
-                                    // color: Colors.red,
-
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/images/usedetails/1.png'))),
-                              )
-
-
-
-,
-
+                  Container(
+                    height: 15.h,
+                    width: 15.h,
+                    alignment: Alignment.topCenter,
+                    decoration: BoxDecoration(
+                        color: Colors.blue,
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image:
+                                AssetImage('assets/images/usedetails/1.png'))),
+                  ),
                   SizedBox(
-                    width: 8.w,
+                    width: 15.w,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,23 +226,19 @@ Container(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                 Container(
-                                height: 25.h,
-                                width: 25.h,
-                                decoration: BoxDecoration(
-                                    // color: Colors.red,
+                  Container(
+                    height: 12.h,
+                    width: 12.h,
+                    decoration: BoxDecoration(
+                        // color: Colors.red,
 
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/images/usedetails/2.png'))),
-                              )
-
-
-
-,
-
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image:
+                                AssetImage('assets/images/usedetails/2.png'))),
+                  ),
                   SizedBox(
-                    width: 8.w,
+                    width: 15.w,
                   ),
                   Text(
                     controller.user.value.address.replaceAll(',', '\n'),

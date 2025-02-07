@@ -52,7 +52,7 @@ controller.startNewConversation();
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        "Need help?${controller.conversations.length}",
+                        "Need help?",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: 7.sp,
                             fontWeight: FontWeight.w400,
@@ -73,10 +73,23 @@ controller.startNewConversation();
                   SizedBox(
                     width: 9.w,
                   ),
-                  SvgPicture.asset(
-                    AppImages.onlinePurchases,
-                    height: 14.h,
-                  )
+                  
+
+
+ Container(
+                      height: 18.h,
+                      width: 18.h,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/messages/2.png'),
+                        ),
+                      ),
+ )
+
+
+
+
+
                 ],
               ),
             ),
@@ -197,10 +210,17 @@ class OneMessage extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SvgPicture.asset(
-                  AppImages.onlinePurchases,
-                  height: 10.h,
-                ),
+              Container(
+                      height: 18.h,
+                      width: 18.h,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/messages/2.png'),
+                        ),
+                      ),
+ )
+
+,
                 SizedBox(
                   width: 7.w,
                 ),

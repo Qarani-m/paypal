@@ -87,6 +87,7 @@ flutter:
     - assets/images/taxdocuments/
     - assets/images/closeaccount/
     - assets/images/usedetails/
+    - assets/images/messages/
     - assets/images/profileandsupport/
     - assets/images/shopandsave/
     - assets/fonts/
