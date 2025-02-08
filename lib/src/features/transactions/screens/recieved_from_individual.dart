@@ -10,8 +10,8 @@ import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/payments/models/payment_model.dart';
 import 'package:paypal/src/utils/utilities.dart';
 
-class RecievedFromIndividual extends StatelessWidget {
-  const RecievedFromIndividual({super.key});
+class receivedFromIndividual extends StatelessWidget {
+  const receivedFromIndividual({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class RecievedFromIndividual extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          "Money recieved",
+          "Money received",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontSize: 8.sp,
               fontWeight: FontWeight.w400,
@@ -320,8 +320,8 @@ class RecievedFromIndividual extends StatelessWidget {
   }
 }
 
-class RecievedFromIndividualV2 extends StatelessWidget {
-  const RecievedFromIndividualV2({super.key});
+class receivedFromIndividualV2 extends StatelessWidget {
+  const receivedFromIndividualV2({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -337,7 +337,7 @@ class RecievedFromIndividualV2 extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          "Money recieved",
+          "Money received",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontSize: 8.sp,
               fontWeight: FontWeight.w400,

@@ -457,7 +457,7 @@ GetX<HomepageController>(builder: (controller) {
               index: controller.recentTransactions.indexOf(transaction),
               name: transaction.name,
               amount: '${transaction.amount} ${transaction.currency}',
-              isRecieved: transaction.type,
+              isreceived: transaction.type,
               showDetails: transaction.message.length > 0,
               message: transaction.message,
               imagePath: transaction.imagePath,

@@ -10,7 +10,6 @@ import 'package:paypal/src/features/profile/screens/profile_homepage.dart';
 import 'package:paypal/src/features/settings/screens/settings_homapage.dart';
 import 'package:paypal/src/features/transactions/screens/paypal_loss_recoery.dart';
 import 'package:paypal/src/features/transactions/screens/recieved_from_individual.dart';
-import 'package:paypal/src/features/transactions/screens/recieved_from_org.dart';
 import 'package:paypal/src/features/transactions/screens/refund.dart';
 import 'package:paypal/src/features/transactions/screens/send_to_individual.dart';
 import 'package:paypal/src/features/transactions/screens/sent_to_bank.dart';
@@ -117,12 +116,12 @@ class MyApp extends StatelessWidget {
                 transition: Transition.fade),
             // =============================================
             GetPage(
-                name: '/recieved_from_individual',
-                page: () => const RecievedFromIndividual(),
+                name: '/received_from_individual',
+                page: () => const receivedFromIndividual(),
                 transition: Transition.fade),
             GetPage(
-                name: '/recieved_from_org',
-                page: () => const RecievedFromOrg(),
+                name: '/received_from_org',
+                page: () => const receivedFromIndividualV2(),
                 transition: Transition.fade),
 
             GetPage(

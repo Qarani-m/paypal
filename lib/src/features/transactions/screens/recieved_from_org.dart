@@ -7,8 +7,8 @@ import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/payments/models/payment_model.dart';
 import 'package:paypal/src/utils/utilities.dart';
 
-class RecievedFromOrg extends StatelessWidget {
-  const RecievedFromOrg({super.key});
+class receivedFromOrg extends StatelessWidget {
+  const receivedFromOrg({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class RecievedFromOrg extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          "Money recieved",
+          "Money received",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontSize: 8.sp,
               fontWeight: FontWeight.w400,

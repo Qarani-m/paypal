@@ -285,7 +285,7 @@ class Homepage extends GetView<HomepageController> {
                                       controller.recentTransactions[index].name,
                                   amount:
                                       '${controller.recentTransactions[index].amount} ${controller.recentTransactions[index].currency}',
-                                  isRecieved:
+                                  isreceived:
                                       controller.recentTransactions[index].type,
                                   showDetails: controller
                                           .recentTransactions[index]

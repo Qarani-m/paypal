@@ -518,7 +518,7 @@ class AddPayment extends GetView<CreatePaymentController> {
                                 ),
                                 Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text('Recieved from',
+                                  child: Text('received from',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall

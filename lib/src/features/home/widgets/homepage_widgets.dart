@@ -207,7 +207,7 @@ class PaymentContainer extends StatelessWidget {
     required this.name,
     required this.amount,
     required this.showDetails,
-    required this.isRecieved,
+    required this.isreceived,
     required this.homepageController,
     required this.hasImage,
     required this.date,
@@ -224,7 +224,7 @@ class PaymentContainer extends StatelessWidget {
   final bool showDetails;
   final bool hasImage;
   final String message;
-  final String isRecieved;
+  final String isreceived;
   final String imagePath;
   final int id;
   final HomepageController homepageController;
@@ -233,7 +233,7 @@ class PaymentContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isRecievedB = isRecieved == 'recieve';
+    bool isreceivedB = isreceived == 'recieve';
     Map<String, String> currencies = {'USD': '\$', 'GBP': '£', 'EUR': '€'};
 
     return GestureDetector(
@@ -262,15 +262,15 @@ class PaymentContainer extends StatelessWidget {
 
         if (category == 'recieve,Individual') {
           if (message.trim().length > 0) {
-            Get.to(RecievedFromIndividualV2(), arguments: transaction);
+            Get.to(receivedFromIndividualV2(), arguments: transaction);
             return;
           }
 
-          Get.toNamed('/recieved_from_individual', arguments: transaction);
+          Get.toNamed('/received_from_individual', arguments: transaction);
         }
 
         if (category == 'recieve,Org') {
-          Get.toNamed('/recieved_from_org', arguments: transaction);
+          Get.toNamed('/received_from_org', arguments: transaction);
         }
       },
       child: Container(
@@ -370,7 +370,7 @@ class PaymentContainer extends StatelessWidget {
                           .getCategory(
                               '${transaction.type},${transaction.direction}')
                           .contains('receive')
-                      ? 'Money recieved - Refunded'
+                      ?transaction.amount.contains('201')?  'Money received - Refunded':  'Money received'
                       : homepageController
                               .getCategory(
                                   '${transaction.type},${transaction.direction}')
@@ -384,12 +384,12 @@ class PaymentContainer extends StatelessWidget {
                       color: Colors.grey),
                 ),
                 Text(
-                  '${isRecievedB ? "+ " : "- "}${currencies[transaction.currency] == "\$" ? "US" : ""}${currencies[transaction.currency]}${AppUtilities().formatNumber(amount.split(' ')[0])}',
-                  // '${isRecievedB ? "+ " : "- "}US\$${amount}',
+                  '${isreceivedB ? "+ " : "- "}${currencies[transaction.currency] == "\$" ? "US" : ""}${currencies[transaction.currency]}${AppUtilities().formatNumber(amount.split(' ')[0])}',
+                  // '${isreceivedB ? "+ " : "- "}US\$${amount}',
                   style: TextStyle(
                       fontSize: 9.5.sp,
                       fontWeight: FontWeight.w800,
-                      color: isRecievedB
+                      color: isreceivedB
                           ? const Color.fromARGB(255, 38, 126, 41)
                           : Colors.black),
                 ),
