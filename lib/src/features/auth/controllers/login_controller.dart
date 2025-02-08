@@ -5,6 +5,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
 import 'package:paypal/src/features/auth/models/user_model.dart';
+import 'package:paypal/src/features/auth/screens/loading_page.dart';
 import 'package:paypal/src/features/auth/screens/new_user.dart';
 
 class LoginController extends GetxController {
@@ -60,7 +61,7 @@ class LoginController extends GetxController {
           final storage = GetStorage();
           var savedUser = storage.read('user_data');
           if (savedUser != null) {
-            Get.offNamed('/home');
+            Get.off(LoadingPage());
           } else {
             Get.offNamed('/home');
           }

@@ -363,14 +363,14 @@ class PaymentContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // Text(homepageController
-                //           .getCategory(
-                //               '${transaction.type},${transaction.direction}')),
+                          // .getCategory(
+                              // '${transaction.type},${transaction.direction}')),
                 Text(
                   homepageController
                           .getCategory(
                               '${transaction.type},${transaction.direction}')
-                          .contains('receive')
-                      ?transaction.amount.contains('201')?  'Money received - Refunded':  'Money received'
+                          .contains('rec')
+                      ?transaction.amount.contains('271')?  'Money received - Refunded':  'Money received'
                       : homepageController
                               .getCategory(
                                   '${transaction.type},${transaction.direction}')

@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
+class LoadingPage extends StatefulWidget {
+  const LoadingPage({super.key});
 
   @override
-  State<MyWidget> createState() => _MyWidgetState();
+  State<LoadingPage> createState() => _LoadingPage();
 }
 
-class _MyWidgetState extends State<MyWidget> {
+class _LoadingPage extends State<LoadingPage> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 600), () {
+      Get.offNamed('/home');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,13 +27,13 @@ class _MyWidgetState extends State<MyWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const CircularProgressIndicator(
-              strokeWidth: 1,
+              strokeWidth: 2,
               color: Color(0xFF00186a),
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Loading, please wait...',
-              style: TextStyle(fontSize: 16, color: Colors.black54),
+              Text(
+              'Logging you in...',
+              style: TextStyle(fontSize: 9.sp, color: Colors.black54),
             ),
           ],
         ),

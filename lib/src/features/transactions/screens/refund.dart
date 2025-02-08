@@ -163,7 +163,7 @@ class Refund extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "The Original purchase was on ${AppUtilities().formatDateLong(transaction.date)}",
+                        "The Original transaction was on Feb 6, 2025",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: 8.sp,
                             fontWeight: FontWeight.w500,
