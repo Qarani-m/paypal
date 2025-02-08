@@ -43,7 +43,8 @@ void main() async {
                  
   // Set initial route based on both user data and date check
   String initialRoute = (storage.read('user_data') != null && isToday) 
-      ? '/auth' 
+      // ? '/auth' 
+      ? '/home' 
       : '/user_form';
       
   // Store today's date for next check

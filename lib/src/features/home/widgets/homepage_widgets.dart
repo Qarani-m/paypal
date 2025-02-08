@@ -92,7 +92,7 @@ class PayPalBalance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, String> currencies = {'USD': '\$'};
+    Map<String, String> currencies = {'USD': '\$', 'GBP': '£', 'EUR': '€'};
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
@@ -234,6 +234,7 @@ class PaymentContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isRecievedB = isRecieved == 'recieve';
+    Map<String, String> currencies = {'USD': '\$', 'GBP': '£', 'EUR': '€'};
 
     return GestureDetector(
       onDoubleTap: () => homepageController.updateTransaction(id),
@@ -361,12 +362,15 @@ class PaymentContainer extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                // Text(homepageController
+                //           .getCategory(
+                //               '${transaction.type},${transaction.direction}')),
                 Text(
                   homepageController
                           .getCategory(
                               '${transaction.type},${transaction.direction}')
-                          .contains('recieve')
-                      ? 'Money recieved'
+                          .contains('receive')
+                      ? 'Money recieved - Refunded'
                       : homepageController
                               .getCategory(
                                   '${transaction.type},${transaction.direction}')
@@ -380,7 +384,7 @@ class PaymentContainer extends StatelessWidget {
                       color: Colors.grey),
                 ),
                 Text(
-                  '${isRecievedB ? "+ " : "- "}US\$${AppUtilities().formatNumber(amount.split(' ')[0])}',
+                  '${isRecievedB ? "+ " : "- "}${currencies[transaction.currency] == "\$" ? "US" : ""}${currencies[transaction.currency]}${AppUtilities().formatNumber(amount.split(' ')[0])}',
                   // '${isRecievedB ? "+ " : "- "}US\$${amount}',
                   style: TextStyle(
                       fontSize: 9.5.sp,

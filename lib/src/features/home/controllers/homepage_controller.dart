@@ -16,6 +16,10 @@ import 'package:path/path.dart' as path;
 class HomepageController extends GetxController {
   final RxList<PaymentModel> recentTransactions = <PaymentModel>[].obs;
   final dbHelper = DBHelper();
+
+
+ 
+
   final dbHelperContacts = DatabaseHelperContact();
   Rx<UserModel> userDetails = new UserModel(balance: '0.00',currency: 'USD').obs;
   final _imageFile = Rx<File?>(null);
@@ -113,6 +117,8 @@ Future<void> saveUser(String name, bool hasImage, String? imageUrl) async {
   @override
   Future<void> onInit() async {
     super.onInit();
+    // await dbHelper.deleteAllTransactions();
+
     await loadTopThreeContacts();
     UserModel? fetchedUser = fetchUser();
     userDetails.value =

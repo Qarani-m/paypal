@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:paypal/src/features/payments/models/payment_model.dart';
 import 'package:paypal/src/features/settings/controllers/settings_controller.dart';
 import 'package:paypal/src/utils/utilities.dart';
@@ -14,6 +15,14 @@ class PersonaInfor extends GetView<SettingsController> {
 
   @override
   Widget build(BuildContext context) {
+  final _storage = GetStorage(); // GetStorage instance
+    final data = _storage.read<Map<String, dynamic>>('user_data');
+
+
+
+print(data);
+
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -164,7 +173,6 @@ class PersonaInfor extends GetView<SettingsController> {
                     width: 15.h,
                     alignment: Alignment.topCenter,
                     decoration: BoxDecoration(
-                        color: Colors.blue,
                         image: DecorationImage(
                             fit: BoxFit.cover,
                             image:
@@ -203,7 +211,7 @@ class PersonaInfor extends GetView<SettingsController> {
                       ),
                       Text(
                         AppUtilities()
-                            .obfuscatePhoneNumber(controller.user.value.phone),
+                            .obfuscatePhoneNumber(data!['phone']),
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: 10.sp,
                             color: Colors.black.withOpacity(1)),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/home/controllers/homepage_controller.dart';
 import 'package:paypal/src/features/home/models/contacts_model.dart';
@@ -382,10 +383,8 @@ class _SimpleSliderState extends State<SimpleSlider> {
   Widget build(BuildContext context) {
     List<String> helpingHand = [
       'Street Child',
-
       'CARE INTERNATIONAL UK',
       'Macmilllian cancer support',
-
     ];
     List<String> circles = [
       'assets/images/streetchild.png',
@@ -393,7 +392,11 @@ class _SimpleSliderState extends State<SimpleSlider> {
       AppImages.atmCard,
     ];
 
-    List<Color> colors = [Color(0xFF761ad3), Colors.yellow, Colors.deepPurpleAccent];
+    List<Color> colors = [
+      Color(0xFF761ad3),
+      Colors.yellow,
+      Colors.deepPurpleAccent
+    ];
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -427,28 +430,35 @@ class _SimpleSliderState extends State<SimpleSlider> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                 index == 2?SizedBox.shrink():  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      height: 30.h,
-                      width: 30.h,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white,
-                          image: DecorationImage(
-                              image: AssetImage(circles[index]),
-                              fit: BoxFit.contain)),
-                    ),
-                  ),
-                  // SizedBox(height: 42.h),
-               index==2?SizedBox.shrink():   Text(
-                    helpingHand[index],
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 13.sp,
-                          color: index==1?Colors.black:Colors.white,
-                          fontWeight: FontWeight.w700,
+                  index == 2
+                      ? SizedBox.shrink()
+                      : Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            height: 30.h,
+                            width: 30.h,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+                                image: DecorationImage(
+                                    image: AssetImage(circles[index]),
+                                    fit: BoxFit.contain)),
+                          ),
                         ),
-                  ),
+                  // SizedBox(height: 42.h),
+                  index == 2
+                      ? SizedBox.shrink()
+                      : Text(
+                          helpingHand[index],
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(
+                                fontSize: 13.sp,
+                                color: index == 1 ? Colors.black : Colors.white,
+                                fontWeight: FontWeight.w700,
+                              ),
+                        ),
                 ],
               ),
             ),
@@ -511,13 +521,20 @@ class PaypalPools extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final storage = GetStorage();
+    Map<String, dynamic> userData = storage.read('user_data');
+
+    // Get stored date and today's date
+    // Map> userData = storage.read('user_data');
+
     return Row(
       children: [
         GestureDetector(
-          onTap: ()=>Get.to(AddPayment()),
+          onTap: () => Get.to(AddPayment()),
           child: PayPalBalance(
-              balance: controller.userDetails.value.balance,
-              currency: controller.userDetails.value.currency),
+            balance: userData['balance'],
+            currency: userData['currency'],
+          ),
         ),
         SizedBox(
           width: 40.w,

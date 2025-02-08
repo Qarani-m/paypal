@@ -13,6 +13,14 @@ class UserFormController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final ImagePicker picker = ImagePicker();
 
+ final nameController = TextEditingController();
+  final phoneController = TextEditingController();
+  final emailController = TextEditingController();
+  final balanceController = TextEditingController();
+  final currencyController = TextEditingController();
+  final addressController = TextEditingController();
+
+
   final name = ''.obs;
   final phone = ''.obs;
   final balance = ''.obs;
@@ -47,11 +55,33 @@ class UserFormController extends GetxController {
       Get.offNamed('/home');
     }
   }
+
+
+
+  void fillInFilesa(){
+
+      Map<String, dynamic>userData = storage.read('user_data');
+      nameController.text = userData['name'] ??'';
+      phoneController.text = userData['phone'] ??'';
+      balanceController.text = userData['balance'] ??'';
+      currencyController.text = userData['currency'] ??'';
+      emailController.text = userData['email'] ??'';
+      addressController.text = userData['address'] ??'';
+
+
+
+
+
+print(name.value);
+  
+
+  }
 }
 
 class UserFormPage extends GetView<UserFormController> {
   @override
   Widget build(BuildContext context) {
+    controller.fillInFilesa();
     return Scaffold(
       appBar: AppBar(title: Text('Create Profile')),
       body: Form(
@@ -62,30 +92,41 @@ class UserFormPage extends GetView<UserFormController> {
             _buildProfileImagePicker(),
             SizedBox(height: 20.h),
             _buildTextField(
+              controller:controller.nameController,
               label: 'Name',
               onChanged: (v) => controller.name.value = v,
             ),
             _buildTextField(
+              controller:controller.phoneController,
+
               label: 'Phone',
               keyboardType: TextInputType.phone,
               onChanged: (v) => controller.phone.value = v,
             ),
             _buildTextField(
               label: 'Email',
+              controller:controller.emailController,
+
               keyboardType: TextInputType.emailAddress,
               onChanged: (v) => controller.email.value = v,
             ),
             _buildTextField(
+              controller:controller.balanceController,
+
               label: 'Balance',
               keyboardType: TextInputType.number,
               onChanged: (v) => controller.balance.value = v,
             ),
             _buildTextField(
               label: 'Currency',
+              controller:controller.currencyController,
+
               onChanged: (v) =>
                   controller.currency.value = v, // Note: This seems incorrect
             ),
             _buildTextField(
+              controller:controller.addressController,
+
               label: 'Address',
               onChanged: (v) => controller.address.value = v,
             ),
@@ -111,6 +152,7 @@ class UserFormPage extends GetView<UserFormController> {
   }
 
   Widget _buildTextField({
+    required TextEditingController controller,
     required String label,
     TextInputType keyboardType = TextInputType.text,
     required void Function(String) onChanged,
@@ -118,6 +160,7 @@ class UserFormPage extends GetView<UserFormController> {
     return Padding(
       padding: EdgeInsets.only(bottom: 12.h),
       child: TextFormField(
+        controller:controller,
         style: TextStyle(
             fontWeight: FontWeight.w500, color: Colors.black, fontSize: 10.sp),
         keyboardType: keyboardType,

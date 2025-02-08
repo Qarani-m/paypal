@@ -69,10 +69,20 @@ String formatNumber(dynamic number) {
 }
 
   String obfuscatePhoneNumber(String phoneNumber) {
-    if (phoneNumber.trim().length != 10 || !phoneNumber.trim().startsWith('07')) {
+
+
+print('=======================${phoneNumber.trim().length}');
+
+
+    if (phoneNumber.trim().length < 10 ) {
       throw ArgumentError(
           'Invalid phone number format. Must be 10 digits starting with "07".');
     }
-    return '${phoneNumber.substring(1, 2)}** **${phoneNumber.substring(6)}';
+
+return !phoneNumber.startsWith('07') 
+    ? '${phoneNumber.substring(0, 4)}** **${phoneNumber.substring(phoneNumber.length - 3)}'
+    : '${phoneNumber.substring(1, 2)}** **${phoneNumber.substring(6)}';
+
+
   }
 }

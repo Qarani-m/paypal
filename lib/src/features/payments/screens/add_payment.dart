@@ -118,28 +118,59 @@ class AddPayment extends GetView<CreatePaymentController> {
                               )
                             ],
                           ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10.w, vertical: 2.h),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.r),
-                                border: Border.all(color: Colors.black)),
-                            child: Row(
-                              children: [
-                                Text(
-                                  controller.currency.value,
-                                  style: TextStyle(
-                                      fontSize: 7.sp,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                Icon(
-                                  Icons.keyboard_arrow_down_rounded,
-                                  size: 10.h,
-                                )
-                              ],
-                            ),
-                          )
+
+
+
+
+
+
+                          GestureDetector(
+  onTap: () {
+    Get.bottomSheet(
+      Container(
+        color: Colors.white,
+        child: Wrap(
+          children: controller.currencies.map((currency) {
+            return ListTile(
+              title: Text(
+                currency,
+                style: TextStyle(fontSize: 8.sp),
+              ),
+              onTap: () {
+                controller.currency.value = currency;
+                Get.back();
+              },
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  },
+  child: Container(
+    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 2.h),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20.r),
+      border: Border.all(color: Colors.black),
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Obx(() => Text(
+          controller.currency.value,
+          style: TextStyle(
+            fontSize: 7.sp,
+            color: Colors.black,
+            fontWeight: FontWeight.w700,
+          ),
+        )),
+        Icon(
+          Icons.keyboard_arrow_down_rounded,
+          size: 10.h,
+        )
+      ],
+    ),
+  ),
+)
                         ],
                       ),
                     ),
