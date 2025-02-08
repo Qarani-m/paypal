@@ -45,9 +45,11 @@ class PersonaInfor extends GetView<SettingsController> {
                           height: 37.h,
                           width: 37.h,
                           decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.grey[300],
-                          ),
+                              shape: BoxShape.circle,
+                              color: Colors.green,
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/accountinfor/0.png'))),
                           child: ClipOval(
                             child: Image.file(
                               File(controller.user.value.imagePath),
@@ -63,7 +65,11 @@ class PersonaInfor extends GetView<SettingsController> {
                           height: 50.h,
                           width: 50.h,
                           decoration: BoxDecoration(
-                              color: Colors.white, shape: BoxShape.circle),
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/accountinfor/0.png')),
+                              color: Colors.white,
+                              shape: BoxShape.circle),
                         ),
                   Positioned(
                       bottom: 0,

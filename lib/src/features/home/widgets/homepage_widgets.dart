@@ -111,7 +111,7 @@ class PayPalBalance extends StatelessWidget {
                 height: 5.h,
               ),
               Text(
-                // '\$0.00', 
+                // '\$0.00',
                 // balance,
                 "${currencies['$currency']}${AppUtilities().formatNumber(balance)}",
                 style: Theme.of(context)
@@ -133,7 +133,7 @@ class SettingAndProfileMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:   EdgeInsets.only(right: 13.w),
+      padding: EdgeInsets.only(right: 13.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -367,7 +367,13 @@ class PaymentContainer extends StatelessWidget {
                               '${transaction.type},${transaction.direction}')
                           .contains('recieve')
                       ? 'Money recieved'
-                      : 'Money sent',
+                      : homepageController
+                              .getCategory(
+                                  '${transaction.type},${transaction.direction}')
+                              .toLowerCase()
+                              .contains('refund')
+                          ? 'Refund sent'
+                          : 'Money sent',
                   style: TextStyle(
                       fontSize: 8.sp,
                       fontWeight: FontWeight.w400,

@@ -6,6 +6,7 @@ import 'package:paypal/src/features/home/controllers/homepage_controller.dart';
 import 'package:paypal/src/features/home/models/contacts_model.dart';
 import 'package:paypal/src/features/home/widgets/homepage_buttons.dart';
 import 'package:paypal/src/features/home/widgets/homepage_widgets.dart';
+import 'package:paypal/src/features/payments/screens/add_payment.dart';
 import 'package:paypal/src/features/wallet/screens/wallet_homepage.dart';
 
 class Homepage extends GetView<HomepageController> {
@@ -61,20 +62,23 @@ class Homepage extends GetView<HomepageController> {
                         padding: EdgeInsets.only(left: 8.w),
                         child: Row(
                           children: [
-                            Obx(()=> Row(
+                            Obx(
+                              () => Row(
                                 children: List.generate(
                                   controller.contacts.length,
                                   (index) => Row(
                                     children: [
                                       SizedBox(width: index == 0 ? 0.w : 25.w),
                                       GestureDetector(
-                                        onLongPress: ()async{
-                                              await controller.deleteContact(controller.contacts[index].id!);
-                                              await controller.loadTopThreeContacts();
-                              
-                                },
+                                        onLongPress: () async {
+                                          await controller.deleteContact(
+                                              controller.contacts[index].id!);
+                                          await controller
+                                              .loadTopThreeContacts();
+                                        },
                                         child: SendAgainContact(
-                                            contact: controller.contacts[index]),
+                                            contact:
+                                                controller.contacts[index]),
                                       ),
                                     ],
                                   ),
@@ -85,7 +89,6 @@ class Homepage extends GetView<HomepageController> {
                               width: 35.w,
                             ),
                             GestureDetector(
-                              
                               onTap: () {
                                 final nameController = TextEditingController();
                                 final imagePathRx = RxString('');
@@ -378,17 +381,19 @@ class _SimpleSliderState extends State<SimpleSlider> {
   @override
   Widget build(BuildContext context) {
     List<String> helpingHand = [
-      'Macmilllian cancer support',
+      'Street Child',
+
       'CARE INTERNATIONAL UK',
-      'Street child'
+      'Macmilllian cancer support',
+
     ];
     List<String> circles = [
-      AppImages.atmCard,
-      AppImages.atmCard,
+      'assets/images/streetchild.png',
+      'assets/images/care.png',
       AppImages.atmCard,
     ];
 
-    List<Color> colors = [Colors.pink, Colors.yellow, Colors.deepPurpleAccent];
+    List<Color> colors = [Color(0xFF761ad3), Colors.yellow, Colors.deepPurpleAccent];
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -398,17 +403,19 @@ class _SimpleSliderState extends State<SimpleSlider> {
           (index) => Padding(
             padding: EdgeInsets.only(right: 10.w),
             child: Container(
+              width: 250.w,
+              height: 120.h,
               padding: EdgeInsets.only(
                 top: 8.h,
                 left: 8.w,
                 bottom: 8.h,
                 right: 90.w,
               ),
-              decoration: index == 0
+              decoration: index == 2
                   ? BoxDecoration(
                       color: Colors.amber,
                       image: DecorationImage(
-                          image: AssetImage(AppImages.atmCard),
+                          image: AssetImage('assets/images/1.png'),
                           fit: BoxFit.cover),
                       borderRadius: BorderRadius.circular(10.r),
                     )
@@ -418,25 +425,27 @@ class _SimpleSliderState extends State<SimpleSlider> {
                     ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Align(
+                 index == 2?SizedBox.shrink():  Align(
                     alignment: Alignment.centerLeft,
                     child: Container(
-                      height: 40.h,
-                      width: 40.h,
+                      height: 30.h,
+                      width: 30.h,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.blue,
+                          color: Colors.white,
                           image: DecorationImage(
                               image: AssetImage(circles[index]),
-                              fit: BoxFit.cover)),
+                              fit: BoxFit.contain)),
                     ),
                   ),
-                  SizedBox(height: 42.h),
-                  Text(
+                  // SizedBox(height: 42.h),
+               index==2?SizedBox.shrink():   Text(
                     helpingHand[index],
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 10.sp,
+                          fontSize: 13.sp,
+                          color: index==1?Colors.black:Colors.white,
                           fontWeight: FontWeight.w700,
                         ),
                   ),
@@ -500,15 +509,16 @@ class PaypalPools extends StatelessWidget {
 
   final HomepageController controller;
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        PayPalBalance(
-            balance: controller.userDetails.value.balance,
-            currency: controller.userDetails.value.currency),
+        GestureDetector(
+          onTap: ()=>Get.to(AddPayment()),
+          child: PayPalBalance(
+              balance: controller.userDetails.value.balance,
+              currency: controller.userDetails.value.currency),
+        ),
         SizedBox(
           width: 40.w,
         ),

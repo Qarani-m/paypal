@@ -89,7 +89,7 @@ Future<void> saveUser(String name, bool hasImage, String? imageUrl) async {
 
   String getCategory(String category) {
     if (category.toLowerCase().contains('paypal,refund')) {
-      return 'Refund sent - Completed ';
+      return 'Refund sent ';
     } else if (category.toLowerCase().contains('recieve,individual')) {
       return 'Money received';
     } else if (category.toLowerCase().contains('send,org')) {

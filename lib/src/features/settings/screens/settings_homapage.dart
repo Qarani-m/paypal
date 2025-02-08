@@ -145,7 +145,9 @@ class SettingsHomapage extends GetView<SettingsController> {
                                       height: 35.h,
                                       width: 35.h,
                                       decoration: BoxDecoration(
-                                          color: Colors.grey,
+                                          color: Colors.white,
+                                      image:DecorationImage(image:  AssetImage( 'assets/images/accountinfor/0.png'),),
+
                                           shape: BoxShape.circle),
                                     ),
                               Positioned(
@@ -268,8 +270,7 @@ class SettingsHomapage extends GetView<SettingsController> {
                                   width: 18.h,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/accountinfor/$index.png'),
+                                      image: AssetImage( 'assets/images/accountinfor/$index.png'),
                                     ),
                                   ),
                                 ),

@@ -104,153 +104,165 @@ class MainBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      // color: Colors.green,
-                      child: Column(
-                        children: [
-                          Divider(
-                            color: Colors.grey.withOpacity(0.2),
-                          ),
-                          // Header section
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: 16.w, left: 16.w, right: 16.w),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(right: 130.w),
-                                  child: GestureDetector(
-                                    onTap: () =>
-                                        controller.isFromSupport.value =
-                                            !controller.isFromSupport.value,
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          'Talk to me',
-                                          style: TextStyle(
-                                              fontSize: 13.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        ),
-                                        Text(
-                                          "I'm powered by generative AI",
-                                          style: TextStyle(
-                                              fontSize: 8.sp,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 10.h),
-                                Text(
-                                  'We use automated processing of personal data when you interact with this customer service chatbot.',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 7.5.sp,
-                                      color: Colors.black.withOpacity(0.6),
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // Chat messages
-                    Container(
-                      // color: Colors.blue,
-                      height: MediaQuery.of(context).size.height * 0.73,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 13.w),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            // padding: EdgeInsets.symmetric(horizontal: 16.w),
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                  // height: 300.h,
-                                  // color: Colors.red,
-                                  child: Column(children: [
-                                Column(
-                                  children: List.generate(
-                                      starterMessages.length,
-                                      (index) => ChatBubble(
-                                            message: starterMessages[index],
-                                            isUser: false,
-                                          )),
-                                ),
-                                SizedBox(
-                                  height: 14.h,
-                                ),
-                                SizedBox(
-                                  height: 14.h,
-                                ),
-                                Text(
-                                  controller.placeHolder.value,
-                                  style: TextStyle(fontSize: 0),
-                                ),
-                                Obx(
-                                  () => Column(
-                                    children: List.generate(
-                                        conversation.messages.length, (index) {
-                                      return ChatBubble(
-                                          message: controller
-                                              .currentConversation
-                                              .value!
-                                              .messages[index]
-                                              .content,
-                                          isUser: !controller
-                                              .currentConversation
-                                              .value!
-                                              .messages[index]
-                                              .isFromSupport);
-                                    }),
-                                  ),
-                                ),
-                              ])),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+          
+          
+          
+          
+          
+          Expanded(
+            child: TopPart(
+              controller: controller,
+              starterMessages: starterMessages,
+              conversation: conversation,
             ),
-            Container(
-              padding: EdgeInsets.only(bottom: 8.w, top: 4.h, right: 10.w),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                border: Border(
-                  top: BorderSide(
-                    color: Colors.grey[200]!,
-                    width: 1,
+          ),
+          
+          
+          
+          
+          
+          
+              // 
+              Container(
+                padding: EdgeInsets.only(bottom: 8.w, top: 4.h, right: 10.w),
+                decoration: BoxDecoration(
+                  // color: Colors.red,
+                  border: Border(
+                    top: BorderSide(
+                      color: Colors.grey[200]!,
+                      width: 1,
+                    ),
                   ),
                 ),
+                child:
+                    MessageArea(controller: controller, conversation: conversation),
               ),
-              child: MessageArea(
-                  controller: controller, conversation: conversation),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
     );
   }
 }
 
+class TopPart extends StatelessWidget {
+  const TopPart({
+    super.key,
+    required this.controller,
+    required this.starterMessages,
+    required this.conversation,
+  });
+
+  final ConversationController controller;
+  final List<String> starterMessages;
+  final Conversation conversation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        // Header section - Keep this fixed
+        Container(
+          child: Column(
+            children: [
+              Divider(
+                color: Colors.grey.withOpacity(0.2),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    top: 16.w, left: 16.w, right: 16.w),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(right: 130.w),
+                      child: GestureDetector(
+                        onTap: () =>
+                            controller.isFromSupport.value =
+                                !controller.isFromSupport.value,
+                        child: Column(
+                          children: [
+                            Text(
+                              'Talk to me',
+                              style: TextStyle(
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ),
+                            Text(
+                              "I'm powered by generative AI",
+                              style: TextStyle(
+                                  fontSize: 8.sp,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
+                    Text(
+                      'We use automated processing of personal data when you interact with this customer service chatbot.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 7.5.sp,
+                          color: Colors.black.withOpacity(0.6),
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        
+        // Chat messages - Make this scrollable
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 13.w),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Column(
+                    children: List.generate(
+                        starterMessages.length,
+                        (index) => ChatBubble(
+                              message: starterMessages[index],
+                              isUser: false,
+                            )),
+                  ),
+                  SizedBox(height: 14.h),
+                  SizedBox(height: 14.h),
+                  Text(
+                    controller.placeHolder.value,
+                    style: TextStyle(fontSize: 0),
+                  ),
+                  Obx(
+                    () => Column(
+                      children: List.generate(
+                          conversation.messages.length, (index) {
+                        return ChatBubble(
+                            message: controller.currentConversation
+                                .value!.messages[index].content,
+                            isUser: !controller
+                                .currentConversation
+                                .value!
+                                .messages[index]
+                                .isFromSupport);
+                      }),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
 class MessageArea extends StatelessWidget {
   const MessageArea({
     super.key,

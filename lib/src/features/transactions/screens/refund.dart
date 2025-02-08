@@ -25,9 +25,9 @@ class Refund extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          "Refund sent - Completed",
+          "Refund sent",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontSize: 8.sp,
+              fontSize: 10.sp,
               fontWeight: FontWeight.w400,
               color: Colors.black.withOpacity(1)),
         ),
@@ -66,8 +66,8 @@ class Refund extends StatelessWidget {
                             )
                           : Container(
                               alignment: Alignment.center,
-                              height: 27.h,
-                              width: 27.h,
+                              height: 33.h,
+                              width: 33.h,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: const Color(0xFF2e3333),
@@ -75,7 +75,7 @@ class Refund extends StatelessWidget {
                               child: Text(
                                 AppUtilities().getInitials(transaction.name),
                                 style: TextStyle(
-                                    fontSize: 9.sp,
+                                    fontSize: 12.sp,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.white),
                               ),
@@ -92,7 +92,7 @@ class Refund extends StatelessWidget {
                                 .textTheme
                                 .bodySmall
                                 ?.copyWith(
-                                    fontSize: 8.sp,
+                                    fontSize: 10.sp,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.black.withOpacity(1)),
                           ),
@@ -105,7 +105,7 @@ class Refund extends StatelessWidget {
                                 .textTheme
                                 .bodySmall
                                 ?.copyWith(
-                                    fontSize: 7.sp,
+                                    fontSize: 9.sp,
                                     fontWeight: FontWeight.w400,
                                     color: Colors.black.withOpacity(1)),
                           ),
@@ -120,7 +120,7 @@ class Refund extends StatelessWidget {
                                 ?.copyWith(
                                     decoration: TextDecoration.underline,
                                     decorationColor: Color(0xFF0059b3),
-                                    fontSize: 6.5.sp,
+                                    fontSize: 8.5.sp,
                                     fontWeight: FontWeight.w800,
                                     color: Color(0xFF0059b3).withOpacity(1)),
                           ),
@@ -131,15 +131,15 @@ class Refund extends StatelessWidget {
                   Text(
                     "-US\$${AppUtilities().formatNumber(transaction.amount)}",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 8.sp,
-                        fontWeight: FontWeight.w400,
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
                         color: Colors.black.withOpacity(1)),
                   ),
                 ],
               ),
             ),
             SizedBox(
-              height: 7.h,
+              height: 12.h,
             ),
             Container(
               height: 1.5.h,
@@ -147,7 +147,7 @@ class Refund extends StatelessWidget {
               color: Color(0xFFeff2f9),
             ),
             SizedBox(
-              height: 10.h,
+              height: 12.h,
             ),
             Padding(
               padding: EdgeInsets.only(left: 13.w),
@@ -155,7 +155,7 @@ class Refund extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.info,
-                    size: 10.h,
+                    size: 13.h,
                     color: Colors.black54,
                   ),
                   SizedBox(width: 9.w),
@@ -165,7 +165,7 @@ class Refund extends StatelessWidget {
                       Text(
                         "The Original purchase was on ${AppUtilities().formatDateLong(transaction.date)}",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 6.sp,
+                            fontSize: 8.sp,
                             fontWeight: FontWeight.w500,
                             color: Colors.black.withOpacity(1)),
                       ),
@@ -182,7 +182,7 @@ class Refund extends StatelessWidget {
                               .textTheme
                               .bodySmall
                               ?.copyWith(
-                                  fontSize: 6.5.sp,
+                                  fontSize: 8.5.sp,
                                   fontWeight: FontWeight.w800,
                                   decoration: TextDecoration.underline,
                                   decorationColor: Color(0xFF0059b3),
@@ -214,7 +214,7 @@ class Refund extends StatelessWidget {
                     child: Text(
                       "From",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 7.sp,
+                          fontSize: 9.sp,
                           fontWeight: FontWeight.w400,
                           color: Colors.black.withOpacity(1)),
                     ),
@@ -228,14 +228,14 @@ class Refund extends StatelessWidget {
                       Text(
                         "PayPal balance",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 7.sp,
+                            fontSize: 9.sp,
                             fontWeight: FontWeight.w400,
                             color: Colors.black.withOpacity(1)),
                       ),
                       Text(
-                        "-US\$${AppUtilities().formatNumber(transaction.amount)}",
+                        "US\$${AppUtilities().formatNumber(transaction.amount)}",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 7.sp,
+                            fontSize: 9.5.sp,
                             fontWeight: FontWeight.w400,
                             color: Colors.black.withOpacity(1)),
                       ),
@@ -262,7 +262,7 @@ class Refund extends StatelessWidget {
                 child: Text(
                   "Transaction ID",
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontSize: 6.5.sp,
+                      fontSize: 8.5.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.black.withOpacity(1)),
                 ),
@@ -279,13 +279,13 @@ class Refund extends StatelessWidget {
                   Text(
                     transaction.transactionCode,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 6.sp,
+                        fontSize: 8.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.black.withOpacity(1)),
                   ),
                   Icon(
                     Icons.copy,
-                    size: 7.h,
+                    size: 12.h,
                   )
                 ],
               ),

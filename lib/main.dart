@@ -28,11 +28,28 @@ void main() async {
 
   // Initialize any required dependencies here
   await initServices();
-await GetStorage.init();
+  
   final storage = GetStorage();
-  String initialRoute = storage.read('user_data') != null ? '/home' : '/user_form';
+  
+  // Get stored date and today's date
+  String? storedDateStr = storage.read('last_access_date')?.toString();
+  DateTime? storedDate = storedDateStr != null ? DateTime.parse(storedDateStr) : null;
+  DateTime today = DateTime.now();
+  
+  // Check if stored date exists and matches today's date
+  bool isToday = storedDate?.year == today.year && 
+                 storedDate?.month == today.month && 
+                 storedDate?.day == today.day;
+                 
+  // Set initial route based on both user data and date check
+  String initialRoute = (storage.read('user_data') != null && isToday) 
+      ? '/auth' 
+      : '/user_form';
+      
+  // Store today's date for next check
+  storage.write('last_access_date', today.toIso8601String());
 
-  runApp(  MyApp(initialRoute: initialRoute));
+  runApp(MyApp(initialRoute: initialRoute));
 }
 
 Future<void> initServices() async {
