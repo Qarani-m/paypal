@@ -2,23 +2,21 @@ import 'package:intl/intl.dart';
 
 class AppUtilities {
   String formatDateDateFirst(String date) {
-    final DateTime dt = DateTime.parse(date);
-    final List<String> months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
+     final List<String> months = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ];
+  try {
+    final DateTime dt = DateTime.parse(date);
+   
     return '${dt.day} ${months[dt.month - 1]}';
+  } catch (e) {
+    // Default to 2025-02-19 if date is invalid
+    final DateTime defaultDate = DateTime(2025, 2, 19);
+    return '${defaultDate.day} ${months[defaultDate.month - 1]}';
   }
+}
+
 
   String formatDateMonthFirst(String date) {
     final DateTime dt = DateTime.parse(date);

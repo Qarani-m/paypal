@@ -19,6 +19,7 @@ class ConversationController extends GetxController {
 
   RxString placeHolder = 'true'.obs;
   RxBool isFromSupport = false.obs;
+  RxBool isInformatory = false.obs;
 
   // Load all conversations
   Future<void> loadConversations() async {
@@ -101,7 +102,7 @@ Future<Conversation> loadConversation(int conversationId) async {
     try {
       String message = messageController.text;
       Message messageMap = Message(
-        content: messageController.text,
+        content: isInformatory.value?'${messageController.text}/////':messageController.text,
         isFromSupport: isFromSupport.value,
         time: '',
         date: '',

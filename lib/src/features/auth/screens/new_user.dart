@@ -58,24 +58,45 @@ class UserFormController extends GetxController {
 
 
 
-  void fillInFilesa(){
+void fillInFilesa() {
+  // Define default values
+  final Map<String, dynamic> defaultValues = {
+    'name': '',
+    'phone': '',
+    'balance': '0.00',  // Default balance as zero
+    'currency': 'USD',  // Default currency
+    'email': '',
+    'address': ''
+  };
 
-      Map<String, dynamic>userData = storage.read('user_data');
-      nameController.text = userData['name'] ??'';
-      phoneController.text = userData['phone'] ??'';
-      balanceController.text = userData['balance'] ??'';
-      currencyController.text = userData['currency'] ??'';
-      emailController.text = userData['email'] ??'';
-      addressController.text = userData['address'] ??'';
-
-
-
-
-
-print(name.value);
+  // Read and merge with defaults
+  Map<String, dynamic> userData = Map<String, dynamic>.from(defaultValues);
+  Map<String, dynamic>? storedData = storage.read('user_data');
   
-
+  if (storedData != null) {
+    userData.addAll(storedData);
   }
+
+  // Ensure all values are valid (not null)
+  userData.forEach((key, value) {
+    if (value == null) {
+      userData[key] = defaultValues[key];
+    }
+  });
+
+  // Save the initialized userData
+  storage.write('user_data', userData);
+
+  // Fill in the controllers
+  nameController.text = userData['name'];
+  phoneController.text = userData['phone'];
+  balanceController.text = userData['balance'];
+  currencyController.text = userData['currency'];
+  emailController.text = userData['email'];
+  addressController.text = userData['address'];
+
+  print('Initialized User Data: $userData');
+}
 }
 
 class UserFormPage extends GetView<UserFormController> {

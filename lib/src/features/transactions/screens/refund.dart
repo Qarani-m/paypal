@@ -546,8 +546,9 @@ class RefundDetails extends StatelessWidget {
                       CircleAvatar(
                         radius: 20.r,
                         backgroundColor: Colors.white,
-
-                        child: Image(image: AssetImage('assets/images/send_money.png'),),
+                        child: Image(
+                          image: AssetImage('assets/images/send_money.png'),
+                        ),
                       ),
                       SizedBox(
                         height: 3.h,
@@ -567,11 +568,11 @@ class RefundDetails extends StatelessWidget {
                   Column(
                     children: [
                       CircleAvatar(
-                       radius: 20.r,
+                        radius: 20.r,
                         backgroundColor: Colors.white,
-
-                        child: Image(image: AssetImage('assets/images/messages.png'),),
-
+                        child: Image(
+                          image: AssetImage('assets/images/messages.png'),
+                        ),
                       ),
                       SizedBox(
                         height: 3.h,
@@ -649,13 +650,10 @@ class RefundDetails extends StatelessWidget {
               padding: EdgeInsets.only(left: 13.w),
               child: Row(
                 children: [
-                 
-                        Image(
-                          
-                          height: 20.h,
-                          image: AssetImage('assets/images/0.png'),),
-
-                  
+                  Image(
+                    height: 20.h,
+                    image: AssetImage('assets/images/0.png'),
+                  ),
                   SizedBox(
                     width: 10.w,
                   ),
@@ -676,13 +674,10 @@ class RefundDetails extends StatelessWidget {
               padding: EdgeInsets.only(left: 13.w),
               child: Row(
                 children: [
-
-                        Image(
-                          
-                          height: 20.h,
-                          image: AssetImage('assets/images/block.png'),),
-
-                  
+                  Image(
+                    height: 20.h,
+                    image: AssetImage('assets/images/block.png'),
+                  ),
                   SizedBox(
                     width: 10.w,
                   ),

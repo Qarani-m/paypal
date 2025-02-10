@@ -22,13 +22,24 @@ class SendToIndividual extends StatelessWidget {
       'Report problem',
     ];
 
-    Map<String, String> nameAndSigns = {'GBP': '£', 'EURO': '€', 'USD': '\$'};
+    Map<String, String> nameAndSigns = {'GBP': '£', 'EUR': '€', 'USD': '\$'};
 
     List<String> howCanWeHelpImages = [
       AppImages.bank,
       AppImages.bank,
       AppImages.bank,
       AppImages.bank,
+    ];
+
+
+        List<IconData> howCanWeHelpIcons = [
+      Icons.help_outline,
+  Icons.warning_amber
+    ];
+
+
+    List<String> belowShowStory =[
+      'send_money','i6', 'messages'
     ];
 
     final storage = GetStorage();
@@ -157,7 +168,7 @@ class SendToIndividual extends StatelessWidget {
                           // ),
 
                           Text(
-                            "You paid a US\$${AppUtilities().formatNumber(transaction.payPalFee)} transaction fee",
+                            "You paid a ${nameAndSigns[transaction.currency]}${AppUtilities().formatNumber(transaction.payPalFee)} transaction fee",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -171,11 +182,11 @@ class SendToIndividual extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    "+US\$${AppUtilities().formatNumber(transaction.amount)}",
+                    "-${nameAndSigns[transaction.currency]}${AppUtilities().formatNumber(transaction.amount)}",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 10.sp,
                         fontWeight: FontWeight.w800,
-                        color: const Color.fromARGB(255, 47, 117, 49)
+                        color: const Color.fromARGB(255, 8, 20, 8)
                             .withOpacity(1)),
                   ),
                 ],
@@ -242,24 +253,23 @@ class SendToIndividual extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(right: 5.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  for (final action in [
-                    'Send again',
-                    'Split payment',
-                    'Message',
-                  ]) ...[
-                    ActionButton(
-                      label: action,
-                      onTap: () {
-                        // Handle tap for each action
-                      },
-                    ),
-                    SizedBox(width: action != 'Message' ? 50.w : 20.w),
-                  ],
-                ],
-              ),
+              child:Row(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    for (int i = 0; i < 3; i++) ...[
+      ActionButton(
+        icon: belowShowStory[i],
+        label: ['Send again', 'Split payment', 'Message'][i],
+        onTap: () {
+          // Handle tap for each action
+          print('Tapped ${['Send again', 'Split payment', 'Message'][i]}');
+        },
+      ),
+      SizedBox(width: i != 2 ? 50.w : 20.w), // Adjust spacing between actions
+    ]
+  ],
+)
+,
             ),
             SizedBox(
               height: 11.h,
@@ -532,7 +542,7 @@ class SendToIndividual extends StatelessWidget {
                                           children: [
                                             Text('For', style: sameTextStyle),
                                             SizedBox(height: 8.h),
-                                            Text('Friends and famil',
+                                            Text('Friends and family',
                                                 style: sameTextStyle),
                                           ],
                                         ),
@@ -628,10 +638,11 @@ class SendToIndividual extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      SvgPicture.asset(
-                                          howCanWeHelpImages[index]),
+                                     Icon(howCanWeHelpIcons[index]),
+                                      // SvgPicture.asset(
+                                      //     howCanWeHelpImages[index]),
                                       SizedBox(
-                                        width: 8.w,
+                                        width: 14.w,
                                       ),
                                       Text(
                                         howCanWeHelp[index],
@@ -659,18 +670,25 @@ class SendToIndividual extends StatelessWidget {
             SizedBox(
               height: 11.h,
             ),
-            Padding(
+
+
+
+
+      Padding(
               padding: EdgeInsets.only(left: 13.w),
               child: Row(
                 children: [
-                  SvgPicture.asset(AppImages.copy),
+                  Image(
+                    height: 20.h,
+                    image: AssetImage('assets/images/0.png'),
+                  ),
                   SizedBox(
                     width: 10.w,
                   ),
                   Text(
                     "Report ${transaction.name.split(' ')[0]}",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 8.5.sp,
+                        fontSize: 8.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.black.withOpacity(1)),
                   ),
@@ -684,20 +702,30 @@ class SendToIndividual extends StatelessWidget {
               padding: EdgeInsets.only(left: 13.w),
               child: Row(
                 children: [
-                  SvgPicture.asset(AppImages.copy),
+                  Image(
+                    height: 20.h,
+                    image: AssetImage('assets/images/block.png'),
+                  ),
                   SizedBox(
                     width: 10.w,
                   ),
                   Text(
                     "Block ${transaction.name.split(' ')[0]}      ",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 8.5.sp,
+                        fontSize: 8.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.black.withOpacity(1)),
                   ),
                 ],
               ),
             ),
+
+
+
+
+
+
+
           ],
         ),
       ),
@@ -708,21 +736,24 @@ class SendToIndividual extends StatelessWidget {
 class ActionButton extends StatelessWidget {
   final String label;
   final VoidCallback? onTap;
+  final String icon;
 
   const ActionButton({
     required this.label,
     this.onTap,
-    super.key,
+    super.key, required this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CircleAvatar(
-          radius: 17.r,
+          radius: icon=='i6'?10.r:15.r,
+          backgroundImage: AssetImage('assets/images/$icon.png'),
         ),
-        SizedBox(height: 3.h),
+        SizedBox(height:icon=='i6'?5.h: 3.h),
         Text(
           label,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(

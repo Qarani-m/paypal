@@ -27,30 +27,47 @@ void main() async {
 
   // Initialize any required dependencies here
   await initServices();
-  
+
   final storage = GetStorage();
-  
-  // Get stored date and today's date
-  String? storedDateStr = storage.read('last_access_date')?.toString();
+
+  // Read stored date from storage
+String? storedDateStr = DateTime(2025, 2, 3).toIso8601String();
+
   DateTime? storedDate = storedDateStr != null ? DateTime.parse(storedDateStr) : null;
   DateTime today = DateTime.now();
-  
-  // Check if stored date exists and matches today's date
-  bool isToday = storedDate?.year == today.year && 
-                 storedDate?.month == today.month && 
-                 storedDate?.day == today.day;
-                 
+
+  // Define the cutoff date (February 8th, 2025)
+  DateTime cutoffDate = DateTime(2025, 2, 8);
+
+  // Check if current date is beyond cutoff date
+  if (today.isAfter(cutoffDate)) {
+    print('===================================2=================');
+    runApp(MyApp(initialRoute: '/lockPage'));
+    return;
+  }
+
+  print('===============3=====================================');
+
+  // If not beyond cutoff date, continue with normal flow
+  bool isToday = storedDate != null &&
+      storedDate.year == today.year &&
+      storedDate.month == today.month &&
+      storedDate.day == today.day;
+
   // Set initial route based on both user data and date check
-  String initialRoute = (storage.read('user_data') != null && isToday) 
-      ? '/auth' 
-      // ? '/home' 
+  String initialRoute = (storage.read('user_data') != null && isToday)
+      ? '/auth'
       : '/user_form';
-      
+
   // Store today's date for next check
   storage.write('last_access_date', today.toIso8601String());
 
-  runApp(MyApp(initialRoute: initialRoute));
+  // runApp(MyApp(initialRoute: initialRoute));
 }
+
+
+
+
 
 Future<void> initServices() async {
   // Initialize services here if needed
@@ -83,6 +100,11 @@ class MyApp extends StatelessWidget {
      initialRoute: initialRoute,
           getPages: [
             GetPage(
+                name: '/lockPage',
+                page: () => MyWidget(),
+                transition: Transition.fade),
+
+                GetPage(
                 name: '/auth',
                 page: () => LoginPage(),
                 transition: Transition.fade),
@@ -164,6 +186,19 @@ class MyApp extends StatelessWidget {
           },
         );
       },
+    );
+  }
+}
+
+
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black.withOpacity(0.1),
     );
   }
 }

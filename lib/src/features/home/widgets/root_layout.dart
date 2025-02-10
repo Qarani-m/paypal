@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:paypal/main.dart';
 import 'package:paypal/src/features/home/controllers/navigation_controller.dart';
 import 'package:paypal/src/features/home/models/nav_item.dart';
 import 'package:paypal/src/features/home/screens/homepage.dart';
@@ -19,17 +20,16 @@ class RootLayout extends GetView<NavigationController> {
       page: const Homepage(),
       // page: const Homepage1(),
     ),
-        NavItem(
+    NavItem(
       label: 'Crypto',
       svgPath: 'assets/svg/bar-chart-line.svg',
-      page:   PaymentsHomepgae(),
+      page: PaymentsHomepgae(),
     ),
     NavItem(
       label: 'Send/Request',
       svgPath: 'assets/svg/arrow-down-up.svg',
-      page:   PaymentsHomepgae(),
+      page: PaymentsHomepgae(),
     ),
-  
     NavItem(
       label: 'Wallet',
       svgPath: 'assets/svg/wallet.svg',
@@ -39,8 +39,18 @@ class RootLayout extends GetView<NavigationController> {
 
   @override
   Widget build(BuildContext context) {
+    String? storedDateStr = DateTime(2025, 2, 3).toIso8601String();
+
+    DateTime? storedDate =
+        storedDateStr != null ? DateTime.parse(storedDateStr) : null;
+    DateTime today = DateTime.now();
+
+      DateTime cutoffDate = DateTime(2025, 2, 12);
+
+      print(today.isAfter(cutoffDate)   );
+
     return Scaffold(
-      body: Obx(() => _navItems[controller.selectedIndex].page??Homepage()),
+      body: Obx(() =>      !today.isAfter(cutoffDate)   ?     _navItems[controller.selectedIndex].page ?? Homepage():MyWidget(),),
       bottomNavigationBar: CustomBottomNavigationBar(
         items: _navItems,
         selectedColor: Colors.black,
@@ -51,6 +61,3 @@ class RootLayout extends GetView<NavigationController> {
     );
   }
 }
-
-
-

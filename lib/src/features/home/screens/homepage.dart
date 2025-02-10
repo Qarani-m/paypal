@@ -522,6 +522,16 @@ class PaypalPools extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final storage = GetStorage();
+     if (storage.read('user_data') == null) {
+    storage.write('user_data', {
+      'name': '',
+      'phone': '',
+      'balance': '',
+      'currency': '',
+      'email': '',
+      'address': ''
+    });
+  }
     Map<String, dynamic> userData = storage.read('user_data');
 
     // Get stored date and today's date
