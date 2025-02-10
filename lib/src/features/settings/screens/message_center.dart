@@ -90,60 +90,72 @@ class MessageCenter extends GetView<ConversationController> {
           // GestureDetector(
           //     onTap: () => Get.to(PayPalAssistantPage()), child: OneMessage()),
           // OneMessage(),
-        Column(
-              children: List.generate(
-                controller.conversations.length,
-                (index) {
-                  controller.loadConversations();
-                  final conversation = controller.conversations[index];
-                  return GestureDetector(
-                    onTap: () {
-                      Get.to(
-                        PayPalAssistantPage(),
-                        arguments: {'conversation': conversation},
-                      );
-                    },
-                    child: OneMessage(
-                      conversation: conversation,
-                      onTap: () {
-                        controller.loadConversation(conversation.id!);
-                      },
+        Obx(()=> SingleChildScrollView(
+            child: Column(
+              children: [
+                Column(
+                      children: List.generate(
+                        // 3,
+                        controller.conversations.length,
+                        (index) {
+                          controller.loadConversations();
+                          final conversation = controller.conversations[index];
+                          return GestureDetector(
+                            onTap: () {
+                              Get.to(
+                                PayPalAssistantPage(),
+                                arguments: {'conversation': conversation},
+                              );
+                            },
+                            onLongPress: ()async{
+                              print(2);
+                              await controller.deleteConversation(conversation.id!);
+                            },
+                            child: OneMessage(
+                              conversation: conversation,
+                              onTap: () {
+                                controller.loadConversation(conversation.id!);
+                              },
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  );
-                },
-              ),
-            ),
-          
-
-          Padding(
-            padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 3.h),
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text:
-                        'Effective from 1 january 2023, messages are availlable in the Message Centre for 3 years from the daate originally sent. If you would like a copy of any previous messages not displayedin the Message Centre,\nplease ',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 6.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black.withOpacity(1),
-                        ),
+                  
+                
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 3.h),
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text:
+                                'Effective from 1 january 2023, messages are availlable in the Message Centre for 3 years from the daate originally sent. If you would like a copy of any previous messages not displayedin the Message Centre,\nplease ',
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  fontSize: 6.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black.withOpacity(1),
+                                ),
+                          ),
+                          TextSpan(
+                            text: 'contact us',
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  fontSize: 6.sp,
+                                  fontWeight: FontWeight.w700,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Color(0xFF0059b3),
+                                  color: Color(
+                                      0xFF0059b3), // Different color for the link text
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  TextSpan(
-                    text: 'contact us',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 6.sp,
-                          fontWeight: FontWeight.w700,
-                          decoration: TextDecoration.underline,
-                          decorationColor: Color(0xFF0059b3),
-                          color: Color(
-                              0xFF0059b3), // Different color for the link text
-                        ),
-                  ),
-                ],
-              ),
+              ],
             ),
-          )
+          ),
+        )
         ],
       ),
     );

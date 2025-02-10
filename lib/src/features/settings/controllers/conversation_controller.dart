@@ -20,6 +20,7 @@ class ConversationController extends GetxController {
   RxString placeHolder = 'true'.obs;
   RxBool isFromSupport = false.obs;
   RxBool isInformatory = false.obs;
+  
 
   // Load all conversations
   Future<void> loadConversations() async {
@@ -93,6 +94,8 @@ Future<Conversation> loadConversation(int conversationId) async {
       currentConversation.value = null;
       currentMessages.clear();
     }
+    conversations.removeWhere((conversation) => conversation.id == conversationId);
+    print('--------------------------------------------------');
   }
 
   RxBool isTyping = false.obs;
