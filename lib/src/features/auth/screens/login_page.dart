@@ -35,7 +35,8 @@ class LoginPage extends GetView<LoginController> {
             ),
             Align(
               alignment: Alignment.center,
-              child: CircleAvatar(backgroundColor: Color(0xFF0059b3)),
+              child:
+                  CircleAvatar(backgroundColor: Color(0xFF00186a), radius: 7.r),
             ),
             SizedBox(
               height: 20.h,
@@ -43,15 +44,14 @@ class LoginPage extends GetView<LoginController> {
             Text(
               "${controller.userDetails.name}",
               style: TextStyle(
-                  fontSize: 9.5.sp,
+                  fontSize: 8.5.sp,
                   fontWeight: FontWeight.w800,
                   color: Colors.black),
             ),
             Text(
               "${controller.userDetails.email}",
-
               style: TextStyle(
-                  fontSize: 9.5.sp,
+                  fontSize: 8.5.sp,
                   fontWeight: FontWeight.w400,
                   color: Colors.black),
             ),

@@ -82,14 +82,14 @@ class DBHelper {
     return result.isNotEmpty ? result.first : null;
   }
 
-  Future<List<Map<String, dynamic>>> getLastThreeTransactions() async {
-    final dbClient = await db;
-    return await dbClient.query(
-      TABLE,
-      orderBy: 'created_at DESC',
-      limit: 10,
-    );
-  }
+Future<List<Map<String, dynamic>>> getLastThreeTransactions() async {
+  final dbClient = await db;
+  return await dbClient.query(
+    TABLE,
+    orderBy: 'date DESC, time DESC',
+    limit: 10,
+  );
+}
 
   Future<int> update(int id, Map<String, dynamic> row) async {
     final dbClient = await db;

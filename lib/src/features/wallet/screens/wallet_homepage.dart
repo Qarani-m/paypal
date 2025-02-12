@@ -3,16 +3,69 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:paypal/src/constants/images.dart';
+import 'package:paypal/src/features/home/controllers/homepage_controller.dart';
+import 'package:paypal/src/features/home/models/nav_item.dart';
+import 'package:paypal/src/features/home/screens/homepage.dart';
+import 'package:paypal/src/features/home/widgets/bottom_appbar.dart';
+import 'package:paypal/src/features/home/widgets/homepage_widgets.dart';
+import 'package:paypal/src/features/payments/models/payment_model.dart';
+import 'package:paypal/src/features/payments/screens/payments_homepgae.dart';
 import 'package:paypal/src/features/wallet/controllers/wallet_controller.dart';
 import 'package:paypal/src/features/wallet/widgets/custom_searchbar.dart';
+import 'package:collection/collection.dart';
+import 'package:intl/intl.dart';
 
 class WalletHomepage extends GetView<WalletController> {
-  const WalletHomepage({super.key});
+  const WalletHomepage({super.key, this.initialTabIndex = 0});
+
+
+    final int initialTabIndex;
 
   @override
   Widget build(BuildContext context) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (controller.tabController.index != initialTabIndex) {
+        controller.tabController.animateTo(initialTabIndex);
+      }
+    });
+
+       final List<NavItem> _navItems = [
+    NavItem(
+      label: 'Home',
+      svgPath: 'assets/svg/house.svg',
+      page: const Homepage(),
+      // page: const Homepage1(),
+    ),
+        NavItem(
+      label: 'Crypto',
+      svgPath: 'assets/svg/bar-chart-line.svg',
+      page:   PaymentsHomepgae(),
+    ),
+    NavItem(
+      label: 'Send/Request',
+      svgPath: 'assets/svg/arrow-down-up.svg',
+      page:   PaymentsHomepgae(),
+    ),
+  
+    NavItem(
+      label: 'Wallet',
+      svgPath: 'assets/svg/wallet.svg',
+      page: const WalletHomepage(),
+    ),
+  ];
+
     return Scaffold(
+      bottomNavigationBar: initialTabIndex == 0
+          ? null
+          : CustomBottomNavigationBar(
+              items: _navItems,
+              selectedColor: Colors.black,
+              unselectedColor: Colors.grey,
+              backgroundColor: Colors.white,
+              height: 35.h,
+            ),
       body: Padding(
         padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 60.h),
         child: Column(
@@ -355,35 +408,85 @@ class WalletHomepage extends GetView<WalletController> {
                               height: 10.h,
                             ),
 
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text('Jun 2024',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.copyWith(
-                                        fontSize: 8.sp,
-                                        fontWeight: FontWeight.w400,
-                                      )),
-                            ),
 
-                            SizedBox(
-                              height: 3.h,
-                            ),
 
-                            Expanded(
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  children: List.generate(
-                                      30,
-                                      (index) => OneActivityActivityTab(
-                                          hasImage: false,
-                                          index: index,
-                                          showExtra: index == 1 ? true : false,
-                                          length: 3)),
-                                ),
-                              ),
-                            ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+GetX<HomepageController>(builder: (controller) {
+  // First, group transactions by date
+  final groupedTransactions = groupTransactionsByDate(controller.recentTransactions);
+  
+  return Padding(
+    padding: EdgeInsets.only(right: 13.w),
+    child: Column(
+      children: groupedTransactions.entries.map((entry) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Date header
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                formatDateHeader(entry.key),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  fontSize: 8.sp,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            
+            SizedBox(height: 3.h),
+            
+            // Transactions for this date
+            ...entry.value.map((transaction) => PaymentContainer(
+              transaction: transaction,
+              id: transaction.id,
+              hasImage: transaction.hasProfilePic,
+              date: transaction.date,
+              index: controller.recentTransactions.indexOf(transaction),
+              name: transaction.name,
+              amount: '${transaction.amount} ${transaction.currency}',
+              isreceived: transaction.type,
+              showDetails: transaction.message.length > 0,
+              message: transaction.message,
+              imagePath: transaction.imagePath,
+              homepageController: controller,
+              category: '${transaction.type},${transaction.direction}',
+            )).toList(),
+            
+            SizedBox(height: 10.h), // Add spacing between date groups
+          ],
+        );
+      }).toList(),
+    ),
+  );
+}),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                             Text(
                               '${controller.mainTabIndex}',
@@ -400,6 +503,43 @@ class WalletHomepage extends GetView<WalletController> {
       ),
     );
   }
+Map<DateTime, List<PaymentModel>> groupTransactionsByDate(List<PaymentModel> transactions) {
+  // Sort transactions by date first (newest to oldest)
+  final sortedTransactions = List<PaymentModel>.from(transactions)
+    ..sort((a, b) {
+      final dateA = DateTime.parse(a.date);
+      final dateB = DateTime.parse(b.date);
+      return dateB.compareTo(dateA);
+    });
+  
+  // Group by date
+  return groupBy(sortedTransactions, (PaymentModel t) {
+    final date = DateTime.parse(t.date);
+    return DateTime(date.year, date.month, date.day);
+  });
+}
+
+String formatDateHeader(DateTime date) {
+  final now = DateTime.now();
+  final yesterday = DateTime.now().subtract(const Duration(days: 1));
+  
+  // Check if it's today
+  if (date.year == now.year && date.month == now.month && date.day == now.day) {
+    return 'Today';
+  }
+  // Check if it's yesterday
+  else if (date.year == yesterday.year && date.month == yesterday.month && date.day == yesterday.day) {
+    return 'Yesterday';
+  }
+  // If it's this year, show month and day
+  else if (date.year == now.year) {
+    return DateFormat('MMM d').format(date);
+  }
+  // If it's a different year, show month, day and year
+  else {
+    return DateFormat('MMM d, y').format(date);
+  }
+}
 }
 
 class OneActivityActivityTab extends StatelessWidget {

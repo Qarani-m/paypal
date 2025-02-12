@@ -7,13 +7,13 @@ class SettingsController extends GetxController {
   final Rx<UserModel> user = UserModel().obs; // Reactive UserModel instance
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
-    loadUserData();
+    await loadUserData();
     print(user);
   }
 
-  void loadUserData() {
+  Future<void> loadUserData() async{
     final data = _storage.read<Map<String, dynamic>>('user_data');
     if (data != null) {
       user.value = UserModel.fromJson(data);

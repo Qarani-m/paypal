@@ -1,43 +1,41 @@
 import 'package:intl/intl.dart';
+import 'package:flutter/foundation.dart';
 
 class AppUtilities {
   String formatDateDateFirst(String date) {
-    final DateTime dt = DateTime.parse(date);
-    final List<String> months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
+     final List<String> months = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ];
+  try {
+    final DateTime dt = DateTime.parse(date);
+   
     return '${dt.day} ${months[dt.month - 1]}';
+  } catch (e) {
+    // Default to 2025-02-19 if date is invalid
+    final DateTime defaultDate = DateTime(2025, 2, 19);
+    return '${defaultDate.day} ${months[defaultDate.month - 1]}';
+  }
+}
+
+
+String formatDateMonthFirst(String? date) {
+  if (date == null || date.trim().isEmpty) {
+    return 'Invalid Date';
   }
 
-  String formatDateMonthFirst(String date) {
+  try {
     final DateTime dt = DateTime.parse(date);
     final List<String> months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ];
+    
     return '${months[dt.month - 1]} ${dt.day}';
+  } catch (e) {
+    return 'Invalid Date';
   }
+}
 
   String getInitials(String fullName) {
     final names = fullName.trim().split(' ');
@@ -51,24 +49,38 @@ class AppUtilities {
     return formatter.format(dt);
   }
 
-  String formatNumber(dynamic number) {
+String formatNumber(dynamic number) {
+  try {
     if (number is String) {
-      number = double.parse(number);
+      // Return default for empty or invalid strings
+      if (number.trim().isEmpty) return '0.00';
+      number = double.tryParse(number) ?? 0.0;
     }
+
+    if (number is! num) return '0.00';
 
     final formatter = NumberFormat('#,##0.00');
     return formatter.format(number);
+  } catch (e) {
+    return '0.00'; // Fallback in case of any error
   }
-
-String obfuscatePhoneNumber(String phoneNumber) {
-  if (phoneNumber.length != 10 || !phoneNumber.startsWith('07')) {
-    throw ArgumentError('Invalid phone number format. Must be 10 digits starting with "07".');
-  }
-  return '${phoneNumber.substring(1, 2)}** **${phoneNumber.substring(6)}';
 }
 
+  String obfuscatePhoneNumber(String phoneNumber) {
 
 
+print('=======================${phoneNumber.trim().length}');
 
 
+    if (phoneNumber.trim().length < 10 ) {
+      throw ArgumentError(
+          'Invalid phone number format. Must be 10 digits starting with "07".');
+    }
+
+return !phoneNumber.startsWith('07') 
+    ? '${phoneNumber.substring(0, 4)}** **${phoneNumber.substring(phoneNumber.length - 3)}'
+    : '${phoneNumber.substring(1, 2)}** **${phoneNumber.substring(6)}';
+
+
+  }
 }

@@ -8,14 +8,19 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/payments/models/payment_model.dart';
+import 'package:paypal/src/features/transactions/screens/send_to_individual.dart';
+import 'package:paypal/src/features/transactions/screens/show_story.dart';
 import 'package:paypal/src/utils/utilities.dart';
 
-class RecievedFromIndividual extends StatelessWidget {
-  const RecievedFromIndividual({super.key});
+class receivedFromIndividual extends StatelessWidget {
+  const receivedFromIndividual({super.key});
 
   @override
   Widget build(BuildContext context) {
     final transaction = Get.arguments as PaymentModel;
+    Map<String, String> nameAndSigns = {'GBP': '£', 'EUR': '€', 'USD': 'US\$'};
+     List<String> belowShowStory =['send_money', 'messages'];
+
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -27,7 +32,7 @@ class RecievedFromIndividual extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          "Money recieved",
+          "Money received",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontSize: 8.sp,
               fontWeight: FontWeight.w400,
@@ -76,7 +81,7 @@ class RecievedFromIndividual extends StatelessWidget {
                               child: Text(
                                 AppUtilities().getInitials(transaction.name),
                                 style: TextStyle(
-                                    fontSize: 9.sp,
+                                    fontSize: 10.sp,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.white),
                               ),
@@ -96,7 +101,7 @@ class RecievedFromIndividual extends StatelessWidget {
                                 .textTheme
                                 .bodySmall
                                 ?.copyWith(
-                                    fontSize: 8.sp,
+                                    fontSize: 10.sp,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.black.withOpacity(1)),
                           ),
@@ -109,18 +114,33 @@ class RecievedFromIndividual extends StatelessWidget {
                                 .textTheme
                                 .bodySmall
                                 ?.copyWith(
-                                    fontSize: 7.sp,
-                                    fontWeight: FontWeight.w400,
+                                    fontSize: 8.sp,
+                                    fontWeight: FontWeight.w500,
                                     color: Colors.black.withOpacity(1)),
+                          ),
+                           SizedBox(
+                            height: 3.h,
+                          ),
+                          Text(
+                            "Show history",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: Color(0xFF0059b3),
+                                    fontSize: 8.sp,
+                                    fontWeight: FontWeight.w800,
+                                    color: Color(0xFF0059b3).withOpacity(1)),
                           ),
                         ],
                       ),
                     ],
                   ),
                   Text(
-                    "+US\$${AppUtilities().formatNumber(transaction.amount)}",
+                    "+${nameAndSigns[transaction.currency]}${AppUtilities().formatNumber(transaction.amount)}",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 8.sp,
+                        fontSize: 10.sp,
                         fontWeight: FontWeight.w600,
                         color: Colors.green.withOpacity(1)),
                   ),
@@ -136,25 +156,28 @@ class RecievedFromIndividual extends StatelessWidget {
               color: Color(0xFFeff2f9),
             ),
             SizedBox(
-              height: 7.h,
+              height: 11.h,
             ),
             Padding(
               padding: EdgeInsets.only(left: 13.w),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  "Show story",
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      decoration: TextDecoration.underline,
-                      decorationColor: Color(0xFF0059b3),
-                      fontSize: 6.5.sp,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF0059b3).withOpacity(1)),
+                child: GestureDetector(
+                  onTap: ()=>Get.to(ShowStory(),arguments: transaction),
+                  child: Text(
+                    "Show story",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        decoration: TextDecoration.underline,
+                        decorationColor: Color(0xFF0059b3),
+                        fontSize: 8.sp,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF0059b3).withOpacity(1)),
+                  ),
                 ),
               ),
             ),
             SizedBox(
-              height: 7.h,
+              height: 11.h,
             ),
             Container(
               height: 1.5.h,
@@ -162,55 +185,44 @@ class RecievedFromIndividual extends StatelessWidget {
               color: Color(0xFFeff2f9),
             ),
             SizedBox(
-              height: 7.h,
+              height: 17.h,
             ),
             Padding(
               padding: EdgeInsets.only(right: 70.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 17.r,
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      Text(
-                        "Send money",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 7.sp,
-                            fontWeight: FontWeight.w200,
-                            color: Colors.black.withOpacity(1)),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 40.w,
-                  ),
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 17.r,
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      Text(
-                        "Message",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 7.sp,
-                            fontWeight: FontWeight.w200,
-                            color: Colors.black.withOpacity(1)),
-                      ),
-                    ],
-                  )
+                  Padding(
+              padding: EdgeInsets.only(right: 5.w),
+              child:Row(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+
+
+
+
+ for (int i = 0; i < 2; i++) ...[
+      ActionButton(
+        icon: belowShowStory[i],
+        label: ['Send Money', 'Message'][i],
+        onTap: () {
+          // Handle tap for each action
+          print('Tapped ${['Send money',  'Message'][i]}');
+        },
+      ),
+      SizedBox(width: i != 2 ? 50.w : 20.w), // Adjust spacing between actions
+    ]
+
+  ],
+)
+,
+            )
+,
                 ],
               ),
             ),
             SizedBox(
-              height: 7.h,
+              height: 17.h,
             ),
             Container(
               height: 1.5.h,
@@ -227,7 +239,7 @@ class RecievedFromIndividual extends StatelessWidget {
                 child: Text(
                   "Transaction ID",
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontSize: 6.5.sp,
+                      fontSize: 8.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.black.withOpacity(1)),
                 ),
@@ -244,7 +256,7 @@ class RecievedFromIndividual extends StatelessWidget {
                   Text(
                     transaction.transactionCode,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 6.sp,
+                        fontSize: 9.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.black.withOpacity(1)),
                   ),
@@ -270,14 +282,17 @@ class RecievedFromIndividual extends StatelessWidget {
               padding: EdgeInsets.only(left: 13.w),
               child: Row(
                 children: [
-                  SvgPicture.asset(AppImages.copy),
+                  Image(
+                    height: 15.h,
+                    image: AssetImage('assets/images/0.png'),
+                  ),
                   SizedBox(
                     width: 10.w,
                   ),
                   Text(
                     "Report ${transaction.name.split(' ')[0]}",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 6.5.sp,
+                        fontSize: 9.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.black.withOpacity(1)),
                   ),
@@ -285,26 +300,33 @@ class RecievedFromIndividual extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 9.h,
+              height: 15.h,
             ),
-            Padding(
+
+
+
+             Padding(
               padding: EdgeInsets.only(left: 13.w),
               child: Row(
                 children: [
-                  SvgPicture.asset(AppImages.copy),
+                  Image(
+                    height: 15.h,
+                    image: AssetImage('assets/images/block.png'),
+                  ),
                   SizedBox(
                     width: 10.w,
                   ),
                   Text(
                     "Block ${transaction.name.split(' ')[0]}      ",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 6.5.sp,
+                        fontSize: 9.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.black.withOpacity(1)),
                   ),
                 ],
               ),
             ),
+
             SizedBox(
               height: 9.h,
             ),
@@ -320,8 +342,8 @@ class RecievedFromIndividual extends StatelessWidget {
   }
 }
 
-class RecievedFromIndividualV2 extends StatelessWidget {
-  const RecievedFromIndividualV2({super.key});
+class receivedFromIndividualV2 extends StatelessWidget {
+  const receivedFromIndividualV2({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -337,7 +359,7 @@ class RecievedFromIndividualV2 extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          "Money recieved",
+          "Money received",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontSize: 8.sp,
               fontWeight: FontWeight.w400,
@@ -483,14 +505,17 @@ class RecievedFromIndividualV2 extends StatelessWidget {
               padding: EdgeInsets.only(left: 13.w),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  "Show story",
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      decoration: TextDecoration.underline,
-                      decorationColor: Color(0xFF0059b3),
-                      fontSize: 6.5.sp,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF0059b3).withOpacity(1)),
+                child: GestureDetector(
+                  onTap: ()=>Get.to(ShowStory(),arguments: transaction),
+                  child: Text(
+                    "Show story",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        decoration: TextDecoration.underline,
+                        decorationColor: Color(0xFF0059b3),
+                        fontSize: 8.sp,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF0059b3).withOpacity(1)),
+                  ),
                 ),
               ),
             ),

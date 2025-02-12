@@ -40,9 +40,11 @@ dependencies:
   flutter_svg:
   get_storage: ^2.1.1
   sqflite: ^2.4.1
-  image_picker:
+  flutter_native_splash: ^2.4.4
+  image_picker: ^1.1.2
   path_provider:
   path:
+  collection: 
   local_auth:
   intl:
 
@@ -73,9 +75,22 @@ flutter:
   assets:
     - assets/
     - assets/fonts/
+    - assets/svg/settings/
     - assets/svg/
     - assets/flags/
+    - assets/images/homepage/
     - assets/images/
+    - assets/images/getpaid/
+    - assets/images/sendandpay/
+    - assets/images/managefinances/
+    - assets/images/inviteFriends/
+    - assets/images/accountinfor/
+    - assets/images/taxdocuments/
+    - assets/images/closeaccount/
+    - assets/images/usedetails/
+    - assets/images/messages/
+    - assets/images/profileandsupport/
+    - assets/images/shopandsave/
     - assets/fonts/
   #   - images/a_dot_ham.jpeg
 

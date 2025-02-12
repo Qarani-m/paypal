@@ -9,52 +9,100 @@ import 'package:image_picker/image_picker.dart';
 import 'package:paypal/src/features/auth/models/user_model.dart';
 
 class UserFormController extends GetxController {
- final storage = GetStorage();
- final formKey = GlobalKey<FormState>();
- final ImagePicker picker = ImagePicker();
+  final storage = GetStorage();
+  final formKey = GlobalKey<FormState>();
+  final ImagePicker picker = ImagePicker();
 
- final name = ''.obs;
- final phone = ''.obs;
- final balance = ''.obs;
- final currency = ''.obs;
- final email = ''.obs;
- final address = ''.obs;
- final imagePath = ''.obs;
- final hasImage = false.obs;
+ final nameController = TextEditingController();
+  final phoneController = TextEditingController();
+  final emailController = TextEditingController();
+  final balanceController = TextEditingController();
+  final currencyController = TextEditingController();
+  final addressController = TextEditingController();
 
- Future<void> pickImage() async {
-   final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-   if (image != null) {
-     imagePath.value = image.path;
-     hasImage.value = true;
-   }
- }
 
- void saveUser() {
-   if (formKey.currentState!.validate()) {
-     final user = UserModel(
-       name: name.value,
-       phone: phone.value,
-       email: email.value,
-       balance: balance.value,
-       currency: currency.value.toUpperCase(),
-       address: address.value,
-       imagePath: imagePath.value,
-       hasImage: hasImage.value
-     );
+  final name = ''.obs;
+  final phone = ''.obs;
+  final balance = ''.obs;
+  final currency = ''.obs;
+  final email = ''.obs;
+  final address = ''.obs;
+  final imagePath = ''.obs;
+  final hasImage = false.obs;
 
-     print(user);
-     storage.write('user_data', user.toJson());
-     Get.offNamed('/home');
-   }
- }
-} 
+  Future<void> pickImage() async {
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      imagePath.value = image.path;
+      hasImage.value = true;
+    }
+  }
 
- 
+  void saveUser() {
+    if (formKey.currentState!.validate()) {
+      final user = UserModel(
+          name: name.value,
+          phone: phone.value,
+          email: email.value,
+          balance: balance.value,
+          currency: currency.value.toUpperCase(),
+          address: address.value,
+          imagePath: imagePath.value,
+          hasImage: hasImage.value);
+
+      print(user);
+      storage.write('user_data', user.toJson());
+      Get.offNamed('/home');
+    }
+  }
+
+
+
+void fillInFilesa() {
+  // Define default values
+  final Map<String, dynamic> defaultValues = {
+    'name': '',
+    'phone': '',
+    'balance': '0.00',  // Default balance as zero
+    'currency': 'USD',  // Default currency
+    'email': '',
+    'address': ''
+  };
+
+  // Read and merge with defaults
+  Map<String, dynamic> userData = Map<String, dynamic>.from(defaultValues);
+  Map<String, dynamic>? storedData = storage.read('user_data');
+  
+  if (storedData != null) {
+    userData.addAll(storedData);
+  }
+
+  // Ensure all values are valid (not null)
+  userData.forEach((key, value) {
+    if (value == null) {
+      userData[key] = defaultValues[key];
+    }
+  });
+
+  // Save the initialized userData
+  storage.write('user_data', userData);
+
+  // Fill in the controllers
+  nameController.text = userData['name'];
+  phoneController.text = userData['phone'];
+  balanceController.text = userData['balance'];
+  currencyController.text = userData['currency'];
+  emailController.text = userData['email'];
+  addressController.text = userData['address'];
+
+  print('Initialized User Data: $userData');
+}
+}
 
 class UserFormPage extends GetView<UserFormController> {
   @override
   Widget build(BuildContext context) {
+    controller.fillInFilesa();
     return Scaffold(
       appBar: AppBar(title: Text('Create Profile')),
       body: Form(
@@ -65,29 +113,41 @@ class UserFormPage extends GetView<UserFormController> {
             _buildProfileImagePicker(),
             SizedBox(height: 20.h),
             _buildTextField(
+              controller:controller.nameController,
               label: 'Name',
               onChanged: (v) => controller.name.value = v,
             ),
             _buildTextField(
+              controller:controller.phoneController,
+
               label: 'Phone',
               keyboardType: TextInputType.phone,
               onChanged: (v) => controller.phone.value = v,
             ),
             _buildTextField(
               label: 'Email',
+              controller:controller.emailController,
+
               keyboardType: TextInputType.emailAddress,
               onChanged: (v) => controller.email.value = v,
             ),
             _buildTextField(
+              controller:controller.balanceController,
+
               label: 'Balance',
               keyboardType: TextInputType.number,
               onChanged: (v) => controller.balance.value = v,
             ),
             _buildTextField(
               label: 'Currency',
-              onChanged: (v) => controller.currency.value = v, // Note: This seems incorrect
+              controller:controller.currencyController,
+
+              onChanged: (v) =>
+                  controller.currency.value = v, // Note: This seems incorrect
             ),
             _buildTextField(
+              controller:controller.addressController,
+
               label: 'Address',
               onChanged: (v) => controller.address.value = v,
             ),
@@ -101,20 +161,19 @@ class UserFormPage extends GetView<UserFormController> {
 
   Widget _buildProfileImagePicker() {
     return Obx(() => GestureDetector(
-      onTap: controller.pickImage,
-      child: CircleAvatar(
-        radius: 50.r,
-        backgroundImage: controller.hasImage.value 
-          ? FileImage(File(controller.imagePath.value))
-          : null,
-        child: !controller.hasImage.value 
-          ? Icon(Icons.add_a_photo) 
-          : null,
-      ),
-    ));
+          onTap: controller.pickImage,
+          child: CircleAvatar(
+            radius: 50.r,
+            backgroundImage: controller.hasImage.value
+                ? FileImage(File(controller.imagePath.value))
+                : null,
+            child: !controller.hasImage.value ? Icon(Icons.add_a_photo) : null,
+          ),
+        ));
   }
 
   Widget _buildTextField({
+    required TextEditingController controller,
     required String label,
     TextInputType keyboardType = TextInputType.text,
     required void Function(String) onChanged,
@@ -122,14 +181,15 @@ class UserFormPage extends GetView<UserFormController> {
     return Padding(
       padding: EdgeInsets.only(bottom: 12.h),
       child: TextFormField(
+        controller:controller,
         style: TextStyle(
-          fontWeight: FontWeight.w300,
-          fontSize: 8.sp
-        ),
+            fontWeight: FontWeight.w500, color: Colors.black, fontSize: 10.sp),
         keyboardType: keyboardType,
         onChanged: onChanged,
         validator: (v) => v!.isEmpty ? 'Required' : null,
         decoration: InputDecoration(
+          fillColor: Colors.white,
+          filled: true,
           labelText: label,
           border: OutlineInputBorder(),
         ),

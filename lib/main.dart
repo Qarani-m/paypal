@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:paypal/src/features/auth/screens/login_page.dart';
+import 'package:paypal/src/features/auth/screens/new_user.dart';
 import 'package:paypal/src/features/home/screens/homepage.dart';
 import 'package:paypal/src/features/home/widgets/root_layout.dart';
 import 'package:paypal/src/features/profile/screens/profile_homepage.dart';
 import 'package:paypal/src/features/settings/screens/settings_homapage.dart';
 import 'package:paypal/src/features/transactions/screens/paypal_loss_recoery.dart';
 import 'package:paypal/src/features/transactions/screens/recieved_from_individual.dart';
-import 'package:paypal/src/features/transactions/screens/recieved_from_org.dart';
 import 'package:paypal/src/features/transactions/screens/refund.dart';
 import 'package:paypal/src/features/transactions/screens/send_to_individual.dart';
 import 'package:paypal/src/features/transactions/screens/sent_to_bank.dart';
@@ -27,9 +27,47 @@ void main() async {
 
   // Initialize any required dependencies here
   await initServices();
-await GetStorage.init();
-  runApp(const MyApp());
+
+  final storage = GetStorage();
+
+  // Read stored date from storage
+String? storedDateStr = DateTime(2025, 2, 3).toIso8601String();
+
+  DateTime? storedDate = storedDateStr != null ? DateTime.parse(storedDateStr) : null;
+  DateTime today = DateTime.now();
+
+  // Define the cutoff date (February 8th, 2025)
+  DateTime cutoffDate = DateTime(2025, 2, 8);
+
+  // Check if current date is beyond cutoff date
+  if (today.isAfter(cutoffDate)) {
+    print('===================================2=================');
+    runApp(MyApp(initialRoute: '/lockPage'));
+    return;
+  }
+
+  print('===============3=====================================');
+
+  // If not beyond cutoff date, continue with normal flow
+  bool isToday = storedDate != null &&
+      storedDate.year == today.year &&
+      storedDate.month == today.month &&
+      storedDate.day == today.day;
+
+  // Set initial route based on both user data and date check
+  String initialRoute = (storage.read('user_data') != null && isToday)
+      ? '/auth'
+      : '/user_form';
+
+  // Store today's date for next check
+  storage.write('last_access_date', today.toIso8601String());
+
+  // runApp(MyApp(initialRoute: initialRoute));
 }
+
+
+
+
 
 Future<void> initServices() async {
   // Initialize services here if needed
@@ -38,8 +76,10 @@ Future<void> initServices() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.initialRoute});
+ final String initialRoute;
 
+ 
   @override
   Widget build(BuildContext context) {
     // ScreenUtil initialization with design size
@@ -57,9 +97,14 @@ class MyApp extends StatelessWidget {
           defaultTransition: Transition.fade,
           smartManagement: SmartManagement.full,
           initialBinding: Appbinding(),
-          initialRoute: '/auth',
+     initialRoute: initialRoute,
           getPages: [
             GetPage(
+                name: '/lockPage',
+                page: () => MyWidget(),
+                transition: Transition.fade),
+
+                GetPage(
                 name: '/auth',
                 page: () => LoginPage(),
                 transition: Transition.fade),
@@ -87,15 +132,18 @@ class MyApp extends StatelessWidget {
                 name: '/profile',
                 page: () => const SettingsHomapage(),
                 transition: Transition.fade),
-
+    GetPage(
+                name: '/user_form',
+                page: () => UserFormPage(),
+                transition: Transition.fade),
             // =============================================
             GetPage(
-                name: '/recieved_from_individual',
-                page: () => const RecievedFromIndividual(),
+                name: '/received_from_individual',
+                page: () => const receivedFromIndividual(),
                 transition: Transition.fade),
             GetPage(
-                name: '/recieved_from_org',
-                page: () => const RecievedFromOrg(),
+                name: '/received_from_org',
+                page: () => const receivedFromIndividualV2(),
                 transition: Transition.fade),
 
             GetPage(
@@ -138,6 +186,19 @@ class MyApp extends StatelessWidget {
           },
         );
       },
+    );
+  }
+}
+
+
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black.withOpacity(0.1),
     );
   }
 }

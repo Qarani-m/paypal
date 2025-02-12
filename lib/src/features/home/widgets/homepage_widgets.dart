@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:paypal/src/constants/images.dart';
+import 'package:paypal/src/features/auth/screens/new_user.dart';
 import 'package:paypal/src/features/home/controllers/homepage_controller.dart';
 import 'package:paypal/src/features/home/widgets/homepage_buttons.dart';
 import 'package:paypal/src/features/payments/models/payment_model.dart';
@@ -91,38 +92,36 @@ class PayPalBalance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, String> currencies = {'USD': '\$'};
-    return Container(
-        padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 10.w),
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(6.r)),
-        child: Row(
-          children: [
-            Container(
-              height: 9.h,
-              width: 9.h,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(AppImages.paypalLogo1))),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "${currencies['$currency']}${AppUtilities().formatNumber(balance)}",
-                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                        fontWeight: FontWeight.w900, fontSize: 14.sp),
-                  ),
-                  Text("PayPal balance",
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w400, fontSize: 7.sp)),
-                ],
+    Map<String, String> currencies = {'USD': '\$', 'GBP': '£', 'EUR': '€'};
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+          padding:
+              EdgeInsets.only(left: 10.w, right: 50.w, top: 8.h, bottom: 60.h),
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(6.r)),
+          child: Column(
+            children: [
+              Text("PayPal balance",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(fontWeight: FontWeight.w400, fontSize: 9.sp)),
+              SizedBox(
+                height: 5.h,
               ),
-            ),
-          ],
-        ));
+              Text(
+                // '\$0.00',
+                // balance,
+                "${currencies['$currency']}${AppUtilities().formatNumber(balance)}",
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge
+                    ?.copyWith(fontWeight: FontWeight.w900, fontSize: 14.sp),
+              ),
+            ],
+          )),
+    );
   }
 }
 
@@ -133,35 +132,70 @@ class SettingAndProfileMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        GestureDetector(
-          onTap: () => Get.toNamed('/settings'),
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            radius: 11.r,
-            child: Icon(
-              Icons.menu,
-              size: 10.h,
-              color: Color(0xFF0059b3),
+    return Padding(
+      padding: EdgeInsets.only(right: 13.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () => Get.toNamed('/settings'),
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 11.r,
+              child: Icon(
+                Icons.menu,
+                size: 10.h,
+                color: Color(0xFF0059b3),
+              ),
             ),
           ),
-        ),
-        GestureDetector(
-          onTap: () => Get.toNamed("/profile"),
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            radius: 11.r,
-            child: Icon(
-              Icons.person_2_outlined,
-              size: 10.h,
-              color: Color(0xFF0059b3),
-              weight: 0.1,
-            ),
-          ),
-        )
-      ],
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () => Get.toNamed("/profile"),
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 11.r,
+                  child: Icon(
+                    Icons.question_mark,
+                    size: 10.h,
+                    color: Color(0xFF0059b3),
+                    weight: 0.1,
+                  ),
+                ),
+              ),
+              SizedBox(width: 9.w),
+              GestureDetector(
+                onTap: () => Get.off(UserFormPage()),
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 11.r,
+                  child: Icon(
+                    Icons.qr_code,
+                    size: 10.h,
+                    color: Color(0xFF0059b3),
+                    weight: 0.1,
+                  ),
+                ),
+              ),
+              SizedBox(width: 9.w),
+              GestureDetector(
+                onTap: () => Get.toNamed("/profile"),
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 11.r,
+                  child: Icon(
+                    Icons.person_2_outlined,
+                    size: 10.h,
+                    color: Color(0xFF0059b3),
+                    weight: 0.1,
+                  ),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
@@ -173,7 +207,7 @@ class PaymentContainer extends StatelessWidget {
     required this.name,
     required this.amount,
     required this.showDetails,
-    required this.isRecieved,
+    required this.isreceived,
     required this.homepageController,
     required this.hasImage,
     required this.date,
@@ -190,7 +224,7 @@ class PaymentContainer extends StatelessWidget {
   final bool showDetails;
   final bool hasImage;
   final String message;
-  final String isRecieved;
+  final String isreceived;
   final String imagePath;
   final int id;
   final HomepageController homepageController;
@@ -199,7 +233,8 @@ class PaymentContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isRecievedB = isRecieved == 'recieve';
+    bool isreceivedB = isreceived == 'recieve';
+    Map<String, String> currencies = {'USD': '\$', 'GBP': '£', 'EUR': '€'};
 
     return GestureDetector(
       onDoubleTap: () => homepageController.updateTransaction(id),
@@ -221,22 +256,21 @@ class PaymentContainer extends StatelessWidget {
           Get.toNamed('/refund', arguments: transaction);
         }
 
-
-         if (category == 'Paypal,Recovery') {
+        if (category == 'Paypal,Recovery') {
           Get.toNamed('/paypal_recovery', arguments: transaction);
         }
 
         if (category == 'recieve,Individual') {
           if (message.trim().length > 0) {
-            Get.to(RecievedFromIndividualV2(), arguments: transaction);
+            Get.to(receivedFromIndividualV2(), arguments: transaction);
             return;
           }
 
-          Get.toNamed('/recieved_from_individual', arguments: transaction);
+          Get.toNamed('/received_from_individual', arguments: transaction);
         }
 
         if (category == 'recieve,Org') {
-          Get.toNamed('/recieved_from_org', arguments: transaction);
+          Get.toNamed('/received_from_org', arguments: transaction);
         }
       },
       child: Container(
@@ -259,8 +293,8 @@ class PaymentContainer extends StatelessWidget {
 
                   hasImage
                       ? Container(
-                          height: 32.h,
-                          width: 32.h,
+                          height: 42.h,
+                          width: 42.h,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.grey[300],
@@ -303,7 +337,7 @@ class PaymentContainer extends StatelessWidget {
                         Text(
                           name,
                           style: TextStyle(
-                              fontSize: 7.5.sp,
+                              fontSize: 9.5.sp,
                               fontWeight: FontWeight.w800,
                               color: Colors.black),
                         ),
@@ -312,7 +346,7 @@ class PaymentContainer extends StatelessWidget {
                         Text(
                           AppUtilities().formatDateDateFirst(date),
                           style: TextStyle(
-                            fontSize: 7.sp,
+                            fontSize: 9.sp,
                             color: Colors.grey,
                           ),
                         ),
@@ -328,21 +362,34 @@ class PaymentContainer extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                // Text(homepageController
+                          // .getCategory(
+                              // '${transaction.type},${transaction.direction}')),
                 Text(
-                  homepageController.getCategory(
-                      '${transaction.type},${transaction.direction}'),
+                  homepageController
+                          .getCategory(
+                              '${transaction.type},${transaction.direction}')
+                          .contains('rec')
+                      ?transaction.amount.contains('271')?  'Money received - Refunded':  'Money received'
+                      : homepageController
+                              .getCategory(
+                                  '${transaction.type},${transaction.direction}')
+                              .toLowerCase()
+                              .contains('refund')
+                          ? 'Refund sent'
+                          : 'Money sent',
                   style: TextStyle(
-                      fontSize: 6.sp,
+                      fontSize: 8.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.grey),
                 ),
                 Text(
-                  '${isRecievedB ? "+ " : "- "}US\$${AppUtilities().formatNumber(amount.split(' ')[0])}',
-                  // '${isRecievedB ? "+ " : "- "}US\$${amount}',
+                  '${isreceivedB ? "+ " : "- "}${currencies[transaction.currency] == "\$" ? "US" : ""}${currencies[transaction.currency]}${AppUtilities().formatNumber(amount.split(' ')[0])}',
+                  // '${isreceivedB ? "+ " : "- "}US\$${amount}',
                   style: TextStyle(
-                      fontSize: 7.5.sp,
+                      fontSize: 9.5.sp,
                       fontWeight: FontWeight.w800,
-                      color: isRecievedB
+                      color: isreceivedB
                           ? const Color.fromARGB(255, 38, 126, 41)
                           : Colors.black),
                 ),
@@ -365,7 +412,7 @@ class PaymentContainer extends StatelessWidget {
                                       .textTheme
                                       .bodySmall
                                       ?.copyWith(
-                                          fontSize: 6.5.sp,
+                                          fontSize: 8.5.sp,
                                           fontWeight: FontWeight.w400,
                                           color: Colors.black.withOpacity(1)),
                                 ),
@@ -385,7 +432,7 @@ class PaymentContainer extends StatelessWidget {
                                   child: Text(
                                     'Add tracking',
                                     style: TextStyle(
-                                        fontSize: 7.sp,
+                                        fontSize: 8.sp,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.black.withOpacity(0.8)),
                                   ),
