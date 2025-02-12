@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:paypal/src/features/payments/models/payment_model.dart';
 
 class ShowStory extends StatelessWidget {
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
+    final transaction = Get.arguments as PaymentModel;
+    Map<String, String> nameAndSigns = {'GBP': '£', 'EUR': '€', 'USD': '\$'};
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -33,13 +43,13 @@ class ShowStory extends StatelessWidget {
                 children: [
                   // Avatar
                   CircleAvatar(
-                    radius: 14.r,
+                    radius: 16.r,
                     backgroundColor: Colors.black87,
                     child: Text(
-                      'SA',
+                      getInitials(transaction.name),
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 7.sp,
+                        fontSize: 9.sp,
                       ),
                     ),
                   ),
@@ -47,9 +57,9 @@ class ShowStory extends StatelessWidget {
 
                   // Sent to text
                   Text(
-                    'You sent Samuel Akoli',
+                    'You sent ${transaction.name}',
                     style: TextStyle(
-                      fontSize: 7.sp,
+                      fontSize: 9.sp,
                       color: Colors.black,
                     ),
                   ),
@@ -63,14 +73,15 @@ class ShowStory extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(top: 8.h),
                         child: Text(
-                          '\$',
+                          nameAndSigns[transaction.currency]??nameAndSigns['USD']!,
                           style: TextStyle(
-                            fontSize: 10.sp,
+                            fontSize: 11.sp,
                           ),
                         ),
                       ),
                       Text(
-                        '16.00',
+                        formatToTwoDecimals(transaction.amount),
+
                         style: TextStyle(
                           fontSize: 30.sp,
                           color: Colors.black,
@@ -80,7 +91,7 @@ class ShowStory extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(top: 8.h),
                         child: Text(
-                          'USD',
+                          transaction.currency.toUpperCase(),
                           style: TextStyle(
                             fontSize: 10.sp,
                           ),
@@ -92,7 +103,7 @@ class ShowStory extends StatelessWidget {
 
                   // Family text
                   Text(
-                    'family',
+                    transaction.message,
                     style: TextStyle(
                       fontSize: 7.sp,
                       color: Colors.black,
@@ -159,4 +170,27 @@ class ShowStory extends StatelessWidget {
       ),
     );
   }
+
+
+  String getInitials(String? name) {
+  if (name == null || name.trim().isEmpty) return 'EN';
+
+  List<String> parts = name.trim().split(RegExp(r'\s+'));
+  if (parts.length == 1) {
+    return parts[0][0].toUpperCase();
+  }
+
+  return '${parts[0][0]}${parts[1][0]}'.toUpperCase();
+}
+
+String formatToTwoDecimals(String? number) {
+  if (number == null || double.tryParse(number) == null) {
+    return '0.00';
+  }
+
+  double parsedNumber = double.parse(number);
+  return parsedNumber.toStringAsFixed(2);
+}
+
+
 }

@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:flutter/foundation.dart';
+
 import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/payments/models/payment_model.dart';
+import 'package:paypal/src/features/transactions/screens/show_story.dart';
 import 'package:paypal/src/utils/utilities.dart';
 
 class Refund extends StatelessWidget {
@@ -14,7 +17,7 @@ class Refund extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final transaction = Get.arguments as PaymentModel;
-
+    Map<String, String> nameAndSigns = {'GBP': '£', 'EUR': '€', 'USD': 'US\$'};
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -101,6 +104,7 @@ class Refund extends StatelessWidget {
                           ),
                           Text(
                             "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${transaction.time} ${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
+
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -129,7 +133,7 @@ class Refund extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    "-US\$${AppUtilities().formatNumber(transaction.amount)}",
+                    "-${nameAndSigns[transaction.currency]}${AppUtilities().formatNumber(transaction.amount)}",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 10.sp,
                         fontWeight: FontWeight.w500,
@@ -233,7 +237,7 @@ class Refund extends StatelessWidget {
                             color: Colors.black.withOpacity(1)),
                       ),
                       Text(
-                        "US\$${AppUtilities().formatNumber(transaction.amount)}",
+                        "${nameAndSigns[transaction.currency]}${AppUtilities().formatNumber(transaction.amount)}",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: 9.5.sp,
                             fontWeight: FontWeight.w400,
@@ -262,7 +266,7 @@ class Refund extends StatelessWidget {
                 child: Text(
                   "Transaction ID",
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontSize: 8.5.sp,
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.black.withOpacity(1)),
                 ),
@@ -279,7 +283,7 @@ class Refund extends StatelessWidget {
                   Text(
                     transaction.transactionCode,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 8.sp,
+                        fontSize: 10.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.black.withOpacity(1)),
                   ),
@@ -309,6 +313,7 @@ class RefundDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final transaction = Get.arguments as PaymentModel;
+    Map<String, String> nameAndSigns = {'GBP': '£', 'EUR': '€', 'USD': 'US\$'};
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -336,25 +341,26 @@ class RefundDetails extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
-                  padding: EdgeInsets.all(3.w),
+                  padding: EdgeInsets.all(2.w),
                   width: 50.w,
                   decoration: BoxDecoration(
                       color: Colors.black87,
-                      borderRadius: BorderRadius.circular(5.r)),
+                      borderRadius: BorderRadius.circular(2.r)),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SvgPicture.asset(
-                        AppImages.bank,
-                        height: 7.h,
+                        'assets/images/sm.svg',
+                        height: 11.h,
                         width: 10.h,
                         color: Colors.white,
                       ),
                       Text(
                         "Refunded",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 7.sp,
-                            fontWeight: FontWeight.w300,
+                            fontSize: 6.sp,
+                            fontWeight: FontWeight.w500,
                             color: Colors.white.withOpacity(1)),
                       ),
                     ],
@@ -458,17 +464,17 @@ class RefundDetails extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    "+US\$${AppUtilities().formatNumber(transaction.amount)}",
+                    "+${nameAndSigns[transaction.currency]}${AppUtilities().formatNumber(transaction.amount)}",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 10.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         color: Colors.green.withOpacity(1)),
                   ),
                 ],
               ),
             ),
             SizedBox(
-              height: 7.h,
+              height:14.h,
             ),
             Container(
               height: 1.5.h,
@@ -476,25 +482,28 @@ class RefundDetails extends StatelessWidget {
               color: Color(0xFFeff2f9),
             ),
             SizedBox(
-              height: 7.h,
+              height: 10.h,
             ),
             Padding(
               padding: EdgeInsets.only(left: 13.w),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  "Show story",
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      decoration: TextDecoration.underline,
-                      decorationColor: Color(0xFF0059b3),
-                      fontSize: 8.5.sp,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF0059b3).withOpacity(1)),
+                child: GestureDetector(
+                  onTap: ()=>Get.to(ShowStory(),arguments: transaction),
+                  child: Text(
+                    "Show story",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        decoration: TextDecoration.underline,
+                        decorationColor: Color(0xFF0059b3),
+                        fontSize: 8.sp,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF0059b3).withOpacity(1)),
+                  ),
                 ),
               ),
             ),
             SizedBox(
-              height: 7.h,
+              height: 10.h,
             ),
             Container(
               height: 1.5.h,
@@ -510,17 +519,42 @@ class RefundDetails extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.info,
-                    color: Colors.black54,
+                    size: 15.h,
+                    color: Colors.black87,
                   ),
                   SizedBox(
                     width: 15.w,
                   ),
-                  Text(
-                    "This purchase was refunded on ${AppUtilities().formatDateLong(transaction.date)}",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 8.sp,
-                        fontWeight: FontWeight.w200,
-                        color: Colors.black.withOpacity(1)),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "This purchase was refunded on ${AppUtilities().formatDateLong(transaction.date)}",
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 8.sp,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black.withOpacity(1)),
+                      ),
+
+                      SizedBox(
+                            height: 7.h,
+                          ),
+                          Align(
+                            alignment:Alignment.centerLeft,
+                            child: Text(
+                              "View refund",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: Color(0xFF0059b3),
+                                      color: Color(0xFF0059b3),
+                                      fontSize: 8.5.sp,
+                                      fontWeight: FontWeight.w800,)),
+                          )
+                               
+                    ],
                   ),
                 ],
               ),
@@ -544,20 +578,20 @@ class RefundDetails extends StatelessWidget {
                   Column(
                     children: [
                       CircleAvatar(
-                        radius: 20.r,
+                        radius: 16.r,
                         backgroundColor: Colors.white,
                         child: Image(
                           image: AssetImage('assets/images/send_money.png'),
                         ),
                       ),
                       SizedBox(
-                        height: 3.h,
+                        height: 10.h,
                       ),
                       Text(
                         "Send money",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: 8.sp,
-                            fontWeight: FontWeight.w200,
+                            fontWeight: FontWeight.w600,
                             color: Colors.black.withOpacity(1)),
                       ),
                     ],
@@ -568,20 +602,20 @@ class RefundDetails extends StatelessWidget {
                   Column(
                     children: [
                       CircleAvatar(
-                        radius: 20.r,
+                        radius: 16.r,
                         backgroundColor: Colors.white,
                         child: Image(
                           image: AssetImage('assets/images/messages.png'),
                         ),
                       ),
                       SizedBox(
-                        height: 3.h,
+                        height: 10.h,
                       ),
                       Text(
                         "Message",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: 8.sp,
-                            fontWeight: FontWeight.w200,
+                            fontWeight: FontWeight.w600,
                             color: Colors.black.withOpacity(1)),
                       ),
                     ],
@@ -651,7 +685,7 @@ class RefundDetails extends StatelessWidget {
               child: Row(
                 children: [
                   Image(
-                    height: 20.h,
+                    height: 15.h,
                     image: AssetImage('assets/images/0.png'),
                   ),
                   SizedBox(
@@ -675,7 +709,7 @@ class RefundDetails extends StatelessWidget {
               child: Row(
                 children: [
                   Image(
-                    height: 20.h,
+                    height: 15.h,
                     image: AssetImage('assets/images/block.png'),
                   ),
                   SizedBox(

@@ -16,14 +16,14 @@ class ConversationController extends GetxController {
     loadConversations();
   }
 
-
   RxString placeHolder = 'true'.obs;
   RxBool isFromSupport = false.obs;
   RxBool isInformatory = false.obs;
-  
+  RxBool seemHolder = true.obs;
 
   // Load all conversations
   Future<void> loadConversations() async {
+    // conversations.clear();
 
     // conversations.value = await _dbHelper.getConversations();
 
@@ -59,15 +59,15 @@ class ConversationController extends GetxController {
   }
 
   // Load a specific conversation
-Future<Conversation> loadConversation(int conversationId) async {
-  final conversation = await _dbHelper.getConversation(conversationId);
-  if (conversation != null) {
-    currentConversation.value = conversation;
-    currentMessages.value = conversation.messages;
-    return conversation;
+  Future<Conversation> loadConversation(int conversationId) async {
+    final conversation = await _dbHelper.getConversation(conversationId);
+    if (conversation != null) {
+      currentConversation.value = conversation;
+      currentMessages.value = conversation.messages;
+      return conversation;
+    }
+    throw Exception('Conversation not found');
   }
-  throw Exception('Conversation not found');
-}
 
   // Send a new message
   Future<void> sendMessage(String content, bool isFromSupport) async {
@@ -94,7 +94,8 @@ Future<Conversation> loadConversation(int conversationId) async {
       currentConversation.value = null;
       currentMessages.clear();
     }
-    conversations.removeWhere((conversation) => conversation.id == conversationId);
+    conversations
+        .removeWhere((conversation) => conversation.id == conversationId);
     print('--------------------------------------------------');
   }
 
@@ -105,7 +106,9 @@ Future<Conversation> loadConversation(int conversationId) async {
     try {
       String message = messageController.text;
       Message messageMap = Message(
-        content: isInformatory.value?'${messageController.text}/////':messageController.text,
+        content: isInformatory.value
+            ? '${messageController.text}/////'
+            : messageController.text,
         isFromSupport: isFromSupport.value,
         time: '',
         date: '',
@@ -114,8 +117,7 @@ Future<Conversation> loadConversation(int conversationId) async {
       await _dbHelper.insertMessage(conversationId, messageMap);
       // Get.snackbar('Success', "Message saved successfully");
 
-await      loadConversation(conversationId);
-      
+      await loadConversation(conversationId);
     } catch (e) {
       Get.snackbar(
         'Error',

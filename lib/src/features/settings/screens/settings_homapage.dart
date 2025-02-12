@@ -48,7 +48,7 @@ class SettingsHomapage extends GetView<SettingsController> {
     };
 
     List<String> settings = ['settings', 'settings2'];
-
+controller. loadUserData();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -114,96 +114,97 @@ class SettingsHomapage extends GetView<SettingsController> {
                     left: 0,
                     right: 0,
                     top: 27.h, // Adjust this to position the content
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Profile image
-                        Center(
-                          child: Stack(
-                            children: [
-                              controller.user.value.hasImage
-                                  ? Container(
-                                      height: 32.h,
-                                      width: 32.h,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.grey[300],
-                                      ),
-                                      child: ClipOval(
-                                        child: Image.file(
-                                          File(controller.user.value.imagePath),
-                                          fit: BoxFit.cover,
-                                          errorBuilder:
-                                              (context, error, stackTrace) {
-                                            return Icon(Icons.person,
-                                                color: Colors.grey[600]);
-                                          },
+                    child: Obx(()=> Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Profile image
+                          Center(
+                            child: Stack(
+                              children: [
+                                controller.user.value.hasImage
+                                    ? Container(
+                                        height: 32.h,
+                                        width: 32.h,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.grey[300],
                                         ),
+                                        child: ClipOval(
+                                          child: Image.file(
+                                            File(controller.user.value.imagePath),
+                                            fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return Icon(Icons.person,
+                                                  color: Colors.grey[600]);
+                                            },
+                                          ),
+                                        ),
+                                      )
+                                    : Container(
+                                        height: 35.h,
+                                        width: 35.h,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                        image:DecorationImage(image:  AssetImage( 'assets/images/accountinfor/0.png'),),
+                      
+                                            shape: BoxShape.circle),
                                       ),
-                                    )
-                                  : Container(
-                                      height: 35.h,
-                                      width: 35.h,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                      image:DecorationImage(image:  AssetImage( 'assets/images/accountinfor/0.png'),),
-
-                                          shape: BoxShape.circle),
-                                    ),
-                              Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  child: CircleAvatar(
-                                    radius: 7.r,
-                                    child: Icon(
-                                      Icons.qr_code,
-                                      size: 8.h,
-                                    ),
-                                  ))
-                            ],
-                          ),
-                        ),
-
-                        SizedBox(height: 8.h),
-                        // Name
-                        Text(
-                          controller.user.value.name,
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          ),
-                        ),
-                        SizedBox(height: 2.h),
-                        // Email
-                        Text(
-                          controller.user.value.email,
-                          style: TextStyle(
-                              fontSize: 9.sp,
-                              color: Colors.blue,
-                              decoration: TextDecoration.underline,
-                              decorationColor: Colors.blue),
-                        ),
-                        SizedBox(height: 10.h),
-
-                        Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 2.h, horizontal: 18.w),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey.shade300),
-                                borderRadius: BorderRadius.circular(20.r)),
-                            child: Text(
-                              'Edit',
-                              style: TextStyle(
-                                  fontSize: 8.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black.withOpacity(0.8)),
+                                Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: CircleAvatar(
+                                      radius: 7.r,
+                                      child: Icon(
+                                        Icons.qr_code,
+                                        size: 8.h,
+                                      ),
+                                    ))
+                              ],
                             ),
                           ),
-                        )
-                      ],
+                      
+                          SizedBox(height: 8.h),
+                          // Name
+                          Text(
+                            controller.user.value.name,
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(height: 2.h),
+                          // Email
+                          Text(
+                            controller.user.value.email,
+                            style: TextStyle(
+                                fontSize: 9.sp,
+                                color: Colors.blue,
+                                decoration: TextDecoration.underline,
+                                decorationColor: Colors.blue),
+                          ),
+                          SizedBox(height: 10.h),
+                      
+                          Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 2.h, horizontal: 18.w),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey.shade300),
+                                  borderRadius: BorderRadius.circular(20.r)),
+                              child: Text(
+                                'Edit',
+                                style: TextStyle(
+                                    fontSize: 8.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black.withOpacity(0.8)),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],

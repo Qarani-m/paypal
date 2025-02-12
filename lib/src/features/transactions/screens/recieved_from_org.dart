@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/payments/models/payment_model.dart';
+import 'package:paypal/src/features/transactions/screens/show_story.dart';
 import 'package:paypal/src/utils/utilities.dart';
 
 class receivedFromOrg extends StatelessWidget {
@@ -141,15 +142,18 @@ class receivedFromOrg extends StatelessWidget {
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Show story",
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          decoration: TextDecoration.underline,
-                          decorationColor: Color(0xFF0059b3),
-                          fontSize: 6.5.sp,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xFF0059b3).withOpacity(1)),
-                    ),
+                    child: GestureDetector(
+                  onTap: ()=>Get.to(ShowStory(),arguments: transaction),
+                  child: Text(
+                    "Show story",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        decoration: TextDecoration.underline,
+                        decorationColor: Color(0xFF0059b3),
+                        fontSize: 8.sp,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF0059b3).withOpacity(1)),
+                  ),
+                ),
                   ),
                 ],
               ),

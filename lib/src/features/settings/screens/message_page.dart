@@ -54,13 +54,12 @@ class PayPalAssistantPage extends GetView<ConversationController> {
                 padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
                 decoration: BoxDecoration(
                   color: Color(
-  controller.isFromSupport.value 
-      ? 0xFFDC143C 
-      : controller.isInformatory.value 
-        ? 0xFF000000 // Example default color (Black)
-        : 0xFF3F20BC,
-),
-
+                    controller.isFromSupport.value
+                        ? 0xFFDC143C
+                        : controller.isInformatory.value
+                            ? 0xFF000000 // Example default color (Black)
+                            : 0xFF3F20BC,
+                  ),
                   borderRadius: BorderRadius.circular(5.r),
                 ),
                 child: Text(
@@ -176,8 +175,8 @@ class TopPart extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () => controller.isFromSupport.value =
                             !controller.isFromSupport.value,
-
-                            onDoubleTap: () => controller.isInformatory.value=!controller.isInformatory.value,
+                        onDoubleTap: () => controller.isInformatory.value =
+                            !controller.isInformatory.value,
                         child: Column(
                           children: [
                             Text(
@@ -235,21 +234,24 @@ class TopPart extends StatelessWidget {
                     controller.placeHolder.value,
                     style: TextStyle(fontSize: 0),
                   ),
-                  Obx(
-                    () => Column(
-                      children:
-                          List.generate(conversation.messages.length, (index) {
-                        return ChatBubble(
-                          isInfor: controller.currentConversation.value!
-                                .messages[index].content.contains('/////'),
-                            message: controller.currentConversation.value!
-                                .messages[index].content.split('/////')[0],
-                            
-                            isUser: !controller.currentConversation.value!
-                                .messages[index].isFromSupport);
-                      }),
-                    ),
-                  ),
+                  Obx(()=> Column(
+                              children: List.generate(
+                                  conversation.messages.length, (index) {
+                                return ChatBubble(
+                                    seemHolder: controller.seemHolder.value,
+                                    isInfor: controller.currentConversation.value!
+                                        .messages[index].content
+                                        .contains('/////'),
+                                    message: controller.currentConversation.value!
+                                        .messages[index].content
+                                        .split('/////')[0],
+                                    isUser: !controller.currentConversation.value!
+                                        .messages[index].isFromSupport);
+                              }),
+                            ),
+                  )
+                    
+                
                 ],
               ),
             ),
@@ -361,24 +363,35 @@ class MessageArea extends StatelessWidget {
 class ChatBubble extends StatelessWidget {
   final String message;
   final bool isUser;
-   final  bool isInfor;
+  final bool isInfor;
+  final bool seemHolder;
 
   const ChatBubble({
     required this.message,
     required this.isUser,
-    super.key, 
-     this.isInfor=false,
+    super.key,
+    this.seemHolder = false,
+    this.isInfor = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 5.h),
-      alignment:isInfor  ? Alignment.center :isUser? Alignment.centerRight: Alignment.centerLeft,
+      alignment: isInfor
+          ? Alignment.center
+          : isUser
+              ? Alignment.centerRight
+              : Alignment.centerLeft,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical:isInfor?5.h: 10.h),
+        padding: EdgeInsets.symmetric(
+            horizontal: 10.w, vertical: isInfor ? 5.h : 10.h),
         decoration: BoxDecoration(
-          color:isInfor?Colors.transparent: isUser ? Colors.black.withOpacity(1) : Colors.grey[100],
+          color: isInfor
+              ? Colors.transparent
+              : isUser
+                  ? Colors.black.withOpacity(1)
+                  : Colors.grey[100],
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10.r),
               topRight: Radius.circular(10.r),
@@ -389,7 +402,11 @@ class ChatBubble extends StatelessWidget {
           message,
           style: TextStyle(
             fontSize: 8.5.sp,
-            color:isInfor?Colors.black: isUser ? Colors.white : Colors.black,
+            color: isInfor
+                ? Colors.black
+                : isUser
+                    ? Colors.white
+                    : Colors.black,
           ),
         ),
       ),

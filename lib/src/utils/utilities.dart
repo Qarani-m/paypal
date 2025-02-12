@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:flutter/foundation.dart';
 
 class AppUtilities {
   String formatDateDateFirst(String date) {
@@ -18,24 +19,23 @@ class AppUtilities {
 }
 
 
-  String formatDateMonthFirst(String date) {
+String formatDateMonthFirst(String? date) {
+  if (date == null || date.trim().isEmpty) {
+    return 'Invalid Date';
+  }
+
+  try {
     final DateTime dt = DateTime.parse(date);
     final List<String> months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ];
+    
     return '${months[dt.month - 1]} ${dt.day}';
+  } catch (e) {
+    return 'Invalid Date';
   }
+}
 
   String getInitials(String fullName) {
     final names = fullName.trim().split(' ');

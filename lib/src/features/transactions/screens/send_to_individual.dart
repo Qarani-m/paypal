@@ -22,6 +22,7 @@ class SendToIndividual extends StatelessWidget {
       'Report problem',
     ];
 
+
     Map<String, String> nameAndSigns = {'GBP': '£', 'EUR': '€', 'USD': '\$'};
 
     List<String> howCanWeHelpImages = [
@@ -53,6 +54,9 @@ class SendToIndividual extends StatelessWidget {
         fontWeight: FontWeight.w500,
         color: Colors.black.withOpacity(1));
     final transaction = Get.arguments as PaymentModel;
+    
+    print(transaction.payPalFee);
+    
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -226,15 +230,18 @@ class SendToIndividual extends StatelessWidget {
                       onTap: () {
                         Get.to(ShowStory());
                       },
-                      child: Text(
-                        "Show story",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            decoration: TextDecoration.underline,
-                            decorationColor: Color(0xFF0059b3),
-                            fontSize: 8.5.sp,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF0059b3).withOpacity(1)),
-                      ),
+                      child: GestureDetector(
+                  onTap: ()=>Get.to(ShowStory(),arguments: transaction),
+                  child: Text(
+                    "Show story",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        decoration: TextDecoration.underline,
+                        decorationColor: Color(0xFF0059b3),
+                        fontSize: 8.sp,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF0059b3).withOpacity(1)),
+                  ),
+                ),
                     ),
                   ),
                 ],
@@ -321,7 +328,10 @@ class SendToIndividual extends StatelessWidget {
                         Get.bottomSheet(
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 13.w),
+
                             decoration: BoxDecoration(
+// color: Colors.blue,
+
                               color: Colors.white,
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(16)),
@@ -329,30 +339,32 @@ class SendToIndividual extends StatelessWidget {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: Center(
-                                        child: Text(
-                                          'Payment info',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 9.sp,
-                                              fontWeight: FontWeight.w400),
-                                        ),
+                                Container(
+// color: Colors.red,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Payment info',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 9.sp,
+                                            fontWeight: FontWeight.w400),
                                       ),
-                                    ),
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.close,
-                                        size: 10.h,
+                                      
+                                      Row(
+                                        children: [
+                                          Icon(
+                                              Icons.close,
+                                              size: 10.h,
+                                            ),
+                                        ],
                                       ),
-                                      onPressed: () => Get.back(),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
+                                SizedBox(height: 20.h,),
                                 !isPaymentCompleted
                                     ? Align(
                                         alignment: Alignment.centerLeft,
@@ -448,7 +460,7 @@ class SendToIndividual extends StatelessWidget {
                                           style: sameTextStyle,
                                         ),
                                         Text(
-                                          'US\$${transaction.amount}',
+                                          'US\$${(double.parse(transaction.amount)-double.parse(transaction.payPalFee)).toStringAsFixed(0) }',
                                           style: sameTextStyle,
                                         )
                                       ],
@@ -679,7 +691,7 @@ class SendToIndividual extends StatelessWidget {
               child: Row(
                 children: [
                   Image(
-                    height: 20.h,
+                    height: 15.h,
                     image: AssetImage('assets/images/0.png'),
                   ),
                   SizedBox(
@@ -703,7 +715,7 @@ class SendToIndividual extends StatelessWidget {
               child: Row(
                 children: [
                   Image(
-                    height: 20.h,
+                    height: 15.h,
                     image: AssetImage('assets/images/block.png'),
                   ),
                   SizedBox(
@@ -750,15 +762,15 @@ class ActionButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CircleAvatar(
-          radius: icon=='i6'?10.r:15.r,
+          radius: icon=='i6'?10.r:13.r,
           backgroundImage: AssetImage('assets/images/$icon.png'),
         ),
         SizedBox(height:icon=='i6'?5.h: 3.h),
         Text(
           label,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontSize: 9.sp,
-                fontWeight: FontWeight.w200,
+                fontSize: 8.sp,
+                fontWeight: FontWeight.w500,
                 color: Colors.black.withOpacity(1),
               ),
         ),
