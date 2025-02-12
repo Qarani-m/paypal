@@ -103,7 +103,7 @@ class Refund extends StatelessWidget {
                             height: 3.h,
                           ),
                           Text(
-                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${transaction.time} ${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
+                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${ AppUtilities().convert(transaction.time)}${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
 
                             style: Theme.of(context)
                                 .textTheme
@@ -435,7 +435,7 @@ class RefundDetails extends StatelessWidget {
                             height: 3.h,
                           ),
                           Text(
-                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${transaction.time} ${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
+                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${ AppUtilities().convert(transaction.time)}${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall

@@ -142,7 +142,7 @@ class SendToIndividual extends StatelessWidget {
                             height: 3.h,
                           ),
                           Text(
-                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${transaction.time} ${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
+                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${ AppUtilities().convert(transaction.time)}${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
                             // '',
                             style: Theme.of(context)
                                 .textTheme
@@ -341,11 +341,19 @@ class SendToIndividual extends StatelessWidget {
                               children: [
                                 Container(
 // color: Colors.red,
+padding: EdgeInsets.only(top: 8.h),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
+                                        '',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 9.sp,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                                  Text(
                                         'Payment info',
                                         style: TextStyle(
                                             color: Colors.black,
@@ -597,7 +605,7 @@ class SendToIndividual extends StatelessWidget {
                         );
                       },
                       child: Text(
-                        "Show payment info",
+                        "Show payment information",
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: 9.5.sp,
                             fontWeight: FontWeight.w800,

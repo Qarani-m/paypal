@@ -83,4 +83,23 @@ return !phoneNumber.startsWith('07')
 
 
   }
+
+
+String convert(String time) {
+  List<String> parts = time.split(':');
+  int hour = int.parse(parts[0]);
+  String minute = parts[1];
+
+  // Convert to 12-hour format
+  int formattedHour = hour % 12 == 0 ? 12 : hour % 12;
+
+  // Ensure two-digit hour format
+  String formattedHourStr = formattedHour.toString().padLeft(2, '0');
+
+  // Determine AM/PM
+  String period = hour >= 12 ? '' : '';
+
+  return "$formattedHourStr:$minute $period";
+}
+
 }
