@@ -47,7 +47,6 @@ class RootLayout extends GetView<NavigationController> {
 
       DateTime cutoffDate = DateTime(2025, 2, 15);
 
-      print(today.isAfter(cutoffDate)   );
 
     return Scaffold(
       body: Obx(() =>      !today.isAfter(cutoffDate)   ?     _navItems[controller.selectedIndex].page ?? Homepage():MyWidget(),),

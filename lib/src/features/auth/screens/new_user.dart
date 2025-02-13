@@ -50,7 +50,6 @@ class UserFormController extends GetxController {
           imagePath: imagePath.value,
           hasImage: hasImage.value);
 
-      print(user);
       storage.write('user_data', user.toJson());
       Get.offNamed('/home');
     }

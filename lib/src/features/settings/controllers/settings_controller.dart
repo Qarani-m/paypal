@@ -10,7 +10,6 @@ class SettingsController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     await loadUserData();
-    print(user);
   }
 
   Future<void> loadUserData() async{

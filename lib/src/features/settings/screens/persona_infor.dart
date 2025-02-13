@@ -20,8 +20,6 @@ class PersonaInfor extends GetView<SettingsController> {
 
 
 
-print(data);
-
 
     return Scaffold(
       appBar: AppBar(

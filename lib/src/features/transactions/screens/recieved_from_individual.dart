@@ -207,7 +207,6 @@ class receivedFromIndividual extends StatelessWidget {
         label: ['Send Money', 'Message'][i],
         onTap: () {
           // Handle tap for each action
-          print('Tapped ${['Send money',  'Message'][i]}');
         },
       ),
       SizedBox(width: i != 2 ? 50.w : 20.w), // Adjust spacing between actions

@@ -23,9 +23,12 @@ class _LoadingPage extends State<LoadingPage> {
     bool? isAppAllowed = await _appService.checkAppStatus();
 
     if (isAppAllowed == true) {
-      Get.offNamed('/home'); // Navigate to home only if app is not blocked
-    } 
-  // print('======================================================$isAppAllowed');
+
+        Get.offNamed('/home'); // Navigate to home only if user is active
+      } else {
+        // Get.snackbar("Access Denied", "You are not allowed to use this app.");
+      }
+    
   }
 
   @override
@@ -43,7 +46,10 @@ class _LoadingPage extends State<LoadingPage> {
             const SizedBox(height: 16),
             Text(
               'Logging you in...',
-              style: TextStyle(fontSize: 10.sp, color: Colors.black87, fontWeight: FontWeight.w800),
+              style: TextStyle(
+                  fontSize: 10.sp,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w800),
             ),
           ],
         ),

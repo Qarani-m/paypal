@@ -264,7 +264,6 @@ class Homepage extends GetView<HomepageController> {
                       ),
                       SizedBox(height: 12.h),
                       GetX<HomepageController>(builder: (controller) {
-                        // print(controller.recentTransactions[0]);
                         return Padding(
                           padding: EdgeInsets.only(
                             right: 13.w,
@@ -289,9 +288,7 @@ class Homepage extends GetView<HomepageController> {
                                       controller.recentTransactions[index].type,
                                   showDetails: controller
                                           .recentTransactions[index]
-                                          .message
-                                          .length >
-                                      0,
+                                          .message.isNotEmpty,
                                   message: controller
                                       .recentTransactions[index].message,
                                   imagePath: controller

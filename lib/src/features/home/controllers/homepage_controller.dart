@@ -41,7 +41,6 @@ class HomepageController extends GetxController {
 
 
 
-    print('=================${_imageFile.value}');
   }
 
 

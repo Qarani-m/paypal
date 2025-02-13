@@ -69,7 +69,6 @@ String formatNumber(dynamic number) {
   String obfuscatePhoneNumber(String phoneNumber) {
 
 
-print('=======================${phoneNumber.trim().length}');
 
 
     if (phoneNumber.trim().length < 10 ) {

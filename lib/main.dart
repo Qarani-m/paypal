@@ -41,13 +41,9 @@ String? storedDateStr = DateTime(2025, 2, 3).toIso8601String();
 
   // Check if current date is beyond cutoff date
   if (today.isAfter(cutoffDate)) {
-    print('===================================2=================');
     runApp(MyApp(initialRoute: '/lockPage'));
     return;
   }
-
-  print('===============3=====================================');
-
   // If not beyond cutoff date, continue with normal flow
   bool isToday = storedDate != null &&
       storedDate.year == today.year &&
@@ -137,7 +133,6 @@ class MyApp extends StatelessWidget {
                 name: '/user_form',
                 page: () => UserFormPage(),
                 transition: Transition.fade),
-            // =============================================
             GetPage(
                 name: '/received_from_individual',
                 page: () => const receivedFromIndividual(),

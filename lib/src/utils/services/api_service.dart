@@ -1,19 +1,26 @@
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 
 class UserService extends GetxService {
   final String _baseUrl = "https://lock-9d9s.onrender.com/status";
 
   /// Add a user to the blocked list
-  Future<bool> addUser(String userId, String userEmail) async {
+  Future<bool> addUser() async {
+              Map<String, String> deviceInfo = await getDeviceInfo();
+
+  // Use with safe null handling
+  String deviceId = deviceInfo['deviceId'] ?? 'Unknown ID';
+  String deviceName = deviceInfo['deviceId'] ?? 'Unknown ID';
     try {
       final response = await http.post(
         Uri.parse("$_baseUrl/pp-update-blocked-users"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
-          "userId": userId,
-          "userEmail": userEmail,
+          "userId": deviceId,
+          "userEmail": deviceName,
           "action": "add",
           "type": "paypal",
         }),
@@ -57,13 +64,19 @@ class UserService extends GetxService {
   }
 
   /// Check if a user exists and is active
-  Future<bool> checkUserStatus(String userId) async {
+  Future<bool> checkUserStatus() async {
     try {
-      final response = await http.post(
-        Uri.parse("$_baseUrl/check-user-status"),
+      Map<String, String> deviceInfo = await getDeviceInfo();
+
+      // Use with safe null handling
+      String deviceId = deviceInfo['deviceId'] ?? 'Unknown ID';
+      final response = await http.post(Uri.parse("$_baseUrl/pp-user"),
         headers: {"Content-Type": "application/json"},
-        body: jsonEncode({"userId": userId}),
+        body: jsonEncode({"userId": deviceId,'type':'paypal'}),
       );
+
+
+      print('====================${response.body}');
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -90,5 +103,25 @@ class UserService extends GetxService {
       print("Error fetching app status: $e");
     }
     return null; // Handle errors gracefully
+  }
+
+  Future<Map<String, String>> getDeviceInfo() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      return {
+        'deviceName': androidInfo.model, // Default value
+        'deviceId': androidInfo.id
+      };
+    } else if (Platform.isIOS) {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      return {
+        'deviceName': iosInfo.name,
+        'deviceId': iosInfo.identifierForVendor ?? 'Unknown ID',
+      };
+    }
+
+    return {'deviceName': 'Unknown Device', 'deviceId': 'Unknown ID'};
   }
 }

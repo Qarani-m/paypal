@@ -52,7 +52,6 @@ String? currency = userData['currency']??'USD';
         fontWeight: FontWeight.w500,
         color: Colors.black.withOpacity(1));
     
-    print(currency);
     
     return Scaffold(
       backgroundColor: Colors.white,
@@ -266,7 +265,6 @@ String? currency = userData['currency']??'USD';
         label: ['Send again', 'Split payment', 'Message'][i],
         onTap: () {
           // Handle tap for each action
-          print('Tapped ${['Send again', 'Split payment', 'Message'][i]}');
         },
       ),
       SizedBox(width: i != 2 ? 50.w : 20.w), // Adjust spacing between actions

@@ -240,7 +240,6 @@ class PaymentContainer extends StatelessWidget {
       onDoubleTap: () => homepageController.updateTransaction(id),
       onLongPress: () => homepageController.deleteTransactions(id),
       onTap: () {
-        print(category);
         if (category == 'Send,Individual') {
           Get.toNamed('/send_to_individual', arguments: transaction);
         }
