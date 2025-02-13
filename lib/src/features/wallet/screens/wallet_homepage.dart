@@ -1,3 +1,4 @@
+
 // wallet_controller.dart
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,45 +17,46 @@ import 'package:paypal/src/features/wallet/controllers/wallet_controller.dart';
 import 'package:paypal/src/features/wallet/widgets/custom_searchbar.dart';
 import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
+import 'package:paypal/src/utils/utilities.dart';
 
 class WalletHomepage extends GetView<WalletController> {
   const WalletHomepage({super.key, this.initialTabIndex = 0});
 
-
-    final int initialTabIndex;
+  final int initialTabIndex;
 
   @override
   Widget build(BuildContext context) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (controller.tabController.index != initialTabIndex) {
         controller.tabController.animateTo(initialTabIndex);
       }
     });
 
-       final List<NavItem> _navItems = [
-    NavItem(
-      label: 'Home',
-      svgPath: 'assets/svg/house.svg',
-      page: const Homepage(),
-      // page: const Homepage1(),
-    ),
-        NavItem(
-      label: 'Crypto',
-      svgPath: 'assets/svg/bar-chart-line.svg',
-      page:   PaymentsHomepgae(),
-    ),
-    NavItem(
-      label: 'Send/Request',
-      svgPath: 'assets/svg/arrow-down-up.svg',
-      page:   PaymentsHomepgae(),
-    ),
-  
-    NavItem(
-      label: 'Wallet',
-      svgPath: 'assets/svg/wallet.svg',
-      page: const WalletHomepage(),
-    ),
-  ];
+    final List<NavItem> _navItems = [
+      NavItem(
+        label: 'Home',
+        svgPath: 'assets/svg/house.svg',
+        page: const Homepage(),
+        // page: const Homepage1(),
+      ),
+      NavItem(
+        label: 'Crypto',
+        svgPath: 'assets/svg/bar-chart-line.svg',
+        page: PaymentsHomepgae(),
+      ),
+      NavItem(
+        label: 'Send/Request',
+        svgPath: 'assets/svg/arrow-down-up.svg',
+        page: PaymentsHomepgae(),
+      ),
+      NavItem(
+        label: 'Wallet',
+        svgPath: 'assets/svg/wallet.svg',
+        page: const WalletHomepage(),
+      ),
+    ];
+    controller.loadData();
+    Map<String, String> nameAndSigns = {'GBP': '£', 'EUR': '€', 'USD': '\$'};
 
     return Scaffold(
       bottomNavigationBar: initialTabIndex == 0
@@ -72,7 +74,8 @@ class WalletHomepage extends GetView<WalletController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 170.w,
+              width: 200.w,
+              // color: Colors.red,
               child: TabBar(
                 controller: controller.tabController,
                 labelColor: Colors.black,
@@ -85,6 +88,15 @@ class WalletHomepage extends GetView<WalletController> {
                   Tab(
                     child: Text(
                       'Wallet',
+                      style: TextStyle(
+                        fontSize: 9.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Tab(
+                    child: Text(
+                      'Rewards',
                       style: TextStyle(
                         fontSize: 9.sp,
                         fontWeight: FontWeight.w600,
@@ -111,69 +123,76 @@ class WalletHomepage extends GetView<WalletController> {
                   Column(
                     children: [
                       SizedBox(
-                        height: 10.h,
+                        height: 20.h,
                       ),
                       GestureDetector(
                         onTap: () => Get.toNamed('/paypal_balance'),
-                        child: Container(
-                          padding: EdgeInsets.only(
-                              left: 10.w, right: 10.w, top: 8.h, bottom: 100.h),
-                          height: 220.h,
-                          width: double.maxFinite,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5.r)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Image.asset(
-                                          height: 10.h,
-                                          width: 10.h,
-                                          AppImages.paypalLogo1),
-                                      SizedBox(
-                                        width: 5.w,
-                                      ),
-                                      Text("PayPalbalance",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.copyWith(
-                                                  fontSize: 8.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.black
-                                                      .withOpacity(1))),
-                                    ],
-                                  ),
-                                  Text("\$0.00",
+                        child: Obx(
+                          () => Container(
+                            padding: EdgeInsets.only(
+                                left: 10.w,
+                                right: 10.w,
+                                top: 8.h,
+                                bottom: 70.h),
+                            height: 190.h,
+                            width: double.maxFinite,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(5.r)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Image.asset(
+                                            height: 14.h,
+                                            width: 14.h,
+                                            AppImages.paypalLogo1),
+                                        SizedBox(
+                                          width: 8.w,
+                                        ),
+                                        Text("PayPalbalance",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall
+                                                ?.copyWith(
+                                                    fontSize: 10.sp,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.black
+                                                        .withOpacity(1))),
+                                      ],
+                                    ),
+                                    Text(
+                                        "${nameAndSigns[controller.currency.value]}${AppUtilities().formatNumber(controller.amount.value)}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(
+                                                fontSize: 9.sp,
+                                                fontWeight: FontWeight.w900,
+                                                color: Colors.black
+                                                    .withOpacity(0.8))),
+                                  ],
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                      "${nameAndSigns[controller.currency.value]}${AppUtilities().formatNumber(controller.amount.value)}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall
                                           ?.copyWith(
-                                              fontSize: 8.sp,
+                                              fontSize: 24.sp,
                                               fontWeight: FontWeight.w900,
                                               color: Colors.black
-                                                  .withOpacity(0.8))),
-                                ],
-                              ),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text("\$0.00",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                            fontSize: 20.sp,
-                                            fontWeight: FontWeight.w900,
-                                            color:
-                                                Colors.black.withOpacity(0.9))),
-                              )
-                            ],
+                                                  .withOpacity(0.9))),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -188,9 +207,9 @@ class WalletHomepage extends GetView<WalletController> {
                                   .textTheme
                                   .bodySmall
                                   ?.copyWith(
-                                      fontSize: 10.sp,
+                                      fontSize: 12.sp,
                                       fontWeight: FontWeight.w600,
-                                      color: Colors.black.withOpacity(0.8))),
+                                      color: Colors.black.withOpacity(1))),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -201,55 +220,105 @@ class WalletHomepage extends GetView<WalletController> {
                                       ?.copyWith(
                                           fontSize: 8.sp,
                                           fontWeight: FontWeight.w400,
-                                          color:
-                                              Colors.black.withOpacity(0.6))),
+                                          color: Colors.black.withOpacity(1))),
                               Icon(Icons.arrow_forward_ios,
-                                  size: 10.h,
-                                  color: Colors.black.withOpacity(0.6))
+                                  size: 13.h,
+                                  color: Colors.black.withOpacity(1))
                             ],
                           )
                         ],
                       ),
                       SizedBox(
-                        height: 8.h,
+                        height: 18.h,
                       ),
-                      GestureDetector(
-                        onTap: () => Get.toNamed("/card_main_page"),
-                        child: Container(
-                          padding: EdgeInsets.only(left: 15.w, bottom: 5.w),
-                          height: 180.h,
-                          width: double.maxFinite,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage(AppImages.atmCard)),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5.r)),
-                          alignment: Alignment.bottomLeft,
-                          child: Row(
-                            children: [
-                              Text('⋅⋅',
+
+                      // GestureDetector(
+                      //   onTap: () => Get.toNamed("/card_main_page"),
+                      //   child: Container(
+                      //     padding: EdgeInsets.only(left: 15.w, bottom: 5.w),
+                      //     height: 180.h,
+                      //     width: double.maxFinite,
+                      //     decoration: BoxDecoration(
+                      //         image: DecorationImage(
+                      //             fit: BoxFit.cover,
+                      //             image: AssetImage(AppImages.atmCard)),
+                      //         color: Colors.white,
+                      //         borderRadius: BorderRadius.circular(5.r)),
+                      //     alignment: Alignment.bottomLeft,
+                      //     child: Row(
+                      //       children: [
+                      //         Text('⋅⋅',
+                      //             style: Theme.of(context)
+                      //                 .textTheme
+                      //                 .bodySmall
+                      //                 ?.copyWith(
+                      //                     fontSize: 19.sp,
+                      //                     fontWeight: FontWeight.w900,
+                      //                     color: Color(0xFF9ee86f))),
+                      //         Text(' 6335',
+                      //             style: Theme.of(context)
+                      //                 .textTheme
+                      //                 .bodySmall
+                      //                 ?.copyWith(
+                      //                     fontSize: 8.sp,
+                      //                     fontWeight: FontWeight.w900,
+                      //                     color: Color(0xFF9ee86f))),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+
+                      Container(
+                        padding: EdgeInsets.only(
+                            left: 10.w, right: 10.w, top: 10.h, bottom: 20.h),
+                        height: 105.h,
+                        width: double.maxFinite,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5.r)),
+                        child: Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Add bank accounts and cards',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall
                                       ?.copyWith(
-                                          fontSize: 19.sp,
-                                          fontWeight: FontWeight.w900,
-                                          color: Color(0xFF9ee86f))),
-                              Text(' 6335',
+                                          fontSize: 10.sp,
+                                          fontWeight: FontWeight.w800,
+                                          color: Colors.black.withOpacity(1)),
+                                ),
+                                SizedBox(height: 3.h,),
+                                Text(
+                                  'Send, shop and pay without sharing bank\naccount or card detalls with stores or\nsellers.',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall
                                       ?.copyWith(
-                                          fontSize: 8.sp,
-                                          fontWeight: FontWeight.w900,
-                                          color: Color(0xFF9ee86f))),
-                            ],
-                          ),
+                                          fontSize: 9.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black.withOpacity(1)),
+                                )
+                              ],
+                            ),
+                            SizedBox(width: 30.w,),
+                            Container(
+                              height: 60.h,
+                              width: 100.w,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/cards.png'))),
+                            )
+                          ],
                         ),
                       ),
+
                       SizedBox(
-                        height: 10.h,
+                        height: 18.h,
                       ),
                       Align(
                           alignment: Alignment.centerLeft,
@@ -259,9 +328,9 @@ class WalletHomepage extends GetView<WalletController> {
                                 .textTheme
                                 .bodySmall
                                 ?.copyWith(
-                                    fontSize: 10.sp,
+                                    fontSize: 12.sp,
                                     fontWeight: FontWeight.w600,
-                                    color: Colors.black.withOpacity(0.8)),
+                                    color: Colors.black.withOpacity(1)),
                           )),
                       SizedBox(
                         height: 10.h,
@@ -279,23 +348,42 @@ class WalletHomepage extends GetView<WalletController> {
                               onTap: () =>
                                   Get.toNamed('/preferences', arguments: ''),
                               child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SvgPicture.asset(
-                                    AppImages.onlinePurchases,
-                                    height: 14.h,
+                                  Container(
+                                    height: 20.h,
+                                    width: 20.h,
+                                    decoration: BoxDecoration(
+                                        // color: Colors.red,
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                'assets/images/lock.png'))),
                                   ),
                                   SizedBox(
                                     width: 7.w,
                                   ),
-                                  Text(
-                                    'Online payments',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                            fontSize: 8.sp,
-                                            color: Colors.black),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'Online purchases',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(
+                                                fontSize: 10.sp,
+                                                color: Colors.black),
+                                      ),
+                                      Text(
+                                        'PayPal Online balance',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(
+                                                fontSize: 8.sp,
+                                                fontWeight: FontWeight.w300,
+                                                color: Colors.black87),
+                                      ),
+                                    ],
                                   )
                                 ],
                               ),
@@ -309,20 +397,25 @@ class WalletHomepage extends GetView<WalletController> {
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  SvgPicture.asset(
-                                    AppImages.onlinePurchases,
-                                    height: 16.h,
+                                  Container(
+                                    height: 20.h,
+                                    width: 20.h,
+                                    decoration: BoxDecoration(
+                                        // color: Colors.red,
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                'assets/images/org.png'))),
                                   ),
                                   SizedBox(
                                     width: 7.w,
                                   ),
                                   Text(
-                                    'Automatic payments',
+                                    'In-person & QR code purchases',
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall
                                         ?.copyWith(
-                                            fontSize: 8.sp,
+                                            fontSize: 10.sp,
                                             color: Colors.black),
                                   )
                                 ],
@@ -333,6 +426,9 @@ class WalletHomepage extends GetView<WalletController> {
                       )
                     ],
                   ),
+
+                  Container(),
+
                   // Activity Tab Content
                   Center(
                     child: Obx(() => Column(
@@ -408,85 +504,76 @@ class WalletHomepage extends GetView<WalletController> {
                               height: 10.h,
                             ),
 
+                            GetX<HomepageController>(builder: (controller) {
+                              // First, group transactions by date
+                              final groupedTransactions =
+                                  groupTransactionsByDate(
+                                      controller.recentTransactions);
 
+                              return Padding(
+                                padding: EdgeInsets.only(right: 13.w),
+                                child: Column(
+                                  children:
+                                      groupedTransactions.entries.map((entry) {
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        // Date header
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            formatDateHeader(entry.key),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall
+                                                ?.copyWith(
+                                                  fontSize: 8.sp,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                          ),
+                                        ),
 
+                                        SizedBox(height: 3.h),
 
+                                        // Transactions for this date
+                                        ...entry.value
+                                            .map((transaction) =>
+                                                PaymentContainer(
+                                                  transaction: transaction,
+                                                  id: transaction.id,
+                                                  hasImage:
+                                                      transaction.hasProfilePic,
+                                                  date: transaction.date,
+                                                  index: controller
+                                                      .recentTransactions
+                                                      .indexOf(transaction),
+                                                  name: transaction.name,
+                                                  amount:
+                                                      '${transaction.amount} ${transaction.currency}',
+                                                  isreceived: transaction.type,
+                                                  showDetails: transaction
+                                                          .message.length >
+                                                      0,
+                                                  message: transaction.message,
+                                                  imagePath:
+                                                      transaction.imagePath,
+                                                  homepageController:
+                                                      controller,
+                                                  category:
+                                                      '${transaction.type},${transaction.direction}',
+                                                ))
+                                            .toList(),
 
-
-
-
-
-
-
-
-
-
-
-
-GetX<HomepageController>(builder: (controller) {
-  // First, group transactions by date
-  final groupedTransactions = groupTransactionsByDate(controller.recentTransactions);
-  
-  return Padding(
-    padding: EdgeInsets.only(right: 13.w),
-    child: Column(
-      children: groupedTransactions.entries.map((entry) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Date header
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                formatDateHeader(entry.key),
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontSize: 8.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-            
-            SizedBox(height: 3.h),
-            
-            // Transactions for this date
-            ...entry.value.map((transaction) => PaymentContainer(
-              transaction: transaction,
-              id: transaction.id,
-              hasImage: transaction.hasProfilePic,
-              date: transaction.date,
-              index: controller.recentTransactions.indexOf(transaction),
-              name: transaction.name,
-              amount: '${transaction.amount} ${transaction.currency}',
-              isreceived: transaction.type,
-              showDetails: transaction.message.length > 0,
-              message: transaction.message,
-              imagePath: transaction.imagePath,
-              homepageController: controller,
-              category: '${transaction.type},${transaction.direction}',
-            )).toList(),
-            
-            SizedBox(height: 10.h), // Add spacing between date groups
-          ],
-        );
-      }).toList(),
-    ),
-  );
-}),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                        SizedBox(
+                                            height: 10
+                                                .h), // Add spacing between date groups
+                                      ],
+                                    );
+                                  }).toList(),
+                                ),
+                              );
+                            }),
 
                             Text(
                               '${controller.mainTabIndex}',
@@ -503,43 +590,49 @@ GetX<HomepageController>(builder: (controller) {
       ),
     );
   }
-Map<DateTime, List<PaymentModel>> groupTransactionsByDate(List<PaymentModel> transactions) {
-  // Sort transactions by date first (newest to oldest)
-  final sortedTransactions = List<PaymentModel>.from(transactions)
-    ..sort((a, b) {
-      final dateA = DateTime.parse(a.date);
-      final dateB = DateTime.parse(b.date);
-      return dateB.compareTo(dateA);
-    });
-  
-  // Group by date
-  return groupBy(sortedTransactions, (PaymentModel t) {
-    final date = DateTime.parse(t.date);
-    return DateTime(date.year, date.month, date.day);
-  });
-}
 
-String formatDateHeader(DateTime date) {
-  final now = DateTime.now();
-  final yesterday = DateTime.now().subtract(const Duration(days: 1));
-  
-  // Check if it's today
-  if (date.year == now.year && date.month == now.month && date.day == now.day) {
-    return 'Today';
+  Map<DateTime, List<PaymentModel>> groupTransactionsByDate(
+      List<PaymentModel> transactions) {
+    // Sort transactions by date first (newest to oldest)
+    final sortedTransactions = List<PaymentModel>.from(transactions)
+      ..sort((a, b) {
+        final dateA = DateTime.parse(a.date);
+        final dateB = DateTime.parse(b.date);
+        return dateB.compareTo(dateA);
+      });
+
+    // Group by date
+    return groupBy(sortedTransactions, (PaymentModel t) {
+      final date = DateTime.parse(t.date);
+      return DateTime(date.year, date.month, date.day);
+    });
   }
-  // Check if it's yesterday
-  else if (date.year == yesterday.year && date.month == yesterday.month && date.day == yesterday.day) {
-    return 'Yesterday';
+
+  String formatDateHeader(DateTime date) {
+    final now = DateTime.now();
+    final yesterday = DateTime.now().subtract(const Duration(days: 1));
+
+    // Check if it's today
+    if (date.year == now.year &&
+        date.month == now.month &&
+        date.day == now.day) {
+      return 'Today';
+    }
+    // Check if it's yesterday
+    else if (date.year == yesterday.year &&
+        date.month == yesterday.month &&
+        date.day == yesterday.day) {
+      return 'Yesterday';
+    }
+    // If it's this year, show month and day
+    else if (date.year == now.year) {
+      return DateFormat('MMM d').format(date);
+    }
+    // If it's a different year, show month, day and year
+    else {
+      return DateFormat('MMM d, y').format(date);
+    }
   }
-  // If it's this year, show month and day
-  else if (date.year == now.year) {
-    return DateFormat('MMM d').format(date);
-  }
-  // If it's a different year, show month, day and year
-  else {
-    return DateFormat('MMM d, y').format(date);
-  }
-}
 }
 
 class OneActivityActivityTab extends StatelessWidget {
@@ -709,3 +802,6 @@ class OneActivityActivityTab extends StatelessWidget {
     );
   }
 }
+
+
+
