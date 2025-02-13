@@ -105,7 +105,7 @@ Future<void> saveUser(String name, bool hasImage, String? imageUrl) async {
     final dbHelper = DatabaseHelperContact();
 
     // Deleting a user by ID
-    await dbHelper.deleteUserById(1);
+    await dbHelper.deleteUserById(id);
   }
 
   Future<void> loadTopThreeContacts() async {
