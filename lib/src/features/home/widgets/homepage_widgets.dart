@@ -164,7 +164,7 @@ class SettingAndProfileMenu extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 9.w),
+              SizedBox(width: 14.w),
               GestureDetector(
                 onTap: () => Get.off(UserFormPage()),
                 child: CircleAvatar(
@@ -178,7 +178,7 @@ class SettingAndProfileMenu extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 9.w),
+              SizedBox(width: 14.w),
               GestureDetector(
                 onTap: () => Get.toNamed("/profile"),
                 child: CircleAvatar(

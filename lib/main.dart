@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:paypal/src/features/auth/screens/login_page.dart';
 import 'package:paypal/src/features/auth/screens/new_user.dart';
+import 'package:paypal/src/features/auth/screens/openning_sequence/scene_one.dart';
 import 'package:paypal/src/features/home/screens/homepage.dart';
 import 'package:paypal/src/features/home/widgets/root_layout.dart';
 import 'package:paypal/src/features/profile/screens/profile_homepage.dart';
@@ -20,50 +22,35 @@ import 'package:paypal/src/features/wallet/screens/wallet_homepage.dart';
 import 'package:paypal/src/utils/appbinding.dart';
 import 'package:paypal/src/utils/themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await GetStorage.init();
+  
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+    statusBarBrightness: Brightness.light,
+  ));
 
-  // Initialize any required dependencies here
+  await GetStorage.init();
   await initServices();
 
   final storage = GetStorage();
+  Map<String, dynamic>? userData = storage.read('user_data');
 
-  // Read stored date from storage
-String? storedDateStr = DateTime(2025, 2, 3).toIso8601String();
-
-  DateTime? storedDate = storedDateStr != null ? DateTime.parse(storedDateStr) : null;
-  DateTime today = DateTime.now();
-
-  // Define the cutoff date (February 8th, 2025)
-  DateTime cutoffDate = DateTime(2025, 2, 8);
-
-  // Check if current date is beyond cutoff date
-  if (today.isAfter(cutoffDate)) {
-    runApp(MyApp(initialRoute: '/lockPage'));
-    return;
+  bool hasEmptyFields(Map<String, dynamic> data) {
+    return data.values.any((value) => value == null || value.toString().trim().isEmpty);
   }
-  // If not beyond cutoff date, continue with normal flow
-  bool isToday = storedDate != null &&
-      storedDate.year == today.year &&
-      storedDate.month == today.month &&
-      storedDate.day == today.day;
 
-  // Set initial route based on both user data and date check
-  String initialRoute = (storage.read('user_data') != null && isToday)
-      ? '/auth'
+  // Determine the initial route
+  String initialRoute = (userData != null && !hasEmptyFields(userData)) 
+      ? '/sceneone' 
       : '/user_form';
 
-  // Store today's date for next check
-  storage.write('last_access_date', today.toIso8601String());
+  print("User Data: $userData");
+  print("Initial Route: $initialRoute");
 
-  // runApp(MyApp(initialRoute: initialRoute));
+  runApp(MyApp(initialRoute: initialRoute));
 }
-
-
-
-
 
 Future<void> initServices() async {
   // Initialize services here if needed
@@ -73,9 +60,8 @@ Future<void> initServices() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key, required this.initialRoute});
- final String initialRoute;
+  final String initialRoute;
 
- 
   @override
   Widget build(BuildContext context) {
     // ScreenUtil initialization with design size
@@ -89,19 +75,24 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
-        
+
           themeMode: ThemeMode.light,
           defaultTransition: Transition.fade,
           smartManagement: SmartManagement.full,
           initialBinding: Appbinding(),
-     initialRoute: initialRoute,
+          initialRoute: initialRoute,
           getPages: [
+            GetPage(
+                name: '/sceneone',
+                page: () => SceneOne(),
+                transition: Transition.fade),
+
             GetPage(
                 name: '/lockPage',
                 page: () => MyWidget(),
                 transition: Transition.fade),
 
-                GetPage(
+            GetPage(
                 name: '/auth',
                 page: () => LoginPage(),
                 transition: Transition.fade),
@@ -129,7 +120,7 @@ class MyApp extends StatelessWidget {
                 name: '/profile',
                 page: () => const SettingsHomapage(),
                 transition: Transition.fade),
-    GetPage(
+            GetPage(
                 name: '/user_form',
                 page: () => UserFormPage(),
                 transition: Transition.fade),
@@ -145,12 +136,11 @@ class MyApp extends StatelessWidget {
             GetPage(
                 name: '/refund',
                 page: () => const Refund(),
-                transition: Transition.fade),//
+                transition: Transition.fade), //
             GetPage(
                 name: '/paypal_recovery',
                 page: () => const PaypalLossRecoery(),
                 transition: Transition.fade),
-
 
             // =================------
             GetPage(
@@ -165,10 +155,6 @@ class MyApp extends StatelessWidget {
                 name: '/send_to_individual',
                 page: () => const SendToIndividual(),
                 transition: Transition.fade),
-
-
-
-                
           ],
 
           // Optional: Global error handling
@@ -185,8 +171,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
 
 class MyWidget extends StatelessWidget {
   const MyWidget({super.key});

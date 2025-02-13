@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:paypal/src/features/auth/controllers/login_controller.dart';
 import 'package:paypal/src/features/auth/screens/new_user.dart';
+import 'package:paypal/src/features/auth/screens/openning_sequence/sequence_controller.dart';
 import 'package:paypal/src/features/home/controllers/homepage_controller.dart';
 import 'package:paypal/src/features/home/controllers/navigation_controller.dart';
 import 'package:paypal/src/features/payments/controllers/create_payment.dart';
@@ -21,6 +22,7 @@ class Appbinding  extends Bindings{
     Get.put(PaymentsController(), permanent: true);
     Get.put(SettingsController(), permanent: true);
     Get.put(ConversationController(), permanent: true);
+    Get.put(SequenceController(), permanent: true);
 
 
     Get.put(CreatePaymentController(), permanent: true);
