@@ -289,8 +289,9 @@ class Homepage extends GetView<HomepageController> {
                                   isreceived:
                                       controller.recentTransactions[index].type,
                                   showDetails: controller
-                                          .recentTransactions[index]
-                                          .message.isNotEmpty,
+                                      .recentTransactions[index]
+                                      .message
+                                      .isNotEmpty,
                                   message: controller
                                       .recentTransactions[index].message,
                                   imagePath: controller
@@ -478,35 +479,35 @@ class SendAgainContact extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [
         Container(
           height: 40.h,
           width: 40.h,
-          decoration: contact.hasImage 
-    ? BoxDecoration(
-        image: DecorationImage(
-            image: FileImage(File(contact.imageUrl!)),
-            fit: BoxFit.cover,
-        ),
-      
-            
-             shape: BoxShape.circle):BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
+          decoration: contact.hasImage
+              ? BoxDecoration(
+                  image: DecorationImage(
+                    image: FileImage(File(contact.imageUrl!)),
+                    fit: BoxFit.cover,
+                  ),
+                  shape: BoxShape.circle)
+              : BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
           alignment: Alignment.center,
-          child: contact.hasImage?SizedBox.shrink(): Center(
-            child: Text(
-                contact.name
-                    .trim()
-                    .split(' ')
-                    .map((part) => part[0].toUpperCase())
-                    .join(),
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.white,
-                      fontSize: 8.sp,
-                      fontWeight: FontWeight.w400,
-                    )),
-          ),
+          child: contact.hasImage
+              ? SizedBox.shrink()
+              : Center(
+                  child: Text(
+                      contact.name
+                          .trim()
+                          .split(' ')
+                          .map((part) => part[0].toUpperCase())
+                          .join(),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Colors.white,
+                            fontSize: 8.sp,
+                            fontWeight: FontWeight.w400,
+                          )),
+                ),
         ),
         SizedBox(height: 5.h),
         Text(contact.name,
@@ -530,16 +531,16 @@ class PaypalPools extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final storage = GetStorage();
-     if (storage.read('user_data') == null) {
-    storage.write('user_data', {
-      'name': '',
-      'phone': '',
-      'balance': '',
-      'currency': '',
-      'email': '',
-      'address': ''
-    });
-  }
+    if (storage.read('user_data') == null) {
+      storage.write('user_data', {
+        'name': '',
+        'phone': '',
+        'balance': '',
+        'currency': '',
+        'email': '',
+        'address': ''
+      });
+    }
     Map<String, dynamic> userData = storage.read('user_data');
 
     // Get stored date and today's date
