@@ -153,7 +153,7 @@ class MyApp extends StatelessWidget {
                 transition: Transition.fade),
             GetPage(
                 name: '/send_to_individual',
-                page: () => const SendToIndividual(),
+                page: () =>  SendToIndividual(),
                 transition: Transition.fade),
           ],
 
