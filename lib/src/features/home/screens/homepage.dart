@@ -74,6 +74,7 @@ class Homepage extends GetView<HomepageController> {
                                       SizedBox(width: index == 0 ? 0.w : 25.w),
                                       GestureDetector(
                                         onLongPress: () async {
+                                          print('pressed');
                                           await controller.deleteContact(
                                               controller.contacts[index].id!);
                                           await controller
