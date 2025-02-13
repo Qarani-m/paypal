@@ -17,6 +17,8 @@ class SendToIndividual extends StatelessWidget {
   const SendToIndividual({super.key});
   @override
   Widget build(BuildContext context) {
+    final transaction = Get.arguments as PaymentModel;
+
     List<String> howCanWeHelp = [
       'Get answers',
       'Report problem',
@@ -24,15 +26,12 @@ class SendToIndividual extends StatelessWidget {
 
 
     Map<String, String> nameAndSigns = {'GBP': '£', 'EUR': '€', 'USD': '\$'};
+    Map<String, String> nameAndSignsExtended = {'GBP': '£', 'EUR': '€', 'USD': 'US\$'};
+    final storage = GetStorage();
 
-    List<String> howCanWeHelpImages = [
-      AppImages.bank,
-      AppImages.bank,
-      AppImages.bank,
-      AppImages.bank,
-    ];
-
-
+Map<String, dynamic> userData = storage.read('user_data') ?? {};
+String? currency = userData['currency']??'USD';
+ 
         List<IconData> howCanWeHelpIcons = [
       Icons.help_outline,
   Icons.warning_amber
@@ -43,7 +42,6 @@ class SendToIndividual extends StatelessWidget {
       'send_money','i6', 'messages'
     ];
 
-    final storage = GetStorage();
     String address = storage.read('user_data')['address'];
 
     bool isPaymentCompleted = false;
@@ -53,9 +51,8 @@ class SendToIndividual extends StatelessWidget {
         fontSize: 10.sp,
         fontWeight: FontWeight.w500,
         color: Colors.black.withOpacity(1));
-    final transaction = Get.arguments as PaymentModel;
     
-    print(transaction.payPalFee);
+    print(currency);
     
     return Scaffold(
       backgroundColor: Colors.white,
@@ -447,7 +444,7 @@ padding: EdgeInsets.only(top: 8.h),
                                           ],
                                         ),
                                         Text(
-                                            "US\$${AppUtilities().formatNumber(transaction.amount)}",
+                                            "${nameAndSignsExtended[transaction.currency]}${AppUtilities().formatNumber(transaction.amount)}",
                                             style: sameTextStyle),
                                       ],
                                     ),
@@ -468,7 +465,7 @@ padding: EdgeInsets.only(top: 8.h),
                                           style: sameTextStyle,
                                         ),
                                         Text(
-                                          'US\$${(double.parse(transaction.amount)-double.parse(transaction.payPalFee)).toStringAsFixed(0) }',
+                                          '${nameAndSignsExtended[transaction.currency]}${(double.parse(transaction.amount)-double.parse(transaction.payPalFee)).toStringAsFixed(0) }',
                                           style: sameTextStyle,
                                         )
                                       ],
@@ -483,7 +480,7 @@ padding: EdgeInsets.only(top: 8.h),
                                           style: sameTextStyle,
                                         ),
                                         Text(
-                                          'US\$${transaction.payPalFee}',
+                                          '${nameAndSignsExtended[transaction.currency]}${transaction.payPalFee}',
                                           style: sameTextStyle,
                                         )
                                       ],
@@ -499,7 +496,7 @@ padding: EdgeInsets.only(top: 8.h),
                                               fontWeight: FontWeight.w800),
                                         ),
                                         Text(
-                                          'US\$${transaction.amount}',
+                                          '${nameAndSignsExtended[transaction.currency]}${transaction.amount}',
                                           style: sameTextStyle.copyWith(
                                               fontWeight: FontWeight.w800),
                                         )
@@ -510,7 +507,7 @@ padding: EdgeInsets.only(top: 8.h),
                                 SizedBox(
                                   height: 20.h,
                                 ),
-                                transaction.currency == 'USD'
+                                transaction.currency == currency
                                     ? Column()
                                     : Column(
                                         crossAxisAlignment:
@@ -520,7 +517,7 @@ padding: EdgeInsets.only(top: 8.h),
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
                                             children: [
-                                              Text('Exchange rate ',
+                                              Text('Exchange rate- ',
                                                   style: sameTextStyle),
                                               SizedBox(
                                                 width: 5.w,
@@ -542,7 +539,7 @@ padding: EdgeInsets.only(top: 8.h),
                                             height: 3.h,
                                           ),
                                           Text(
-                                              '1 ${transaction.currency} = ${transaction.exchangeRate} USD',
+                                              '1 ${transaction.currency} = ${transaction.exchangeRate} $currency',
                                               style: sameTextStyle),
                                         ],
                                       ),
