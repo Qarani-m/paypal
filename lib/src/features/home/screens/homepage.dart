@@ -478,8 +478,11 @@ class SendAgainContact extends StatelessWidget {
 
   final ContactModel contact;
 
+  
+
   @override
   Widget build(BuildContext context) {
+    print(contact);
     return Column(
       children: [
         Container(

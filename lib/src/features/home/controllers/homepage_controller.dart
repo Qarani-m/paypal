@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,13 +32,21 @@ class HomepageController extends GetxController {
     final XFile? pickedFile =
         await _picker.pickImage(source: ImageSource.gallery);
 
+
     if (pickedFile != null) {
       final Directory appDir = await getApplicationDocumentsDirectory();
-      final String fileName = path.basename(pickedFile.path);
+      final String fileName = generateRandom10DigitNumber();
       final File localImage = File('${appDir.path}/$fileName');
       await File(pickedFile.path).copy(localImage.path);
       _imageFile.value = localImage;
+
+print(fileName);
+
     }
+
+
+
+
 
 
 
@@ -47,6 +56,20 @@ class HomepageController extends GetxController {
 
 
 
+String generateRandom10DigitNumber() {
+  Random random = Random();
+  String number = '';
+  
+  // First digit can't be 0
+  number += (random.nextInt(9) + 1).toString();
+  
+  // Add 9 more random digits
+  for (int i = 0; i < 9; i++) {
+    number += random.nextInt(10).toString();
+  }
+  
+  return number;
+}
 
 
 
