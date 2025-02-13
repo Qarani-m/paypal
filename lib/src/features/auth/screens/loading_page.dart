@@ -22,12 +22,8 @@ class _LoadingPage extends State<LoadingPage> {
   Future<void> _checkAppStatus() async {
     bool? isAppAllowed = await _appService.checkAppStatus();
 
-    if (isAppAllowed == true) {
 
         Get.offNamed('/home'); // Navigate to home only if user is active
-      } else {
-        // Get.snackbar("Access Denied", "You are not allowed to use this app.");
-      }
     
   }
 
