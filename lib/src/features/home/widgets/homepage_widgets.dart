@@ -292,8 +292,8 @@ class PaymentContainer extends StatelessWidget {
 
                   hasImage
                       ? Container(
-                          height: 42.h,
-                          width: 42.h,
+                          height: 29.h,
+                          width: 29.h,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.grey[300],
@@ -311,8 +311,8 @@ class PaymentContainer extends StatelessWidget {
                         )
                       : Container(
                           alignment: Alignment.center,
-                          height: 27.h,
-                          width: 27.h,
+                          height: 29.h,
+                          width: 29.h,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: const Color(0xFF2e3333),
@@ -320,7 +320,7 @@ class PaymentContainer extends StatelessWidget {
                           child: Text(
                             AppUtilities().getInitials(name),
                             style: TextStyle(
-                                fontSize: 9.sp,
+                                fontSize: 10.sp,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.white),
                           ),
