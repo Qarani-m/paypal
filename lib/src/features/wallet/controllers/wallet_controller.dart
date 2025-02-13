@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -17,7 +19,11 @@ class WalletController extends GetxController with GetTickerProviderStateMixin {
   void loadData() {
     final storage = GetStorage();
 
-    Map<String, dynamic> storedData = storage.read('user_data');
+    Map<String, dynamic> storedData = storage.read('user_data')??{
+      'currency':'USD',
+      'balance':'0.00'
+
+    };
     currency.value = storedData['currency'] ?? 'USD';
     amount.value = storedData['balance'] ?? '0.00';
   }
