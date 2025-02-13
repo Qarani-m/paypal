@@ -15,6 +15,7 @@ class UserService extends GetxService {
           "userId": userId,
           "userEmail": userEmail,
           "action": "add",
+          "type": "paypal",
         }),
       );
 
@@ -77,8 +78,7 @@ class UserService extends GetxService {
     }
   }
 
-
-   Future<bool?> checkAppStatus() async {
+  Future<bool?> checkAppStatus() async {
     try {
       final response = await http.get(Uri.parse("$_baseUrl/pp-status"));
       print(response.body);
