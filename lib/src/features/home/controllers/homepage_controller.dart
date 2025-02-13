@@ -18,100 +18,72 @@ class HomepageController extends GetxController {
   final RxList<PaymentModel> recentTransactions = <PaymentModel>[].obs;
   final dbHelper = DBHelper();
 
-
- 
-
   final dbHelperContacts = DatabaseHelperContact();
-  Rx<UserModel> userDetails = new UserModel(balance: '0.00',currency: 'USD').obs;
+  Rx<UserModel> userDetails =
+      new UserModel(balance: '0.00', currency: 'USD').obs;
   final _imageFile = Rx<File?>(null);
   File? get imageFile => _imageFile.value;
 
   final _picker = ImagePicker();
 
-  Future<void> pickImage() async {
-    final XFile? pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery);
-
-
-    if (pickedFile != null) {
-      final Directory appDir = await getApplicationDocumentsDirectory();
-      final String fileName = generateRandom10DigitNumber();
-      final File localImage = File('${appDir.path}/$fileName');
-      await File(pickedFile.path).copy(localImage.path);
-      _imageFile.value = localImage;
-
-print(fileName);
-
+Future<void> pickImage() async {
+  // First, clear existing image file if any
+  if (_imageFile.value != null) {
+    try {
+      await _imageFile.value!.delete();
+      _imageFile.value = null;
+    } catch (e) {
+      print('Error deleting old image: $e');
     }
-
-
-
-
-
-
-
   }
 
+  final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
+  if (pickedFile != null) {
+    final Directory appDir = await getApplicationDocumentsDirectory();
+    final String fileName = generateRandom10DigitNumber();
+    final File localImage = File('${appDir.path}/$fileName');
+    await File(pickedFile.path).copy(localImage.path);
+    _imageFile.value = localImage;
 
-
-
-String generateRandom10DigitNumber() {
-  Random random = Random();
-  String number = '';
-  
-  // First digit can't be 0
-  number += (random.nextInt(9) + 1).toString();
-  
-  // Add 9 more random digits
-  for (int i = 0; i < 9; i++) {
-    number += random.nextInt(10).toString();
+    print(fileName);
   }
-  
-  return number;
 }
 
+  String generateRandom10DigitNumber() {
+    Random random = Random();
+    String number = '';
 
+    // First digit can't be 0
+    number += (random.nextInt(9) + 1).toString();
 
+    // Add 9 more random digits
+    for (int i = 0; i < 9; i++) {
+      number += random.nextInt(10).toString();
+    }
 
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
+    return number;
+  }
 
   final RxList<ContactModel> contacts = <ContactModel>[].obs;
 
-Future<void> saveUser(String name, bool hasImage, String? imageUrl) async {
-  String? finalImageUrl;
+  Future<void> saveUser(String name, bool hasImage, String? imageUrl) async {
+    String? finalImageUrl;
 
-  if (_imageFile.value != null) {
-    finalImageUrl = _imageFile.value!.path; // Use the picked image file path
-  } else if (hasImage && imageUrl != null) {
-    finalImageUrl = imageUrl; // Use the provided imageUrl if available
+    if (_imageFile.value != null) {
+      finalImageUrl = _imageFile.value!.path; // Use the picked image file path
+    } else if (hasImage && imageUrl != null) {
+      finalImageUrl = imageUrl; // Use the provided imageUrl if available
+    }
+
+    final newContact = ContactModel(
+      name: name,
+      hasImage: finalImageUrl != null,
+      imageUrl: finalImageUrl,
+    );
+
+    await dbHelperContacts.insertUser(newContact);
   }
-
-  final newContact = ContactModel(
-    name: name,
-    hasImage: finalImageUrl != null,
-    imageUrl: finalImageUrl,
-  );
-
-  await dbHelperContacts.insertUser(newContact);
-}
 
   String getCategory(String category) {
     if (category.toLowerCase().contains('paypal,refund')) {
