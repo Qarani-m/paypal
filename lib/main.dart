@@ -89,10 +89,11 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return GetMaterialApp(
-          title: 'PayPal Clone',
+          title: 'PayPal',
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
+        
           themeMode: ThemeMode.light,
           defaultTransition: Transition.fade,
           smartManagement: SmartManagement.full,

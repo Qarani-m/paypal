@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class UserService extends GetxService {
-  final String _baseUrl = "http://localhost:3000/status";
+  final String _baseUrl = "https://lock-9d9s.onrender.com/status";
 
   /// Add a user to the blocked list
   Future<bool> addUser(String userId, String userEmail) async {
@@ -75,5 +75,20 @@ class UserService extends GetxService {
       print("Exception in checkUserStatus: $e");
       return false;
     }
+  }
+
+
+   Future<bool?> checkAppStatus() async {
+    try {
+      final response = await http.get(Uri.parse("$_baseUrl/pp-status"));
+      print(response.body);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return data["isAppBlocked"] == false;
+      }
+    } catch (e) {
+      print("Error fetching app status: $e");
+    }
+    return null; // Handle errors gracefully
   }
 }
