@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -20,6 +22,7 @@ import 'package:paypal/src/features/wallet/screens/paypal_balance.dart';
 import 'package:paypal/src/features/wallet/screens/preferences.dart';
 import 'package:paypal/src/features/wallet/screens/wallet_homepage.dart';
 import 'package:paypal/src/utils/appbinding.dart';
+import 'package:paypal/src/utils/services/auto_update.dart';
 import 'package:paypal/src/utils/themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
@@ -48,8 +51,11 @@ void main() async {
 
   print("User Data: $userData");
   print("Initial Route: $initialRoute");
+   await FlutterDownloader.initialize(debug: true);
 
-  runApp(MyApp(initialRoute: initialRoute));
+ await UpdateService.checkAndUpdate();
+
+  runApp(Phoenix(child: MyApp(initialRoute: initialRoute)));
 }
 
 Future<void> initServices() async {

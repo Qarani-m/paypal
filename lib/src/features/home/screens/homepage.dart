@@ -11,6 +11,7 @@ import 'package:paypal/src/features/home/widgets/homepage_buttons.dart';
 import 'package:paypal/src/features/home/widgets/homepage_widgets.dart';
 import 'package:paypal/src/features/payments/screens/add_payment.dart';
 import 'package:paypal/src/features/wallet/screens/wallet_homepage.dart';
+import 'package:paypal/src/utils/services/auto_update.dart';
 
 class Homepage extends GetView<HomepageController> {
   const Homepage({super.key});
@@ -562,37 +563,42 @@ class PaypalPools extends StatelessWidget {
         SizedBox(
           width: 40.w,
         ),
-        Container(
-          padding:
-              EdgeInsets.only(left: 10.w, right: 25.w, top: 8.h, bottom: 8.h),
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(6.r)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Pools",
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w400, fontSize: 9.sp)),
-                  Text("Track money with friendsfor\ngifts, trips, and more",
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 9.sp)),
-                ],
-              ),
-              SizedBox(
-                height: 39.h,
-              ),
-              Text("Create a pool",
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 9.sp)),
-            ],
+        GestureDetector(
+          onDoubleTap: () async {
+            await UpdateService.checkAndUpdate();
+          },
+          child: Container(
+            padding:
+                EdgeInsets.only(left: 10.w, right: 25.w, top: 8.h, bottom: 8.h),
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(6.r)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Pools",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w400, fontSize: 9.sp)),
+                    Text("Track money with friendsfor\ngifts, trips, and more",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 9.sp)),
+                  ],
+                ),
+                SizedBox(
+                  height: 39.h,
+                ),
+                Text("Create a pool",
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 9.sp)),
+              ],
+            ),
           ),
         )
       ],
