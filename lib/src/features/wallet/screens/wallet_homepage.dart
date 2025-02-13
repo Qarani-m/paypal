@@ -290,7 +290,9 @@ class WalletHomepage extends GetView<WalletController> {
                                           fontWeight: FontWeight.w800,
                                           color: Colors.black.withOpacity(1)),
                                 ),
-                                SizedBox(height: 3.h,),
+                                SizedBox(
+                                  height: 3.h,
+                                ),
                                 Text(
                                   'Send, shop and pay without sharing bank\naccount or card detalls with stores or\nsellers.',
                                   style: Theme.of(context)
@@ -303,7 +305,9 @@ class WalletHomepage extends GetView<WalletController> {
                                 )
                               ],
                             ),
-                            SizedBox(width: 30.w,),
+                            SizedBox(
+                              width: 30.w,
+                            ),
                             Container(
                               height: 60.h,
                               width: 100.w,

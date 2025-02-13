@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -476,14 +478,23 @@ class SendAgainContact extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: [
         Container(
           height: 40.h,
           width: 40.h,
-          decoration: BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
+          decoration: contact.hasImage 
+    ? BoxDecoration(
+        image: DecorationImage(
+            image: FileImage(File(contact.imageUrl!)),
+            fit: BoxFit.cover,
+        ),
+      
+            
+             shape: BoxShape.circle):BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
           alignment: Alignment.center,
-          child: Center(
+          child: contact.hasImage?SizedBox.shrink(): Center(
             child: Text(
                 contact.name
                     .trim()
