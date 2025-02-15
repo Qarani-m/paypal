@@ -31,12 +31,12 @@ class Homepage extends GetView<HomepageController> {
       'Street child'
     ];
 
- SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // Color of the status bar
-        statusBarIconBrightness: Brightness.light, // Icon brightness in the status bar
-      ),
-    );
+//  SystemChrome.setSystemUIOverlayStyle(
+//       SystemUiOverlayStyle(
+//         statusBarColor: Colors.transparent, // Color of the status bar
+//         statusBarIconBrightness: Brightness.light, // Icon brightness in the status bar
+//       ),
+//     );
 
 
     return Scaffold(
