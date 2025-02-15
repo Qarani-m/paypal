@@ -129,8 +129,7 @@ flutter:
           weight: 600
     - family: PayPalDefault
       fonts:
-        - asset: assets/fonts/Paypal Sans.ttf
-        - asset: assets/fonts/PayPal.ttf
+        - asset: assets/fonts/Roboto_Condensed-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

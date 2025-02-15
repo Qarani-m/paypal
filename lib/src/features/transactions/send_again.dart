@@ -52,7 +52,12 @@ class PaymentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, String> nameAndSigns = {'GBP': '£', 'EUR': '€', 'USD': '\$'};
+    Map<String, String> nameAndSigns = {
+  'GBP': '\u00A3', // Pound (£)
+  'EUR': '\u20AC', // Euro (€)
+  'USD': '\u0024', // Dollar ($)
+};
+
     final FocusNode _focusNode = FocusNode();
 
     pageController.fillInTheDetails();
@@ -163,6 +168,8 @@ class PaymentPage extends StatelessWidget {
                           '${nameAndSigns[pageController.currencyOne]}0',
                           style: TextStyle(
                               fontSize: 35.sp,
+                            fontFamily: 'PayPalDefault',
+
                               fontWeight: FontWeight.w500,
                               color: Colors.black),
                         ),
@@ -269,8 +276,10 @@ class PaymentPage extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             style: TextStyle(
-                                fontFamily: 'PayPalSans',
+                                // fontFamily: 'PayPalSans',
                                 fontSize: 35.sp,
+                            fontFamily: 'PayPalDefault',
+
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black),
                             children: [
