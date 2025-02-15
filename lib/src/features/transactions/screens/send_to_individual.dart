@@ -131,7 +131,7 @@ String? currency = userData['currency']??'USD';
                                 .textTheme
                                 .bodySmall
                                 ?.copyWith(
-                                    fontSize: 9.5.sp,
+                                    fontSize: 10.5.sp,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.black.withOpacity(1)),
                           ),
@@ -145,7 +145,7 @@ String? currency = userData['currency']??'USD';
                                 .textTheme
                                 .bodySmall
                                 ?.copyWith(
-                                    fontSize: 8.sp,
+                                    fontSize: 9.sp,
                                     fontWeight: FontWeight.w400,
                                     color: Colors.black.withOpacity(1)),
                           ),
@@ -168,16 +168,33 @@ String? currency = userData['currency']??'USD';
                           //   ),
                           // ),
 
-                          Text(
-                            "You paid a ${nameAndSigns[transaction.currency]}${AppUtilities().formatNumber(transaction.payPalFee)} transaction fee",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                                    fontSize: 8.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black.withOpacity(1)),
-                          ),
+                        RichText(
+  text: TextSpan(
+    style: Theme.of(context)
+        .textTheme
+        .bodySmall
+        ?.copyWith(
+          fontSize: 9.sp,
+          fontWeight: FontWeight.w400,
+          color: Colors.black.withOpacity(1),
+        ),
+    children: <TextSpan>[
+      TextSpan(
+        text: "You paid a ",
+      ),
+      TextSpan(
+        text: "${nameAndSigns[transaction.currency]}",
+        style: TextStyle(
+          fontFamily: 'PayPalDefault', // Apply fontFamily to this part
+        ),
+      ),
+      TextSpan(
+        text: "${AppUtilities().formatNumber(transaction.payPalFee)} transaction fee",
+      ),
+    ],
+  ),
+)
+
                         ],
                       ),
                     ],
@@ -447,9 +464,23 @@ padding: EdgeInsets.only(top: 8.h),
                                                 style: sameTextStyle),
                                           ],
                                         ),
-                                        Text(
-                                            "${nameAndSignsExtended[transaction.currency]}${AppUtilities().formatNumber(transaction.amount)}",
-                                            style: sameTextStyle),
+                                      RichText(
+  text: TextSpan(
+    style: sameTextStyle, // Default style
+    children: <TextSpan>[
+      TextSpan(
+        text: '${nameAndSignsExtended[transaction.currency]}', 
+        style: TextStyle(
+          fontFamily: 'PayPalDefault', // Apply fontFamily to the currency part
+        ),
+      ),
+      TextSpan(
+        text: AppUtilities().formatNumber(transaction.amount), // The rest of the amount
+      ),
+    ],
+  ),
+)
+
                                       ],
                                     ),
                                     SizedBox(height: 17.h),
@@ -468,10 +499,23 @@ padding: EdgeInsets.only(top: 8.h),
                                           'Amount',
                                           style: sameTextStyle,
                                         ),
-                                        Text(
-                                          '${nameAndSignsExtended[transaction.currency]}${(double.parse(transaction.amount)-double.parse(transaction.payPalFee)).toStringAsFixed(0) }',
-                                          style: sameTextStyle,
-                                        )
+                                        RichText(
+  text: TextSpan(
+    style: sameTextStyle, // Apply the default style
+    children: <TextSpan>[
+      TextSpan(
+        text: '${nameAndSignsExtended[transaction.currency]}', 
+        style: TextStyle(
+          fontFamily: 'PayPalDefault', // Apply fontFamily to the currency part
+        ),
+      ),
+      TextSpan(
+        text: '${(double.parse(transaction.amount) - double.parse(transaction.payPalFee)).toStringAsFixed(0)}',
+      ),
+    ],
+  ),
+)
+
                                       ],
                                     ),
                                     SizedBox(height: 13.h),
@@ -483,10 +527,23 @@ padding: EdgeInsets.only(top: 8.h),
                                           'Fee',
                                           style: sameTextStyle,
                                         ),
-                                        Text(
-                                          '${nameAndSignsExtended[transaction.currency]}${transaction.payPalFee}',
-                                          style: sameTextStyle,
-                                        )
+                                       RichText(
+  text: TextSpan(
+    style: sameTextStyle, // Apply the default style
+    children: <TextSpan>[
+      TextSpan(
+        text: '${nameAndSignsExtended[transaction.currency]}', 
+        style: TextStyle(
+          fontFamily: 'PayPalDefault', // Apply fontFamily to the currency part
+        ),
+      ),
+      TextSpan(
+        text: '${transaction.payPalFee}',
+      ),
+    ],
+  ),
+)
+
                                       ],
                                     ),
                                     SizedBox(height: 13.h),
@@ -536,9 +593,28 @@ padding: EdgeInsets.only(top: 8.h),
                                           SizedBox(
                                             height: 20.h,
                                           ),
-                                          Text(
-                                              '${nameAndSigns[transaction.currency]}${transaction.amount} ${transaction.currency} = \$${double.parse(transaction.amount) * double.parse(transaction.exchangeRate)} USD',
-                                              style: sameTextStyle),
+                                       RichText(
+  text: TextSpan(
+    style: sameTextStyle, // Default style
+    children: <TextSpan>[
+      TextSpan(
+        text: '${nameAndSigns[transaction.currency]}', 
+        style: TextStyle(
+          fontFamily: 'PayPalDefault', // Apply fontFamily to the currency part
+        ),
+      ),
+      TextSpan(
+        text: '${transaction.amount} ${transaction.currency} = \$', // Amount and currency code
+      ),
+      TextSpan(
+        text: '${(double.parse(transaction.amount) * double.parse(transaction.exchangeRate)).toStringAsFixed(2)} USD', // Conversion result
+        style: TextStyle(
+        ),
+      ),
+    ],
+  ),
+)
+,
                                           SizedBox(
                                             height: 3.h,
                                           ),

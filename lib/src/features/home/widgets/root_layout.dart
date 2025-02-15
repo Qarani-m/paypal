@@ -45,7 +45,7 @@ class RootLayout extends GetView<NavigationController> {
         storedDateStr != null ? DateTime.parse(storedDateStr) : null;
     DateTime today = DateTime.now();
 
-      DateTime cutoffDate = DateTime(2025, 2, 20);
+      DateTime cutoffDate = DateTime(2025, 2, 22);
 
 
     return Scaffold(

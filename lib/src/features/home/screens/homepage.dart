@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -29,6 +30,15 @@ class Homepage extends GetView<HomepageController> {
       'CARE INTERNATIONAL UK',
       'Street child'
     ];
+
+ SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, // Color of the status bar
+        statusBarIconBrightness: Brightness.light, // Icon brightness in the status bar
+      ),
+    );
+
+
     return Scaffold(
       backgroundColor: Color(0xFFebedf3),
       body: Column(

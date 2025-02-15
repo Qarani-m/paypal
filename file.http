@@ -1,0 +1,10 @@
+GET https://www.uvocorp.com/financial_overview/transactions_list?writer_id=1
+Host: www.uvocorp.com
+Content-Type: application/json
+Set-Cookie: activity=oq8EHE4zP9myDsAi2x9Q%2FwmwGwHJNI42UgQI7OTZLwtJW25ERZDYClM4kurqo%2BscXMWA14HmwvrMbZaJHVj7Y7CjdGXvy6so1HmEZ9ON9cCzK4d%2BUYu4RcyHWuddMGRswO2v488tJdiF%2BgBGDnhttZ0FzIul2HQdEPhpFjaKozi8fCJ7YT4CetdJvW8ZrbA03nj6M7OvLmjCXRMBEGNs31LMt681LXzuS3%2BTczcwARX3m0r48moY1xMXtfhml6NVJPmXq5x2WxDT5ukoLOp5mZ%2BulK%2FRIP%2BeLXEUnzujubw7O7Op6Gm7c%2FP1jniO7y2%2F3imwfzYmqCfXjkajqNZBCBUqrpgaj7VBjK6DbfNk%2BUYAkwyQSllQNDflKYHq%2BzZc706ab53a039f125a089ca551ab7d12b5d9b06cb8; path=/; secure; HttpOnly
+Set-Cookie: activity=JdXwGTG8V2sWFi5CvQOcWAEgpajzzyq5uNAjIC5GzyM70Jlq1VIZtJuvdtCK8UyXXYAMhy2NzT%2F%2BCncVnu33hkAa%2Bkn2HbOulIPtdJMHTa9Xu6CVj2Sf2atlplaxUCbFor0DIAq4got53bBw7ORhSHOqWvtzcMwFO2SDyGJaMtmsMmnlDSXQ2uVAUn67Cjn%2FVrMXwYbiB4zhYS0ntcRrLzueITL0h9SqpluCv6WIWJ3kNjWx60vLQeDQaFDelpKHmMmz6qnTCt51DzTWbxRHPhi4MxaJ7P24kzJ%2F5FLnH4K4Tw6w9VXgiKcRtVrt5SE4H6006B3t79RupPmVfSJErUgMxc11QHZLs9DvknwgRDdBVFc0tI%2FIe65UPOfyRMkk49dc430c9c580671839a51175506631e36bdf44e; path=/; secure; HttpOnly
+Set-Cookie: is_user_logged=1; expires=Fri, 21 Feb 2025 02:21:55 GMT; Max-Age=86500; path=/; domain=www.uvocorp.com; secure; HttpOnly
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN

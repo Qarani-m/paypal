@@ -76,6 +76,7 @@ class ShowStory extends StatelessWidget {
                           nameAndSigns[transaction.currency]??nameAndSigns['USD']!,
                           style: TextStyle(
                             fontSize: 11.sp,
+                            fontFamily: 'PayPalDefault'
                           ),
                         ),
                       ),
