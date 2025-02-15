@@ -19,8 +19,7 @@ class receivedFromIndividual extends StatelessWidget {
   Widget build(BuildContext context) {
     final transaction = Get.arguments as PaymentModel;
     Map<String, String> nameAndSigns = {'GBP': '£', 'EUR': '€', 'USD': 'US\$'};
-     List<String> belowShowStory =['send_money', 'messages'];
-
+    List<String> belowShowStory = ['send_money', 'messages'];
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -109,7 +108,7 @@ class receivedFromIndividual extends StatelessWidget {
                             height: 3.h,
                           ),
                           Text(
-                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${ AppUtilities().convert(transaction.time)}${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
+                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${AppUtilities().convert(transaction.time)}${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -118,7 +117,7 @@ class receivedFromIndividual extends StatelessWidget {
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black.withOpacity(1)),
                           ),
-                           SizedBox(
+                          SizedBox(
                             height: 3.h,
                           ),
                           Text(
@@ -163,7 +162,7 @@ class receivedFromIndividual extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: GestureDetector(
-                  onTap: ()=>Get.to(ShowStory(),arguments: transaction),
+                  onTap: () => Get.to(ShowStory(), arguments: transaction),
                   child: Text(
                     "Show story",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -193,30 +192,26 @@ class receivedFromIndividual extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-              padding: EdgeInsets.only(right: 5.w),
-              child:Row(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-
-
-
-
- for (int i = 0; i < 2; i++) ...[
-      ActionButton(
-        icon: belowShowStory[i],
-        label: ['Send Money', 'Message'][i],
-        onTap: () {
-          // Handle tap for each action
-        },
-      ),
-      SizedBox(width: i != 2 ? 50.w : 20.w), // Adjust spacing between actions
-    ]
-
-  ],
-)
-,
-            )
-,
+                    padding: EdgeInsets.only(right: 5.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        for (int i = 0; i < 2; i++) ...[
+                          ActionButton(
+                            icon: belowShowStory[i],
+                            label: ['Send Money', 'Message'][i],
+                            onTap: () {
+                              // Handle tap for each action
+                            },
+                          ),
+                          SizedBox(
+                              width: i != 2
+                                  ? 50.w
+                                  : 20.w), // Adjust spacing between actions
+                        ]
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -301,10 +296,7 @@ class receivedFromIndividual extends StatelessWidget {
             SizedBox(
               height: 15.h,
             ),
-
-
-
-             Padding(
+            Padding(
               padding: EdgeInsets.only(left: 13.w),
               child: Row(
                 children: [
@@ -325,7 +317,6 @@ class receivedFromIndividual extends StatelessWidget {
                 ],
               ),
             ),
-
             SizedBox(
               height: 9.h,
             ),
@@ -433,7 +424,7 @@ class receivedFromIndividualV2 extends StatelessWidget {
                             height: 3.h,
                           ),
                           Text(
-                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${ AppUtilities().convert(transaction.time)}${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
+                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${AppUtilities().convert(transaction.time)}${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -505,7 +496,7 @@ class receivedFromIndividualV2 extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: GestureDetector(
-                  onTap: ()=>Get.to(ShowStory(),arguments: transaction),
+                  onTap: () => Get.to(ShowStory(), arguments: transaction),
                   child: Text(
                     "Show story",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
