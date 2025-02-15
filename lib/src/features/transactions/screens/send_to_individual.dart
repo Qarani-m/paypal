@@ -11,6 +11,7 @@ import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/payments/models/payment_model.dart';
 import 'package:paypal/src/features/transactions/screens/show_history.dart';
 import 'package:paypal/src/features/transactions/screens/show_story.dart';
+import 'package:paypal/src/features/transactions/send_again.dart';
 import 'package:paypal/src/utils/utilities.dart';
 
 class SendToIndividual extends StatelessWidget {
@@ -260,12 +261,17 @@ String? currency = userData['currency']??'USD';
   mainAxisAlignment: MainAxisAlignment.center,
   children: [
     for (int i = 0; i < 3; i++) ...[
-      ActionButton(
-        icon: belowShowStory[i],
-        label: ['Send again', 'Split payment', 'Message'][i],
-        onTap: () {
-          // Handle tap for each action
+      GestureDetector(
+        onTap: (){
+          Get.to(PaymentPage(transaction:transaction));
         },
+        child: ActionButton(
+          icon: belowShowStory[i],
+          label: ['Send again', 'Split payment', 'Message'][i],
+          onTap: () {
+            // Handle tap for each action
+          },
+        ),
       ),
       SizedBox(width: i != 2 ? 50.w : 20.w), // Adjust spacing between actions
     ]
