@@ -13,7 +13,7 @@ class DBHelper {
     String path = join(await getDatabasesPath(), DB_NAME);
     return await openDatabase(
       path,
-      version: 9,
+      version: 12,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );

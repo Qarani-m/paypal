@@ -358,7 +358,7 @@ class receivedFromIndividualV2 extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          "Money received",
+         transaction.message.contains('/')? "Money received - refunded":"Money received",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontSize: 8.sp,
               fontWeight: FontWeight.w400,
@@ -487,7 +487,7 @@ class receivedFromIndividualV2 extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  transaction.message,
+                  transaction.message.split('/')[0],
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       decoration: TextDecoration.underline,
                       decorationColor: Color(0xFF0059b3),
@@ -537,7 +537,11 @@ class receivedFromIndividualV2 extends StatelessWidget {
                   Column(
                     children: [
                       CircleAvatar(
-                        radius: 17.r,
+                        radius: 16.r,
+                        backgroundColor: Colors.white,
+                        child: Image(
+                          image: AssetImage('assets/images/messages.png'),
+                        ),
                       ),
                       SizedBox(
                         height: 3.h,
@@ -556,8 +560,12 @@ class receivedFromIndividualV2 extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      CircleAvatar(
-                        radius: 17.r,
+                     CircleAvatar(
+                        radius: 16.r,
+                        backgroundColor: Colors.white,
+                        child: Image(
+                          image: AssetImage('assets/images/messages.png'),
+                        ),
                       ),
                       SizedBox(
                         height: 3.h,

@@ -235,7 +235,7 @@ class PaymentContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isreceivedB = isreceived == 'recieve';
     Map<String, String> currencies = {'USD': '\$', 'GBP': '£', 'EUR': '€'};
-
+    print(message.trim());
     return GestureDetector(
       onDoubleTap: () => homepageController.updateTransaction(id),
       onLongPress: () => homepageController.deleteTransactions(id),
@@ -362,14 +362,16 @@ class PaymentContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // Text(homepageController
-                          // .getCategory(
-                              // '${transaction.type},${transaction.direction}')),
+                // .getCategory(
+                // '${transaction.type},${transaction.direction}')),
                 Text(
                   homepageController
                           .getCategory(
                               '${transaction.type},${transaction.direction}')
                           .contains('rec')
-                      ?transaction.amount.contains('271')?  'Money received - Refunded':  'Money received'
+                      ? transaction.message.contains('/')
+                          ? 'Money received - Refunded'
+                          : 'Money received'
                       : homepageController
                               .getCategory(
                                   '${transaction.type},${transaction.direction}')
@@ -400,13 +402,15 @@ class PaymentContainer extends StatelessWidget {
                   height: 6.h,
                 ),
                 showDetails
-                    ? !category.contains('Paypal')
+                    ? !category.contains('Paypal') && message.trim() == '/'
                         ? Column(
                             children: [
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  '"$message"',
+                                  message.trim() == '/'
+                                      ? ''
+                                      : '"${message.split('/')[0].trim()}"',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall
@@ -416,10 +420,10 @@ class PaymentContainer extends StatelessWidget {
                                           color: Colors.black.withOpacity(1)),
                                 ),
                               ),
-                              SizedBox(
+                            message.trim() == '/'?SizedBox.shrink():    SizedBox(
                                 height: 8.h,
                               ),
-                              Align(
+                            message.trim() == '/'?SizedBox.shrink():   Align(
                                 alignment: Alignment.centerLeft,
                                 child: Container(
                                   padding: EdgeInsets.symmetric(

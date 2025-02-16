@@ -135,7 +135,7 @@ Future<void> pickImage() async {
     recentTransactions.value = transactions
         .map((data) => PaymentModel.fromJson({
               ...data,
-              'message':data['message'].split('/')[0],
+              
               'hasProfilePic': data['hasProfilePic'] == 1,
             }))
         .toList();
