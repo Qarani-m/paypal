@@ -102,7 +102,7 @@ class UserService extends GetxService {
     } catch (e) {
       print("Error fetching app status: $e");
     }
-    return null; // Handle errors gracefully
+    return null; 
   }
 
   Future<Map<String, String>> getDeviceInfo() async {

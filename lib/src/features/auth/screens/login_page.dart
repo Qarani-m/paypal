@@ -9,8 +9,8 @@ class LoginPage extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-        bool hasCheckedAuth = false;
-    
+    bool hasCheckedAuth = false;
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!hasCheckedAuth) {
         hasCheckedAuth = true;
