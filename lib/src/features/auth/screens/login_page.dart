@@ -9,8 +9,13 @@ class LoginPage extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 1), () {
-      controller.authenticateWithFingerprint();
+        bool hasCheckedAuth = false;
+    
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!hasCheckedAuth) {
+        hasCheckedAuth = true;
+        controller.authenticateWithFingerprint();
+      }
     });
 
     return Scaffold(

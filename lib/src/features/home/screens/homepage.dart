@@ -482,7 +482,6 @@ class SendAgainContact extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(contact);
     return Column(
       children: [
         Container(

@@ -9,6 +9,7 @@ import 'package:local_auth_android/local_auth_android.dart';
 import 'package:paypal/main.dart';
 import 'package:paypal/src/features/auth/models/user_model.dart';
 import 'package:paypal/src/features/auth/screens/loading_page.dart';
+import 'package:paypal/src/features/auth/screens/normal_login.dart';
 import 'package:paypal/src/features/auth/screens/openning_sequence/scene_one.dart';
 
 class LoginController extends GetxController {
@@ -72,7 +73,7 @@ class LoginController extends GetxController {
         }
       } else {
         // Fallback for devices without biometrics
-        // Get.offNamed('/home');
+        Get.off(NormalLogin());
       }
     } catch (e) {
       if (e is PlatformException && e.code == "NotAvailable") {

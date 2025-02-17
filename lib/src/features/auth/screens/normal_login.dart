@@ -6,7 +6,9 @@ class NormalLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.offNamed('/home');
-    return const Placeholder();
+ 
+    return Scaffold(
+      
+    );
   }
 }
