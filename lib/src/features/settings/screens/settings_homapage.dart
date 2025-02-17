@@ -17,14 +17,16 @@ import 'package:shimmer/shimmer.dart';
 class SettingsHomapage extends GetView<SettingsController> {
   const SettingsHomapage({super.key});
 
-@override
-Widget build(BuildContext context) {
-  
+  @override
+  Widget build(BuildContext context) {
     final List<Map<String, dynamic>> accountMenuItems = [
-      {'text': 'Account information', 'onTap': () {
-        controller.showContent.value=false;
-        Get.to(PersonaInfor());
-      }},
+      {
+        'text': 'Account information',
+        'onTap': () {
+          controller.showContent.value = false;
+          Get.to(PersonaInfor());
+        }
+      },
       {'text': 'Login and security'},
       {'text': 'Data and Privacy'},
       {'text': 'Notification preferences'},
@@ -63,44 +65,42 @@ Widget build(BuildContext context) {
       controller.showContent.value = true;
     });
 
-
- 
-  return Scaffold(
-  appBar: PreferredSize(
-    preferredSize: Size.fromHeight(kToolbarHeight), // Standard AppBar height
-    child: Obx(
-  () => AppBar(
-    leading: IconButton(
-      icon: Icon(Icons.arrow_back, size: 15.h),
-      onPressed: () => Navigator.pop(context),
-    ),
-    elevation: 0,
-    actions: [
-      if (controller.showContent.value)
-        Padding(
-          padding: EdgeInsets.only(right: 10.w),
-          child: Icon(
-            Icons.notifications_outlined,
-            size: 15.h,
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize:
+            Size.fromHeight(kToolbarHeight), // Standard AppBar height
+        child: Obx(
+          () => AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back, size: 15.h),
+              onPressed: () => Navigator.pop(context),
+            ),
+            elevation: 0,
+            actions: [
+              if (controller.showContent.value)
+                Padding(
+                  padding: EdgeInsets.only(right: 10.w),
+                  child: Icon(
+                    Icons.notifications_outlined,
+                    size: 15.h,
+                  ),
+                ),
+            ],
+            backgroundColor: Color(0xFFeff2f9),
+            centerTitle: true,
+            title: Text(
+              controller.showContent.value ? "Settings" : '',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black.withOpacity(1),
+                  ),
+            ),
           ),
         ),
-    ],
-    backgroundColor: Color(0xFFeff2f9),
-    centerTitle: true,
-    title: Text(
-      controller.showContent.value ? "Settings" : '',
-      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            fontSize: 10.sp,
-            fontWeight: FontWeight.w400,
-            color: Colors.black.withOpacity(1),
-          ),
-    ),
-  ),
-    ),
-  ),
-  
-    body: Obx(
-      () => Padding(
+      ),
+      body: Obx(
+        () => Padding(
           padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
           child: SingleChildScrollView(
             child: controller.showContent.value
@@ -117,12 +117,10 @@ Widget build(BuildContext context) {
                     child: ShimmerEffect(),
                   ),
           ),
-        
+        ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 }
 
 class ShimmerEffect extends StatelessWidget {
