@@ -2,8 +2,8 @@
 import 'package:get/get.dart';
 
 class NavigationController extends GetxController {
-  final _selectedIndex = 0.obs;
-  get selectedIndex => _selectedIndex.value;
+  RxInt selectedIndex = 0.obs;
+  // get selectedIndex => selectedIndex.value;
 
   void changePage(int index, {String animate = 'null'}) {
 
@@ -14,7 +14,7 @@ class NavigationController extends GetxController {
       }
 
     }else{
-    _selectedIndex.value = index;
+    selectedIndex.value = index;
     }
   }
 
@@ -29,7 +29,7 @@ class NavigationController extends GetxController {
       }
 
     }else{
-    _selectedIndex.value = index;
+    selectedIndex.value = index;
     }
   }
 }

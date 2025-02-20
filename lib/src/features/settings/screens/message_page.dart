@@ -19,9 +19,7 @@ class PayPalAssistantPage extends GetView<ConversationController> {
       );
     }
     List<String> starterMessages = [
-      'Hi, Damian! Thanks for being a valuable customer of\PayPal',
-      'I\'m your PayPal Assistant and always here tohelp, I\'m\nstillin beta testing, so talking to you helps me learn',
-      'What can i help you with?'
+'If i can\'t then i\'ll try to transfer you to Customer Support Agent'
     ];
     // final conversation = args['conversation'] as Conversation;
 
@@ -243,7 +241,7 @@ class TopPart extends StatelessWidget {
                                         .messages[index].content
                                         .contains('/////'),
                                     message: controller.currentConversation.value!
-                                        .messages[index].content
+                                        .messages[index].content.replaceAll('//', '\n')
                                         .split('/////')[0],
                                     isUser: !controller.currentConversation.value!
                                         .messages[index].isFromSupport);
@@ -383,30 +381,37 @@ class ChatBubble extends StatelessWidget {
           : isUser
               ? Alignment.centerRight
               : Alignment.centerLeft,
-      child: Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: 10.w, vertical: isInfor ? 5.h : 10.h),
-        decoration: BoxDecoration(
-          color: isInfor
-              ? Colors.transparent
-              : isUser
-                  ? Colors.black.withOpacity(1)
-                  : Colors.grey[100],
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10.r),
-              topRight: Radius.circular(10.r),
-              bottomLeft: Radius.circular(isUser ? 10.r : 0),
-              bottomRight: Radius.circular(isUser ? 0.r : 10)),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: 290.w,  // Adjust maxWidth as needed
         ),
-        child: Text(
-          message,
-          style: TextStyle(
-            fontSize: 8.5.sp,
+        child: Container(
+          padding: EdgeInsets.symmetric(
+              horizontal: 10.w, vertical: isInfor ? 5.h : 10.h),
+          decoration: BoxDecoration(
             color: isInfor
-                ? Colors.black
+                ? Colors.transparent
                 : isUser
-                    ? Colors.white
-                    : Colors.black,
+                    ? Colors.black.withOpacity(1)
+                    : Colors.grey[100],
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10.r),
+                topRight: Radius.circular(10.r),
+                bottomLeft: Radius.circular(isUser ? 10.r : 0),
+                bottomRight: Radius.circular(isUser ? 0.r : 10)),
+          ),
+          child: Text(
+            message,
+            style: TextStyle(
+              fontSize: 8.5.sp,
+              color: isInfor
+                  ? Colors.black
+                  : isUser
+                      ? Colors.white
+                      : Colors.black,
+            ),
+            softWrap: true,  // Ensure text wraps to the next line
+            overflow: TextOverflow.visible,  // Prevent text overflow
           ),
         ),
       ),

@@ -45,11 +45,12 @@ class RootLayout extends GetView<NavigationController> {
         storedDateStr != null ? DateTime.parse(storedDateStr) : null;
     DateTime today = DateTime.now();
 
-      DateTime cutoffDate = DateTime(2025, 2, 18);
+      DateTime cutoffDate = DateTime(2025, 2, 23);
 
 
     return Scaffold(
-      body: Obx(() =>      !today.isAfter(cutoffDate)   ?     _navItems[controller.selectedIndex].page ?? Homepage():MyWidget(),),
+      body: Obx(() =>      !today.isAfter(cutoffDate)   ?     _navItems[controller.selectedIndex.value].page ?? Homepage():MyWidget(),),
+      // body: !today.isAfter(cutoffDate)   ?     _navItems[controller.selectedIndex.value].page ?? Homepage():MyWidget(),
       bottomNavigationBar: CustomBottomNavigationBar(
         items: _navItems,
         selectedColor: Colors.black,
