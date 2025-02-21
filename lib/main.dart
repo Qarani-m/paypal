@@ -99,72 +99,88 @@ class MyApp extends StatelessWidget {
             GetPage(
                 name: '/lockPage',
                 page: () => MyWidget(),
-                transition: Transition.fade),
+                //transition: Transition.fade),
+),
 
                 GetPage(
                 name: '/auth',
                 page: () => LoginPage(),
-                transition: Transition.fade),
+                //transition: Transition.fade),
+),
             GetPage(
                 name: '/home',
                 page: () => RootLayout(),
-                transition: Transition.fade),
+                //transition: Transition.fade),
+),
             GetPage(
                 name: '/paypal_balance',
                 page: () => const PaypalBalance(),
-                transition: Transition.fade),
+                //transition: Transition.fade),
+),
             GetPage(
                 name: '/card_main_page',
                 page: () => const CardMainpage(),
-                transition: Transition.fade),
+                //transition: Transition.fade),
+),
             GetPage(
                 name: '/preferences',
                 page: () => const Preferences(),
-                transition: Transition.fade),
+                //transition: Transition.fade),
+),
             GetPage(
                 name: '/settings',
                 page: () => const ProfileHomepage(),
-                transition: Transition.fade),
+                //transition: Transition.fade),
+),
             GetPage(
                 name: '/profile',
                 page: () => const SettingsHomapage(),
-                transition: Transition.fade),
+                //transition: Transition.fade),
+),
     GetPage(
                 name: '/user_form',
                 page: () => UserFormPage(),
-                transition: Transition.fade),
+                //transition: Transition.fade),
+),
             GetPage(
                 name: '/received_from_individual',
                 page: () => const receivedFromIndividual(),
-                transition: Transition.fade),
+                //transition: Transition.fade),
+),
             GetPage(
                 name: '/received_from_org',
                 page: () => const receivedFromIndividualV2(),
-                transition: Transition.fade),
+                //transition: Transition.fade),
+),
 
             GetPage(
                 name: '/refund',
                 page: () => const Refund(),
-                transition: Transition.fade),//
+                //transition: Transition.fade),
+),//
             GetPage(
                 name: '/paypal_recovery',
                 page: () => const PaypalLossRecoery(),
-                transition: Transition.fade),
+                //transition: Transition.fade),
+),
 
 
             // =================------
             GetPage(
                 name: '/sent_to_bank',
                 page: () => const SentToBank(),
-                transition: Transition.fade),
+                //transition: Transition.fade),
+),
             GetPage(
                 name: '/send_to_org',
                 page: () => const SettingsHomapage(),
-                transition: Transition.fade),
+                //transition: Transition.fade),
+),
             GetPage(
                 name: '/send_to_individual',
                 page: () => const SendToIndividual(),
-                transition: Transition.fade),
+                //transition: Transition.fade),
+),
 
 
 
