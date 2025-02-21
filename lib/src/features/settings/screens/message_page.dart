@@ -243,7 +243,7 @@ class TopPart extends StatelessWidget {
                                         .messages[index].content
                                         .contains('/////'),
                                     message: controller.currentConversation.value!
-                                        .messages[index].content.replaceAll('//', '\n')
+                                        .messages[index].content.replaceAll('**', '\n')
                                         .split('/////')[0],
                                     isUser: !controller.currentConversation.value!
                                         .messages[index].isFromSupport);
