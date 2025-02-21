@@ -19,7 +19,9 @@ class PayPalAssistantPage extends GetView<ConversationController> {
       );
     }
     List<String> starterMessages = [
-'If i can\'t then i\'ll try to transfer you to Customer Support Agent'
+      // 'Hi, Damian! Thanks for being a valuable customer of\PayPal',
+      // 'I\'m your PayPal Assistant and always here tohelp, I\'m\nstillin beta testing, so talking to you helps me learn',
+      // 'What can i help you with?'
     ];
     // final conversation = args['conversation'] as Conversation;
 
@@ -241,7 +243,7 @@ class TopPart extends StatelessWidget {
                                         .messages[index].content
                                         .contains('/////'),
                                     message: controller.currentConversation.value!
-                                        .messages[index].content.replaceAll('//', '\n')
+                                        .messages[index].content.replaceAll('**', '\n')
                                         .split('/////')[0],
                                     isUser: !controller.currentConversation.value!
                                         .messages[index].isFromSupport);

@@ -21,7 +21,7 @@ class PersonaInfor extends GetView<SettingsController> {
 
     // controller.loadUserData();
     Future.delayed(Duration(milliseconds: 400), () {
-      print('-------');
+
       controller.showContent.value = true;
     });
 
