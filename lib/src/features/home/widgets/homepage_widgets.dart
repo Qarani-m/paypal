@@ -9,75 +9,83 @@ import 'package:paypal/src/features/home/controllers/homepage_controller.dart';
 import 'package:paypal/src/features/home/widgets/homepage_buttons.dart';
 import 'package:paypal/src/features/payments/models/payment_model.dart';
 import 'package:paypal/src/features/transactions/screens/recieved_from_individual.dart';
+import 'package:paypal/src/utils/font_sizes.dart';
 import 'package:paypal/src/utils/utilities.dart';
 
 class PayFromYourPhone extends StatelessWidget {
-  const PayFromYourPhone({
+    PayFromYourPhone({
     super.key,
   });
+final FontSliderController controller = Get.put(FontSliderController());
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.maxFinite,
-      padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(6.r)),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                height: 20.h,
-                width: 30.w,
-                decoration: BoxDecoration(
-                    image:
-                        DecorationImage(image: AssetImage(AppImages.atmCard))),
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Pay From Your Phone",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 8.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black.withOpacity(1)),
-                  ),
-                  SizedBox(
-                    height: 3.h,
-                  ),
-                  Text(
-                    "For the things you love",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 7.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black.withOpacity(1)),
-                  ),
-                ],
-              )
-            ],
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Text(
-            "Send now",
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                decoration: TextDecoration.underline,
-                decorationColor:
-                    const Color.fromARGB(255, 32, 118, 188).withOpacity(1),
-                fontSize: 6.5.sp,
-                fontWeight: FontWeight.w700,
-                color: const Color.fromARGB(255, 32, 118, 188).withOpacity(1)),
-          )
-        ],
+    return GestureDetector(
+    
+      child: Container(
+        width: double.maxFinite,
+        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(6.r)),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Container(
+                  height: 20.h,
+                  width: 30.w,
+                  decoration: BoxDecoration(
+                      image:
+                          DecorationImage(image: AssetImage(AppImages.atmCard))),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Pay From Your Phone",
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 8.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black.withOpacity(1)),
+                    ),
+                    SizedBox(
+                      height: 3.h,
+                    ),
+                    Text(
+                      "For the things you love",
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 7.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black.withOpacity(1)),
+                    ),
+                  ],
+                )
+              ],
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Text(
+              "Send now",
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  decoration: TextDecoration.underline,
+                  decorationColor:
+                      const Color.fromARGB(255, 32, 118, 188).withOpacity(1),
+                  fontSize: 6.5.sp,
+                  fontWeight: FontWeight.w700,
+                  color: const Color.fromARGB(255, 32, 118, 188).withOpacity(1)),
+            )
+          ],
+        ),
       ),
     );
   }
+
+
+
 }
 
 class PayPalBalance extends StatelessWidget {

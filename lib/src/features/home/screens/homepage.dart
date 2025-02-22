@@ -12,6 +12,7 @@ import 'package:paypal/src/features/home/widgets/homepage_buttons.dart';
 import 'package:paypal/src/features/home/widgets/homepage_widgets.dart';
 import 'package:paypal/src/features/payments/screens/add_payment.dart';
 import 'package:paypal/src/features/wallet/screens/wallet_homepage.dart';
+import 'package:paypal/src/utils/font_sizes.dart';
 
 class Homepage extends GetView<HomepageController> {
   const Homepage({super.key});
@@ -532,12 +533,13 @@ class SendAgainContact extends StatelessWidget {
 }
 
 class PaypalPools extends StatelessWidget {
-  const PaypalPools({
+    PaypalPools({
     super.key,
     required this.controller,
   });
 
   final HomepageController controller;
+final FontSliderController controllerB = Get.put(FontSliderController());
 
   @override
   Widget build(BuildContext context) {
@@ -594,11 +596,59 @@ class PaypalPools extends StatelessWidget {
               SizedBox(
                 height: 39.h,
               ),
-              Text("Create a pool",
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 9.sp)),
+              GestureDetector(
+
+  onTap: () {
+        print('------------------------------');
+          
+    Get.bottomSheet(
+      Container(
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              "Adjust Font Level",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            Obx(() => Text(
+                  "Font Level: ${controllerB.fontLevel.value}",
+                  style: TextStyle(fontSize: 16),
+                )),
+            Obx(()=> Slider(
+                min: 1,
+                max: 10,
+                divisions: 9,
+                value: controllerB.fontLevel.value.toDouble(),
+                onChanged: (value) {
+                  controllerB.updateFontLevel(value);
+                },
+              ),
+            ),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Get.back(); // Close the bottom sheet
+              },
+              child: Text("Done"),
+            ),
+          ],
+        ),
+      ),
+      isDismissible: true,
+      enableDrag: true,
+    );
+  },
+                child: Text("Create a pool",
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 9.sp)),
+              ),
             ],
           ),
         )
