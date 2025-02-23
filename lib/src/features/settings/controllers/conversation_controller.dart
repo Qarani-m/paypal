@@ -96,7 +96,6 @@ class ConversationController extends GetxController {
     }
     conversations
         .removeWhere((conversation) => conversation.id == conversationId);
-    print('--------------------------------------------------');
   }
 
   RxBool isTyping = false.obs;

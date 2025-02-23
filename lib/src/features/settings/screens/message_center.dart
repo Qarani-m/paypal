@@ -108,7 +108,6 @@ class MessageCenter extends GetView<ConversationController> {
                               );
                             },
                             onLongPress: ()async{
-                              print(2);
                               await controller.deleteConversation(conversation.id!);
                             },
                             child: OneMessage(

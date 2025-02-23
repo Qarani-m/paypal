@@ -80,7 +80,7 @@ class ShowStory extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        formatToTwoDecimals(transaction.amount),
+                        formatToTwoDecimals((double.parse(transaction.amount)-double.parse(transaction.payPalFee)).toString()),
 
                         style: TextStyle(
                           fontSize: 30.sp,

@@ -87,7 +87,6 @@ class CreatePaymentController extends GetxController {
         'direction': actions[selectedTab.value]
       };
 
-      print(payment);
 
       final result = await _dbHelper.insertOne(payment);
       if (result != null) {

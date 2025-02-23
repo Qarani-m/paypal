@@ -281,7 +281,6 @@ class AddPayment extends GetView<CreatePaymentController> {
                               SizedBox(
                                 height: 8.h,
                               ),
-                              // ==========================================================
                 
                               Align(
                                 alignment: Alignment.centerLeft,
@@ -469,7 +468,6 @@ class AddPayment extends GetView<CreatePaymentController> {
                         : Center(),
                   ),
                 
-                  // ==========================================================
                 ],
                                 ),
                               ),
@@ -508,8 +506,6 @@ class AddPayment extends GetView<CreatePaymentController> {
                     GestureDetector(
                       onTap: () {
                         controller.savePayment();
-                        print(
-                            'Selected: ${controller.selectedTab.value},${controller.actions[controller.selectedTab.value]}');
                       },
                       child: Container(
                         padding:

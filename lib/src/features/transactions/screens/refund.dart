@@ -8,16 +8,23 @@ import 'package:flutter/foundation.dart';
 
 import 'package:paypal/src/constants/images.dart';
 import 'package:paypal/src/features/payments/models/payment_model.dart';
+import 'package:paypal/src/features/transactions/screens/send_to_individual.dart';
 import 'package:paypal/src/features/transactions/screens/show_story.dart';
 import 'package:paypal/src/utils/utilities.dart';
+import 'package:shimmer/shimmer.dart';
 
 class Refund extends StatelessWidget {
-  const Refund({super.key});
+   Refund({super.key});
+      final SendtoIndiviualController controller =
+        Get.put<SendtoIndiviualController>(SendtoIndiviualController());
 
   @override
   Widget build(BuildContext context) {
     final transaction = Get.arguments as PaymentModel;
     Map<String, String> nameAndSigns = {'GBP': '£', 'EUR': '€', 'USD': 'US\$'};
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      controller.showContent.value = false;
+    });
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -27,282 +34,405 @@ class Refund extends StatelessWidget {
         ),
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text(
-          "Refund sent",
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              fontSize: 10.sp,
-              fontWeight: FontWeight.w400,
-              color: Colors.black.withOpacity(1)),
+        title:  Obx(()=>Text(
+                controller.showContent.value?'':    "Refund sent",
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontSize: 10.sp,
+                fontWeight: FontWeight.w400,
+                color: Colors.black.withOpacity(1)),
+          ),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.only(top: 10.h, left: 0.w, right: 0.w),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 13.w),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      transaction.hasProfilePic
-                          ? Container(
-                              height: 32.h,
-                              width: 32.h,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.grey[300],
-                              ),
-                              child: ClipOval(
-                                child: Image.file(
-                                  File(transaction.imagePath),
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Icon(Icons.person,
-                                        color: Colors.grey[600]);
-                                  },
-                                ),
-                              ),
-                            )
-                          : Container(
-                              alignment: Alignment.center,
-                              height: 33.h,
-                              width: 33.h,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: const Color(0xFF2e3333),
-                              ),
-                              child: Text(
-                                AppUtilities().getInitials(transaction.name),
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white),
-                              ),
-                            ),
-                      SizedBox(
-                        width: 5.w,
-                      ),
-                      Column(
+      body: Obx(()=>Padding(
+          padding: EdgeInsets.only(top: 10.h, left: 0.w, right: 0.w),
+          child: controller.showContent.value
+                ? Padding(
+                    padding: EdgeInsets.only(left: 13.w),
+                    child: Column(children: [
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            transaction.name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                                    fontSize: 10.sp,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black.withOpacity(1)),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _buildShimmerBox(11, 60.w,
+                                  radius: 6, distance: 6.h),
+                              Container(
+                                height: 34.h,
+                                width: 34.h,
+                                margin: EdgeInsets.only(
+                                    bottom: 8.h), // Add spacing if needed
+                                child: Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!.withOpacity(0.4),
+                                  highlightColor:
+                                      Colors.grey[100]!.withOpacity(0.1),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                          SizedBox(
-                            height: 3.h,
+                          Padding(
+                            padding: EdgeInsets.only(top: 17.h),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                _buildShimmerBox(
+                                  11,
+                                  160.w,
+                                  radius: 6,
+                                  distance: 6.h,
+                                ),
+                                _buildShimmerBox(
+                                  11,
+                                  120.w,
+                                  radius: 6,
+                                  distance: 6.h,
+                                ),
+                              ],
+                            ),
                           ),
-                          Text(
-                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${transaction.time} ${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
-
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                                    fontSize: 9.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black.withOpacity(1)),
-                          ),
-                          SizedBox(
-                            height: 3.h,
-                          ),
-                          Text(
-                            "Show history",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: Color(0xFF0059b3),
-                                    fontSize: 8.5.sp,
-                                    fontWeight: FontWeight.w800,
-                                    color: Color(0xFF0059b3).withOpacity(1)),
+                          Padding(
+                            padding: EdgeInsets.only(top: 17.h),
+                            child: _buildShimmerBox(
+                              10,
+                              60.w,
+                              radius: 6,
+                            ),
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                  Text(
-                    "-${nameAndSigns[transaction.currency]}${AppUtilities().formatNumber(transaction.amount)}",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black.withOpacity(1)),
-                  ),
-                ],
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Column(
+                        children: shimmerPlaceholders(),
+                      )
+                    ]),
+                  )
+                : TheMainRefundBody(transaction: transaction, nameAndSigns: nameAndSigns),
+        ),
+      ),
+    );
+  }
+
+
+    List<double> shimmerHeights = [60, 11, 10, 60];
+
+  List<Widget> shimmerPlaceholders() {
+    return shimmerHeights
+        .map((height) => _buildShimmerBox(height, double.infinity))
+        .toList();
+  }
+
+  Widget _buildShimmerBox(double height, double width,
+      {double radius = 10, double distance = 23}) {
+    return Column(
+      children: [
+        Container(
+          width: width,
+          height: height.h,
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey[300]!.withOpacity(0.4),
+            highlightColor: Colors.grey[100]!.withOpacity(0.1),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(radius.r),
               ),
             ),
-            SizedBox(
-              height: 12.h,
-            ),
-            Container(
-              height: 1.5.h,
-              width: double.maxFinite,
-              color: Color(0xFFeff2f9),
-            ),
-            SizedBox(
-              height: 12.h,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 13.w),
-              child: Row(
+          ),
+        ),
+        SizedBox(
+          height: height == 11 ? distance.h : 33.h,
+        )
+      ],
+    );
+  }
+}
+
+class TheMainRefundBody extends StatelessWidget {
+  const TheMainRefundBody({
+    super.key,
+    required this.transaction,
+    required this.nameAndSigns,
+  });
+
+  final PaymentModel transaction;
+  final Map<String, String> nameAndSigns;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 13.w),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.info,
-                    size: 13.h,
-                    color: Colors.black54,
+                  transaction.hasProfilePic
+                      ? Container(
+                          height: 32.h,
+                          width: 32.h,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.grey[300],
+                          ),
+                          child: ClipOval(
+                            child: Image.file(
+                              File(transaction.imagePath),
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Icon(Icons.person,
+                                    color: Colors.grey[600]);
+                              },
+                            ),
+                          ),
+                        )
+                      : Container(
+                          alignment: Alignment.center,
+                          height: 33.h,
+                          width: 33.h,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: const Color(0xFF2e3333),
+                          ),
+                          child: Text(
+                            AppUtilities().getInitials(transaction.name),
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
+                          ),
+                        ),
+                  SizedBox(
+                    width: 5.w,
                   ),
-                  SizedBox(width: 9.w),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "The Original transaction was on Feb 6, 2025",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 8.sp,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black.withOpacity(1)),
+                        transaction.name,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black.withOpacity(1)),
                       ),
                       SizedBox(
                         height: 3.h,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.to(RefundDetails(), arguments: transaction);
-                        },
-                        child: Text(
-                          "View details",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(
-                                  fontSize: 8.5.sp,
-                                  fontWeight: FontWeight.w800,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: Color(0xFF0059b3),
-                                  color: Color(0xFF0059b3).withOpacity(1)),
-                        ),
+                      Text(
+                        "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${ AppUtilities().convert(transaction.time)}${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
+    
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(
+                                fontSize: 9.sp,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black.withOpacity(1)),
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      Text(
+                        "Show history",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(
+                                decoration: TextDecoration.underline,
+                                decorationColor: Color(0xFF0059b3),
+                                fontSize: 8.5.sp,
+                                fontWeight: FontWeight.w800,
+                                color: Color(0xFF0059b3).withOpacity(1)),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Container(
-              height: 1.5.h,
-              width: double.maxFinite,
-              color: Color(0xFFeff2f9),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 13.w),
-              child: Column(
+              Text(
+                "-${nameAndSigns[transaction.currency]}${AppUtilities().formatNumber(transaction.amount)}",
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black.withOpacity(1)),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 12.h,
+        ),
+        Container(
+          height: 1.5.h,
+          width: double.maxFinite,
+          color: Color(0xFFeff2f9),
+        ),
+        SizedBox(
+          height: 12.h,
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 13.w),
+          child: Row(
+            children: [
+              Icon(
+                Icons.info,
+                size: 13.h,
+                color: Colors.black54,
+              ),
+              SizedBox(width: 9.w),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "From",
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 9.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black.withOpacity(1)),
-                    ),
+                  Text(
+                    "The Original transaction was on Feb 6, 2025",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 8.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black.withOpacity(1)),
                   ),
                   SizedBox(
-                    height: 10.h,
+                    height: 3.h,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "PayPal balance",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 9.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black.withOpacity(1)),
-                      ),
-                      Text(
-                        "${nameAndSigns[transaction.currency]}${AppUtilities().formatNumber(transaction.amount)}",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: 9.5.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black.withOpacity(1)),
-                      ),
-                    ],
-                  )
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(RefundDetails(), arguments: transaction);
+                    },
+                    child: Text(
+                      "View details",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(
+                              fontSize: 8.5.sp,
+                              fontWeight: FontWeight.w800,
+                              decoration: TextDecoration.underline,
+                              decorationColor: Color(0xFF0059b3),
+                              color: Color(0xFF0059b3).withOpacity(1)),
+                    ),
+                  ),
                 ],
-              ),
-            ),
-            SizedBox(
-              height: 14.h,
-            ),
-            Container(
-              height: 1.5.h,
-              width: double.maxFinite,
-              color: Color(0xFFeff2f9),
-            ),
-            SizedBox(
-              height: 7.h,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 13.w),
-              child: Align(
+              )
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        Container(
+          height: 1.5.h,
+          width: double.maxFinite,
+          color: Color(0xFFeff2f9),
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 13.w),
+          child: Column(
+            children: [
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Transaction ID",
+                  "From",
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontSize: 10.sp,
+                      fontSize: 9.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.black.withOpacity(1)),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 13.w),
-              child: Row(
+              SizedBox(
+                height: 10.h,
+              ),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    transaction.transactionCode,
+                    "PayPal balance",
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 10.sp,
+                        fontSize: 9.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.black.withOpacity(1)),
                   ),
-                  Icon(
-                    Icons.copy,
-                    size: 12.h,
-                  )
+                  Text(
+                    "${nameAndSigns[transaction.currency]}${AppUtilities().formatNumber(transaction.amount)}",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 9.5.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black.withOpacity(1)),
+                  ),
                 ],
-              ),
-            ),
-            SizedBox(
-              height: 6.h,
-            ),
-            SizedBox(
-              height: 16.h,
-            ),
-          ],
+              )
+            ],
+          ),
         ),
-      ),
+        SizedBox(
+          height: 14.h,
+        ),
+        Container(
+          height: 1.5.h,
+          width: double.maxFinite,
+          color: Color(0xFFeff2f9),
+        ),
+        SizedBox(
+          height: 7.h,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 13.w),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Transaction ID",
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black.withOpacity(1)),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 13.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                transaction.transactionCode,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black.withOpacity(1)),
+              ),
+              Icon(
+                Icons.copy,
+                size: 12.h,
+              )
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 6.h,
+        ),
+        SizedBox(
+          height: 16.h,
+        ),
+      ],
     );
   }
 }
@@ -435,7 +565,7 @@ class RefundDetails extends StatelessWidget {
                             height: 3.h,
                           ),
                           Text(
-                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${transaction.time} ${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
+                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${ AppUtilities().convert(transaction.time)}${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall

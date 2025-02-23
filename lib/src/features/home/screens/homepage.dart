@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -9,6 +12,7 @@ import 'package:paypal/src/features/home/widgets/homepage_buttons.dart';
 import 'package:paypal/src/features/home/widgets/homepage_widgets.dart';
 import 'package:paypal/src/features/payments/screens/add_payment.dart';
 import 'package:paypal/src/features/wallet/screens/wallet_homepage.dart';
+import 'package:paypal/src/utils/font_sizes.dart';
 
 class Homepage extends GetView<HomepageController> {
   const Homepage({super.key});
@@ -27,6 +31,13 @@ class Homepage extends GetView<HomepageController> {
       'CARE INTERNATIONAL UK',
       'Street child'
     ];
+
+     SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, // Color of the status bar
+        statusBarIconBrightness: Brightness.dark, // Icon brightness in the status bar
+      ),
+    );
     return Scaffold(
       backgroundColor: Color(0xFFebedf3),
       body: Column(
@@ -72,6 +83,7 @@ class Homepage extends GetView<HomepageController> {
                                       SizedBox(width: index == 0 ? 0.w : 25.w),
                                       GestureDetector(
                                         onLongPress: () async {
+                                          print('pressed');
                                           await controller.deleteContact(
                                               controller.contacts[index].id!);
                                           await controller
@@ -264,7 +276,6 @@ class Homepage extends GetView<HomepageController> {
                       ),
                       SizedBox(height: 12.h),
                       GetX<HomepageController>(builder: (controller) {
-                        // print(controller.recentTransactions[0]);
                         return Padding(
                           padding: EdgeInsets.only(
                             right: 13.w,
@@ -288,10 +299,9 @@ class Homepage extends GetView<HomepageController> {
                                   isreceived:
                                       controller.recentTransactions[index].type,
                                   showDetails: controller
-                                          .recentTransactions[index]
-                                          .message
-                                          .length >
-                                      0,
+                                      .recentTransactions[index]
+                                      .message
+                                      .isNotEmpty,
                                   message: controller
                                       .recentTransactions[index].message,
                                   imagePath: controller
@@ -477,6 +487,8 @@ class SendAgainContact extends StatelessWidget {
 
   final ContactModel contact;
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -484,21 +496,30 @@ class SendAgainContact extends StatelessWidget {
         Container(
           height: 40.h,
           width: 40.h,
-          decoration: BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
+          decoration: contact.hasImage
+              ? BoxDecoration(
+                  image: DecorationImage(
+                    image: FileImage(File(contact.imageUrl!)),
+                    fit: BoxFit.cover,
+                  ),
+                  shape: BoxShape.circle)
+              : BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
           alignment: Alignment.center,
-          child: Center(
-            child: Text(
-                contact.name
-                    .trim()
-                    .split(' ')
-                    .map((part) => part[0].toUpperCase())
-                    .join(),
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.white,
-                      fontSize: 8.sp,
-                      fontWeight: FontWeight.w400,
-                    )),
-          ),
+          child: contact.hasImage
+              ? SizedBox.shrink()
+              : Center(
+                  child: Text(
+                      contact.name
+                          .trim()
+                          .split(' ')
+                          .map((part) => part[0].toUpperCase())
+                          .join(),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Colors.white,
+                            fontSize: 8.sp,
+                            fontWeight: FontWeight.w400,
+                          )),
+                ),
         ),
         SizedBox(height: 5.h),
         Text(contact.name,
@@ -512,26 +533,27 @@ class SendAgainContact extends StatelessWidget {
 }
 
 class PaypalPools extends StatelessWidget {
-  const PaypalPools({
+    PaypalPools({
     super.key,
     required this.controller,
   });
 
   final HomepageController controller;
+final FontSliderController controllerB = Get.put(FontSliderController());
 
   @override
   Widget build(BuildContext context) {
     final storage = GetStorage();
-     if (storage.read('user_data') == null) {
-    storage.write('user_data', {
-      'name': '',
-      'phone': '',
-      'balance': '',
-      'currency': '',
-      'email': '',
-      'address': ''
-    });
-  }
+    if (storage.read('user_data') == null) {
+      storage.write('user_data', {
+        'name': '',
+        'phone': '',
+        'balance': '',
+        'currency': '',
+        'email': '',
+        'address': ''
+      });
+    }
     Map<String, dynamic> userData = storage.read('user_data');
 
     // Get stored date and today's date
@@ -574,11 +596,59 @@ class PaypalPools extends StatelessWidget {
               SizedBox(
                 height: 39.h,
               ),
-              Text("Create a pool",
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 9.sp)),
+              GestureDetector(
+
+  onTap: () {
+        print('------------------------------');
+          
+    Get.bottomSheet(
+      Container(
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              "Adjust Font Level",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            Obx(() => Text(
+                  "Font Level: ${controllerB.fontLevel.value}",
+                  style: TextStyle(fontSize: 16),
+                )),
+            Obx(()=> Slider(
+                min: 1,
+                max: 10,
+                divisions: 9,
+                value: controllerB.fontLevel.value.toDouble(),
+                onChanged: (value) {
+                  controllerB.updateFontLevel(value);
+                },
+              ),
+            ),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Get.back(); // Close the bottom sheet
+              },
+              child: Text("Done"),
+            ),
+          ],
+        ),
+      ),
+      isDismissible: true,
+      enableDrag: true,
+    );
+  },
+                child: Text("Create a pool",
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 9.sp)),
+              ),
             ],
           ),
         )

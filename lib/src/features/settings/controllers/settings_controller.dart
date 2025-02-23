@@ -6,11 +6,14 @@ class SettingsController extends GetxController {
   final _storage = GetStorage(); // GetStorage instance
   final Rx<UserModel> user = UserModel().obs; // Reactive UserModel instance
 
+RxBool showContent = false.obs;
+
+
   @override
   Future<void> onInit() async {
     super.onInit();
+
     await loadUserData();
-    print(user);
   }
 
   Future<void> loadUserData() async{
@@ -25,3 +28,5 @@ class SettingsController extends GetxController {
     _storage.write('user_data', updatedUser.toJson());
   }
 }
+
+

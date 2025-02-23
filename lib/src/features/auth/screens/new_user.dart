@@ -27,7 +27,7 @@ class UserFormController extends GetxController {
   final currency = ''.obs;
   final email = ''.obs;
   final address = ''.obs;
-  final imagePath = ''.obs;
+  final imagePath = '-'.obs;
   final hasImage = false.obs;
 
   Future<void> pickImage() async {
@@ -38,7 +38,7 @@ class UserFormController extends GetxController {
     }
   }
 
-  void saveUser() {
+  void saveUser(int fromWhere) {
     if (formKey.currentState!.validate()) {
       final user = UserModel(
           name: name.value,
@@ -50,15 +50,33 @@ class UserFormController extends GetxController {
           imagePath: imagePath.value,
           hasImage: hasImage.value);
 
-      print(user);
       storage.write('user_data', user.toJson());
+
+
+
+
+
       Get.offNamed('/home');
     }
   }
 
 
+void updateTheUserForm(){
 
-void fillInFilesa() {
+}
+
+@override
+  void onInit() async{
+    // TODO: implement onInit
+    super.onInit();
+   await  fillInFilesa();
+  }
+
+
+
+
+
+Future<void> fillInFilesa() async {
   // Define default values
   final Map<String, dynamic> defaultValues = {
     'name': '',
@@ -71,7 +89,7 @@ void fillInFilesa() {
 
   // Read and merge with defaults
   Map<String, dynamic> userData = Map<String, dynamic>.from(defaultValues);
-  Map<String, dynamic>? storedData = storage.read('user_data');
+  Map<String, dynamic>? storedData = await storage.read('user_data');
   
   if (storedData != null) {
     userData.addAll(storedData);
@@ -85,7 +103,7 @@ void fillInFilesa() {
   });
 
   // Save the initialized userData
-  storage.write('user_data', userData);
+  await storage.write('user_data', userData);
 
   // Fill in the controllers
   nameController.text = userData['name'];
@@ -104,7 +122,8 @@ class UserFormPage extends GetView<UserFormController> {
   Widget build(BuildContext context) {
     controller.fillInFilesa();
     return Scaffold(
-      appBar: AppBar(title: Text('Create Profile')),
+      backgroundColor: Colors.white,
+      appBar: AppBar(title: Text('Create Profile', style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10.sp),), centerTitle: true,),
       body: Form(
         key: controller.formKey,
         child: ListView(
@@ -159,18 +178,47 @@ class UserFormPage extends GetView<UserFormController> {
     );
   }
 
-  Widget _buildProfileImagePicker() {
-    return Obx(() => GestureDetector(
-          onTap: controller.pickImage,
-          child: CircleAvatar(
-            radius: 50.r,
-            backgroundImage: controller.hasImage.value
-                ? FileImage(File(controller.imagePath.value))
-                : null,
-            child: !controller.hasImage.value ? Icon(Icons.add_a_photo) : null,
+Widget _buildProfileImagePicker() {
+  return Obx(() => GestureDetector(
+        onTap: controller.pickImage,
+        child: Container(
+          width: 120.w,
+          height: 120.h,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xffffffff),
+                blurRadius: 8,
+                offset: Offset(2, 4),
+              )
+            ],
           ),
-        ));
-  }
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              CircleAvatar(
+                radius: 60.r,
+                backgroundColor: Colors.grey.shade200,
+                backgroundImage: controller.hasImage.value
+                    ? FileImage(File(controller.imagePath.value))
+                    : null,
+              ),
+              if (!controller.hasImage.value)
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.add_a_photo, size: 30.sp, color: Colors.grey.shade700),
+                    SizedBox(height: 4.h),
+                    Text("Upload", style: TextStyle(color: Colors.grey.shade700, fontSize: 12.sp))
+                  ],
+                ),
+            ],
+          ),
+        ),
+      ));
+}
+
 
   Widget _buildTextField({
     required TextEditingController controller,
@@ -179,31 +227,100 @@ class UserFormPage extends GetView<UserFormController> {
     required void Function(String) onChanged,
   }) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 12.h),
-      child: TextFormField(
-        controller:controller,
-        style: TextStyle(
-            fontWeight: FontWeight.w500, color: Colors.black, fontSize: 10.sp),
-        keyboardType: keyboardType,
-        onChanged: onChanged,
-        validator: (v) => v!.isEmpty ? 'Required' : null,
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          filled: true,
-          labelText: label,
-          border: OutlineInputBorder(),
-        ),
+  padding: EdgeInsets.only(bottom: 12.h),
+  child: TextFormField(
+    controller: controller,
+    style: TextStyle(
+      fontWeight: FontWeight.w500,
+      color: Colors.black87,
+      fontSize: 12.sp,
+    ),
+    keyboardType: keyboardType,
+    onChanged: onChanged,
+    validator: (v) => v!.isEmpty ? 'Required' : null,
+    decoration: InputDecoration(
+      filled: true,
+      fillColor: Colors.white,
+      labelText: label,
+      labelStyle: TextStyle(color: Colors.grey.shade700, fontSize: 11.sp),
+      hintText: "Enter $label",
+      hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 11.sp),
+      contentPadding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 16.w),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12.r),
+        borderSide: BorderSide(color: Colors.grey.shade300, width: 1.2),
       ),
-    );
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12.r),
+        borderSide: BorderSide(color: Colors.grey.shade300, width: 1.2),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12.r),
+        borderSide: BorderSide(color: Colors.blue.shade400, width: 1.5),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12.r),
+        borderSide: BorderSide(color: Colors.redAccent, width: 1.5),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12.r),
+        borderSide: BorderSide(color: Colors.redAccent, width: 1.5),
+      ),
+      prefixIcon: Icon(Icons.edit, color: Colors.grey.shade500),
+      suffixIcon: GestureDetector(
+        onTap: () => controller.clear(),
+        child: Icon(Icons.clear, color: Colors.grey.shade500, size: 18.sp),
+      ),
+    ),
+  ),
+)
+;
   }
 
   Widget _buildSaveButton() {
-    return ElevatedButton(
-      onPressed: controller.saveUser,
+
+
+  return SizedBox(
+    width: double.infinity,
+    height: 44.h,
+    child: ElevatedButton(
+      onPressed:()=> controller.saveUser(0),
       style: ElevatedButton.styleFrom(
-        minimumSize: Size(double.infinity, 50.h),
+        backgroundColor: Colors.blue.shade600,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.r),
+        ),
+        elevation: 4,
+        shadowColor: Colors.blueAccent.withOpacity(0.4),
       ),
-      child: Text('Save Profile'),
-    );
+      child: Text(
+        "Save Profile",
+        style: TextStyle(
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w400,
+          color: Colors.white,
+        ),
+      ),
+    ),
+  );
+
+
+
+
+
+
+
+
+
+
+
+
+    // return ElevatedButton(
+    //   onPressed: controller.saveUser,
+    //   style: ElevatedButton.styleFrom(
+    //     minimumSize: Size(double.infinity, 50.h),
+    //   ),
+    //   child: Text('Save Profile'),
+    // );
   }
 }

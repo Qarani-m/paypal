@@ -74,7 +74,6 @@ Future<void> deleteUserById(int id) async {
       where: 'id = ?',
       whereArgs: [id],
     );
-    print('User with id $id deleted successfully.');
   } catch (e) {
     print('Error deleting user: $e');
   }

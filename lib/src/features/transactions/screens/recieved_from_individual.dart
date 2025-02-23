@@ -109,7 +109,7 @@ class receivedFromIndividual extends StatelessWidget {
                             height: 3.h,
                           ),
                           Text(
-                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${transaction.time} ${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
+                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${ AppUtilities().convert(transaction.time)}${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -207,7 +207,6 @@ class receivedFromIndividual extends StatelessWidget {
         label: ['Send Money', 'Message'][i],
         onTap: () {
           // Handle tap for each action
-          print('Tapped ${['Send money',  'Message'][i]}');
         },
       ),
       SizedBox(width: i != 2 ? 50.w : 20.w), // Adjust spacing between actions
@@ -434,7 +433,7 @@ class receivedFromIndividualV2 extends StatelessWidget {
                             height: 3.h,
                           ),
                           Text(
-                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${transaction.time} ${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
+                            "${AppUtilities().formatDateMonthFirst(transaction.date)}, ${ AppUtilities().convert(transaction.time)}${int.parse(transaction.time.split(':')[0]) > 11 ? 'pm' : 'am'}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
