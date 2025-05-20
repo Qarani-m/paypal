@@ -8,6 +8,7 @@ plugins {
 android {
     namespace = "org.mkarani.paypal"
     compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
